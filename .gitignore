@@ -1,0 +1,34 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Production build
+dist/
+build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Debugger configurations
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Package lock files
+package-lock.json
+
+# Miscellaneous
+.nyc_output/
+coverage/
