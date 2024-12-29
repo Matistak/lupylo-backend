@@ -1,20 +1,20 @@
 import { Sequelize } from "sequelize";
-import _SequelizeMeta from "./SequelizeMeta";
-import _initComentario from "./comentario";
-import _initFoto from './foto';
-import _initLocal from "./local";
-import _initMarca from "./marca";
-import _initObjetivo from "./objetivo";
-import _initObjetivoCompletado from "./objetivo_completado";
-import _initPersona from "./persona";
-import _initProducto from "./producto";
-import _initPublicacion from "./publicacion";
-import _initRecompensa from "./recompensa";
-import _initRol from "./rol";
-import _initSeguimiento from "./seguimiento";
-import _initTemporada from "./temporada";
-import _initUsuario from "./usuario";
-import _initUsuarioRol from "./usuario_rol";
+import _SequelizeMeta from "./SequelizeMeta.js";
+import _initComentario from "./comentario.js";
+import _initFoto from './foto.js';
+import _initLocal from "./local.js";
+import _initMarca from "./marca.js";
+import _initObjetivo from "./objetivo.js";
+import _initObjetivoCompletado from "./objetivo_completado.js";
+import _initPersona from "./persona.js";
+import _initProducto from "./producto.js";
+import _initPublicacion from "./publicacion.js";
+import _initRecompensa from "./recompensa.js";
+import _initRol from "./rol.js";
+import _initSeguimiento from "./seguimiento.js";
+import _initTemporada from "./temporada.js";
+import _initUsuario from "./usuario.js";
+import _initUsuarioRol from "./usuario_rol.js";
 
 export default function initModels (sequelize: Sequelize) {
   const SequelizeMeta = _SequelizeMeta(sequelize);
