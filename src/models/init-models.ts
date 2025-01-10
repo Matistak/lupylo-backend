@@ -15,8 +15,9 @@ import _initSeguimiento from "./seguimiento.js";
 import _initTemporada from "./temporada.js";
 import _initUsuario from "./usuario.js";
 import _initUsuarioRol from "./usuario_rol.js";
+import sequelize from "../config/database.js";
 
-export default function initModels (sequelize: Sequelize) {
+function initModels (sequelize: Sequelize) {
   const SequelizeMeta = _SequelizeMeta(sequelize);
   const comentario = _initComentario(sequelize);
   const foto = _initFoto(sequelize);
@@ -109,3 +110,6 @@ export default function initModels (sequelize: Sequelize) {
     usuario_rol,
   };
 }
+
+const models = initModels(sequelize);
+export default models;
