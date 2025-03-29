@@ -1,12 +1,13 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
 
 // Definir los atributos del modelo
-interface UsuarioAttributes {
-  id: bigint;
+export interface UsuarioAttributes {
+  id?: bigint;
   nombre: string;
   email: string;
-  tipo_usuario: string;
+  tipo_usuario?: string;
   fecha_creacion?: Date | null;
+  contrasena: string;
 }
 
 // Definir los atributos opcionales para la creación
@@ -19,6 +20,7 @@ export class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes>
   public email!: string;
   public tipo_usuario!: string;
   public fecha_creacion!: Date | null;
+  public contrasena!: string;
 
   // Timestamps si aplican
   public readonly createdAt!: Date;
@@ -54,6 +56,10 @@ export default function initUsuario(sequelize: Sequelize): typeof Usuario {
         allowNull: true,
         defaultValue: sequelize.fn('now'),
       },
+      contrasena: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      }
     },
     {
       sequelize,

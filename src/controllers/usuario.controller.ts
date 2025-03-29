@@ -1,8 +1,18 @@
 import { Request, Response } from 'express';
-import models from '../models/init-models.js';
+import authService from '../services/auth.service.js';
 
-const { usuario } = models;
 
-export const getListUsuarios = async (req: Request, res: Response): Promise<void>  => {
-    res.send("getListUsuarios");
-}
+export const registerUserController = async (req: Request, res: Response) => {
+    try {
+        const user = await authService.registerUserService(req.body);
+        res.status(201).json(user);
+    } catch (error) {
+        console.error('Error registering user:', error);
+    }
+};
+
+
+
+export default {
+    registerUserController,
+};
