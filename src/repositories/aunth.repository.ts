@@ -7,6 +7,10 @@ const createUser = async (userData: UsuarioAttributes) => {
   return await usuario.create(userData)
 };
 
+const findUserByUsername = async (username: string) => {
+  return await usuario.findOne({ where: { nombre: username } });;
+};
+
 /* const getAllUsers = async () => {
   return await User.findAll();
 };
@@ -29,6 +33,7 @@ const deleteUser = async (id) => {
 
 export default {
   createUser,
+  findUserByUsername
 /*   getAllUsers,
   getUserById,
   updateUser,

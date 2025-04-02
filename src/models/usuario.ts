@@ -8,6 +8,7 @@ export interface UsuarioAttributes {
   tipo_usuario?: string;
   fecha_creacion?: Date | null;
   contrasena: string;
+  refreshToken?: string;
 }
 
 // Definir los atributos opcionales para la creación
@@ -15,16 +16,17 @@ interface UsuarioCreationAttributes extends Optional<UsuarioAttributes, 'id' | '
 
 // Clase del modelo
 export class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> implements UsuarioAttributes {
-  public id!: bigint;
-  public nombre!: string;
-  public email!: string;
-  public tipo_usuario!: string;
-  public fecha_creacion!: Date | null;
-  public contrasena!: string;
+  declare id: bigint;
+  declare nombre: string;
+  declare email: string;
+  declare tipo_usuario: string;
+  declare fecha_creacion: Date | null;
+  declare contrasena: string;
+  declare refreshToken: string;
 
   // Timestamps si aplican
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 // Inicializar el modelo
@@ -59,6 +61,11 @@ export default function initUsuario(sequelize: Sequelize): typeof Usuario {
       contrasena: {
         type: DataTypes.TEXT,
         allowNull: false,
+      },
+      refreshToken: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        defaultValue: null,
       }
     },
     {

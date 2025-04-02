@@ -11,8 +11,27 @@ export const registerUserController = async (req: Request, res: Response) => {
     }
 };
 
+export const loginUser = async (req: Request, res: Response) => {
+    try {
+        const login = await authService.loginUser(req.body.nombre, req.body.contrasena);
+        await login.user.save();
+        res.cookie('accessToken', login.accessToken, {
+            httpOnly: true,
+            secure: false, // Set to true if using HTTPS
+        });
+        res.cookie('refreshToken', login.user.refreshToken, {
+            httpOnly: true,
+            secure: false, // Set to true if using HTTPS
+        });
+        res.send('Login successful');
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 
 
 export default {
     registerUserController,
+    loginUser
 };

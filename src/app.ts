@@ -12,8 +12,8 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookieParser());    
 
-app.use(authRouter);
+app.use('/api/auth',authRouter);
 
 export default app;
