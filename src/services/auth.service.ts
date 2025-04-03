@@ -13,7 +13,7 @@ const registerUserService = async (userData: UsuarioAttributes) => {
     return await aunthRepository.createUser(newUser);
 };
 
-const loginUser = async (username: string, password: string) => {
+const loginUserService = async (username: string, password: string) => {
     const user = await aunthRepository.findUserByUsername(username);
     if (!user) throw new Error('User not found');
 
@@ -30,7 +30,7 @@ const loginUser = async (username: string, password: string) => {
     };
 };
 
-const refreshAccessToken = async (refreshToken: string) => {
+const refreshAccessTokenService = async (refreshToken: string) => {
     const user = await aunthRepository.findUserByRefreshToken(refreshToken);
     if (!user) throw new Error('Invalid refresh token');
 
@@ -47,6 +47,6 @@ const refreshAccessToken = async (refreshToken: string) => {
 
 export default {
     registerUserService,
-    loginUser,
-    refreshAccessToken
+    loginUserService,
+    refreshAccessTokenService
 };

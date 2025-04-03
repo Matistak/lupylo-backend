@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import authService from '../services/auth.service.js';
-import { ACCESS_TOKEN_EXPIRATION, ACCESS_TOKEN_SECRET } from '../index.js';
+import { ACCESS_TOKEN_SECRET } from '../index.js';
 import jwt from 'jsonwebtoken';
 import aunthRepository from '../repositories/aunth.repository.js';
 
@@ -16,7 +16,7 @@ const registerUserController = async (req: Request, res: Response) => {
 
 const loginUserController = async (req: Request, res: Response) => {
     try {
-        const { user, accessToken } = await authService.loginUser(req.body.nombre, req.body.contrasena);
+        const { user, accessToken } = await authService.loginUserService(req.body.nombre, req.body.contrasena);
         await user.save();
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
@@ -56,7 +56,7 @@ const tokenUserController = async (req: Request, res: Response) => {
     if (!user) res.status(403).send('Invalid refresh token');
 
     try {
-        const newAccessToken = await authService.refreshAccessToken(refreshToken);
+        const newAccessToken = await authService.refreshAccessTokenService(refreshToken);
         console.log('New access token:', newAccessToken);
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
