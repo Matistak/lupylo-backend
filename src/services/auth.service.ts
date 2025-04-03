@@ -30,7 +30,23 @@ const loginUser = async (username: string, password: string) => {
     };
 };
 
+const refreshAccessToken = async (refreshToken: string) => {
+    const user = await aunthRepository.findUserByRefreshToken(refreshToken);
+    if (!user) throw new Error('Invalid refresh token');
+
+    try{
+        jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
+        const newAccessToken = jwt.sign({ username: user.nombre }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });
+
+        return newAccessToken;
+    } catch (error) {
+        console.error('Error verifying refresh token:', error);
+        throw new Error('Invalid refresh token');
+    }
+}
+
 export default {
     registerUserService,
-    loginUser
+    loginUser,
+    refreshAccessToken
 };
