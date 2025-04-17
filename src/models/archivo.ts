@@ -1,31 +1,28 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
 
-// Definir atributos del modelo
-interface MarcaAttributes {
+interface ArchivoAttributes {
   id: bigint;
   usuario_id?: bigint | null;
-  nombre_comercial?: string | null;
-  industria?: string | null;
+  tipo: string;
+  url: string;
+  fecha_subida?: Date | null;
 }
 
-// Definir atributos opcionales para creación
-interface MarcaCreationAttributes extends Optional<MarcaAttributes, 'id'> {}
+interface ArchivoCreationAttributes extends Optional<ArchivoAttributes, 'id' | 'fecha_subida'> {}
 
-// Clase del modelo
-export class Marca extends Model<MarcaAttributes, MarcaCreationAttributes> implements MarcaAttributes {
+export class Archivo extends Model<ArchivoAttributes, ArchivoCreationAttributes> implements ArchivoAttributes {
   declare id: bigint;
   declare usuario_id: bigint | null;
-  declare nombre_comercial: string | null;
-  declare industria: string | null;
+  declare tipo: string;
+  declare url: string;
+  declare fecha_subida: Date | null;
 
-  // Timestamps si aplican
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;
 }
 
-// Inicializar el modelo
-export default function initMarca(sequelize: Sequelize): typeof Marca {
-  Marca.init(
+export default function initArchivo(sequelize: Sequelize): typeof Archivo {
+  Archivo.init(
     {
       id: {
         autoIncrement: true,
@@ -38,27 +35,32 @@ export default function initMarca(sequelize: Sequelize): typeof Marca {
         type: DataTypes.BIGINT,
         allowNull: true,
         references: {
-          model: 'usuario', // Nombre de la tabla referenciada
+          model: 'usuario',
           key: 'id',
         },
       },
-      nombre_comercial: {
+      tipo: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
       },
-      industria: {
+      url: {
         type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      fecha_subida: {
+        type: DataTypes.DATE,
         allowNull: true,
+        defaultValue: sequelize.fn('now'),
       },
     },
     {
       sequelize,
-      tableName: 'marca',
+      tableName: 'archivo',
       schema: 'proyecto_tesis',
       timestamps: false,
       indexes: [
         {
-          name: 'marcas_pkey',
+          name: 'archivos_pkey',
           unique: true,
           fields: [{ name: 'id' }],
         },
@@ -66,5 +68,5 @@ export default function initMarca(sequelize: Sequelize): typeof Marca {
     }
   );
 
-  return Marca;
+  return Archivo;
 }

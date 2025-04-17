@@ -1,33 +1,30 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
 
-// Definir atributos del modelo
-interface ComentarioAttributes {
+interface ObjetivoCodigoQRAttributes {
   id: bigint;
+  objetivo_id?: bigint | null;
   usuario_id?: bigint | null;
-  publicacion_id?: bigint | null;
-  contenido: string;
-  fecha_comentario?: Date | null;
+  codigo: string;
+  fecha_generacion?: Date | null;
+  expiracion?: Date | null;
 }
 
-// Definir atributos opcionales para creación
-interface ComentarioCreationAttributes extends Optional<ComentarioAttributes, 'id' | 'fecha_comentario'> {}
+interface ObjetivoCodigoQRCreationAttributes extends Optional<ObjetivoCodigoQRAttributes, 'id' | 'fecha_generacion'> {}
 
-// Clase del modelo
-export class Comentario extends Model<ComentarioAttributes, ComentarioCreationAttributes> implements ComentarioAttributes {
+export class ObjetivoCodigoQR extends Model<ObjetivoCodigoQRAttributes, ObjetivoCodigoQRCreationAttributes> implements ObjetivoCodigoQRAttributes {
   public id!: bigint;
+  public objetivo_id!: bigint | null;
   public usuario_id!: bigint | null;
-  public publicacion_id!: bigint | null;
-  public contenido!: string;
-  public fecha_comentario!: Date | null;
+  public codigo!: string;
+  public fecha_generacion!: Date | null;
+  public expiracion!: Date | null;
 
-  // Agrega timestamps si los usas
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-// Inicializar el modelo
-export default function initComentario(sequelize: Sequelize): typeof Comentario {
-  Comentario.init(
+export default function initObjetivoCodigoQR(sequelize: Sequelize): typeof ObjetivoCodigoQR {
+  ObjetivoCodigoQR.init(
     {
       id: {
         autoIncrement: true,
@@ -36,40 +33,44 @@ export default function initComentario(sequelize: Sequelize): typeof Comentario 
         allowNull: false,
         primaryKey: true,
       },
+      objetivo_id: {
+        type: DataTypes.BIGINT,
+        allowNull: true,
+        references: {
+          model: 'objetivo',
+          key: 'id',
+        },
+      },
       usuario_id: {
         type: DataTypes.BIGINT,
         allowNull: true,
         references: {
-          model: 'usuario', // Nombre de la tabla relacionada
+          model: 'usuario',
           key: 'id',
         },
       },
-      publicacion_id: {
-        type: DataTypes.BIGINT,
-        allowNull: true,
-        references: {
-          model: 'publicacion', // Nombre de la tabla relacionada
-          key: 'id',
-        },
-      },
-      contenido: {
+      codigo: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      fecha_comentario: {
+      fecha_generacion: {
         type: DataTypes.DATE,
         allowNull: true,
         defaultValue: sequelize.fn('now'),
       },
+      expiracion: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,
-      tableName: 'comentario',
+      tableName: 'objetivo_codigo_qr',
       schema: 'proyecto_tesis',
       timestamps: false,
       indexes: [
         {
-          name: 'comentario_pkey',
+          name: 'objetivo_codigo_qr_pkey',
           unique: true,
           fields: [{ name: 'id' }],
         },
@@ -77,5 +78,5 @@ export default function initComentario(sequelize: Sequelize): typeof Comentario 
     }
   );
 
-  return Comentario;
+  return ObjetivoCodigoQR;
 }

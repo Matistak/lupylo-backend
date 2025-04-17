@@ -12,13 +12,13 @@ interface UsuarioRolCreationAttributes extends Optional<UsuarioRolAttributes, 'i
 
 // Clase del modelo
 export class UsuarioRol extends Model<UsuarioRolAttributes, UsuarioRolCreationAttributes> implements UsuarioRolAttributes {
-  public id!: bigint;
-  public usuario_id!: bigint | null;
-  public rol_id!: bigint | null;
+  declare id: bigint;
+  declare usuario_id: bigint | null;
+  declare rol_id: bigint | null;
 
   // Timestamps si aplican
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 // Inicializar el modelo

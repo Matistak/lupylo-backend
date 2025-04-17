@@ -1,6 +1,5 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
 
-// Definir los atributos del modelo
 interface ObjetivoCompletadoAttributes {
   id: bigint;
   usuario_id?: bigint | null;
@@ -8,25 +7,18 @@ interface ObjetivoCompletadoAttributes {
   fecha_completado?: Date | null;
 }
 
-// Definir los atributos opcionales para la creación
 interface ObjetivoCompletadoCreationAttributes extends Optional<ObjetivoCompletadoAttributes, 'id' | 'fecha_completado'> {}
 
-// Clase del modelo
-export class ObjetivoCompletado extends Model<
-  ObjetivoCompletadoAttributes,
-  ObjetivoCompletadoCreationAttributes
-> implements ObjetivoCompletadoAttributes {
+export class ObjetivoCompletado extends Model<ObjetivoCompletadoAttributes, ObjetivoCompletadoCreationAttributes> implements ObjetivoCompletadoAttributes {
   public id!: bigint;
   public usuario_id!: bigint | null;
   public objetivo_id!: bigint | null;
   public fecha_completado!: Date | null;
 
-  // Timestamps si aplican
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-// Inicializar el modelo
 export default function initObjetivoCompletado(sequelize: Sequelize): typeof ObjetivoCompletado {
   ObjetivoCompletado.init(
     {
@@ -41,7 +33,7 @@ export default function initObjetivoCompletado(sequelize: Sequelize): typeof Obj
         type: DataTypes.BIGINT,
         allowNull: true,
         references: {
-          model: 'usuario', // Nombre de la tabla referenciada
+          model: 'usuario',
           key: 'id',
         },
       },
@@ -49,14 +41,14 @@ export default function initObjetivoCompletado(sequelize: Sequelize): typeof Obj
         type: DataTypes.BIGINT,
         allowNull: true,
         references: {
-          model: 'objetivo', // Nombre de la tabla referenciada
+          model: 'objetivo',
           key: 'id',
         },
       },
       fecha_completado: {
         type: DataTypes.DATE,
         allowNull: true,
-        defaultValue: sequelize.fn('now'), // Valor por defecto
+        defaultValue: sequelize.fn('now'),
       },
     },
     {

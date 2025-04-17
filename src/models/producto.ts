@@ -14,15 +14,15 @@ interface ProductoCreationAttributes extends Optional<ProductoAttributes, 'id' |
 
 // Clase del modelo
 export class Producto extends Model<ProductoAttributes, ProductoCreationAttributes> implements ProductoAttributes {
-  public id!: bigint;
-  public marca_id!: bigint | null;
-  public nombre!: string;
-  public descripcion!: string | null;
-  public precio!: number | null;
+  declare id: bigint;
+  declare marca_id: bigint | null;
+  declare nombre: string;
+  declare descripcion: string | null;
+  declare precio: number | null;
 
   // Timestamps si aplican
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 // Inicializar el modelo

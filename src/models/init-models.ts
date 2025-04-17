@@ -1,39 +1,39 @@
 import { Sequelize } from "sequelize";
 import _SequelizeMeta from "./SequelizeMeta.js";
-import _initComentario from "./comentario.js";
-import _initFoto from './foto.js';
 import _initLocal from "./local.js";
 import _initMarca from "./marca.js";
 import _initObjetivo from "./objetivo.js";
 import _initObjetivoCompletado from "./objetivo_completado.js";
 import _initPersona from "./persona.js";
 import _initProducto from "./producto.js";
-import _initPublicacion from "./publicacion.js";
 import _initRecompensa from "./recompensa.js";
 import _initRol from "./rol.js";
 import _initSeguimiento from "./seguimiento.js";
 import _initTemporada from "./temporada.js";
 import _initUsuario from "./usuario.js";
 import _initUsuarioRol from "./usuario_rol.js";
+import _initArchivo from "./archivo.js";
 import sequelize from "../config/database.js";
 
 function initModels (sequelize: Sequelize) {
   const SequelizeMeta = _SequelizeMeta(sequelize);
-  const comentario = _initComentario(sequelize);
-  const foto = _initFoto(sequelize);
+  const archivo = _initArchivo(sequelize);
   const local = _initLocal(sequelize);
   const marca = _initMarca(sequelize);
   const objetivo = _initObjetivo(sequelize);
   const objetivo_completado = _initObjetivoCompletado(sequelize);
   const persona = _initPersona(sequelize);
   const producto = _initProducto(sequelize);
-  const publicacion = _initPublicacion(sequelize);
   const recompensa = _initRecompensa(sequelize);
   const rol = _initRol(sequelize);
   const seguimiento = _initSeguimiento(sequelize);
   const temporada = _initTemporada(sequelize);
   const usuario = _initUsuario(sequelize);
   const usuario_rol = _initUsuarioRol(sequelize);
+
+  // Relationships for archivo
+  archivo.belongsTo(usuario, { as: "usuario", foreignKey: "usuario_id"});
+  usuario.hasMany(archivo, { as: "archivos", foreignKey: "usuario_id"});
 
   // Relationships for local
   local.belongsTo(marca, { as: "marca", foreignKey: "marca_id"});
@@ -52,20 +52,6 @@ function initModels (sequelize: Sequelize) {
   // Relationships for producto
   producto.belongsTo(marca, { as: "marca", foreignKey: "marca_id"});
   marca.hasMany(producto, { as: "productos", foreignKey: "marca_id"});
-  publicacion.belongsTo(producto, { as: "producto", foreignKey: "producto_id"});
-  producto.hasMany(publicacion, { as: "publicacions", foreignKey: "producto_id"});
-
-  // Relationships for publicacion
-  comentario.belongsTo(publicacion, { as: "publicacion", foreignKey: "publicacion_id"});
-  publicacion.hasMany(comentario, { as: "comentarios", foreignKey: "publicacion_id"});
-  foto.belongsTo(publicacion, { as: "publicacion", foreignKey: "publicacion_id"});
-  publicacion.hasMany(foto, { as: "fotos", foreignKey: "publicacion_id"});
-  publicacion.belongsTo(usuario, { as: "usuario", foreignKey: "usuario_id"});
-  usuario.hasMany(publicacion, { as: "publicacions", foreignKey: "usuario_id"});
-
-  // Relationships for comentario
-  comentario.belongsTo(usuario, { as: "usuario", foreignKey: "usuario_id"});
-  usuario.hasMany(comentario, { as: "comentarios", foreignKey: "usuario_id"});
 
   // Relationships for marca
   marca.belongsTo(usuario, { as: "usuario", foreignKey: "usuario_id"});
@@ -93,15 +79,13 @@ function initModels (sequelize: Sequelize) {
 
   return {
     SequelizeMeta,
-    comentario,
-    foto,
+    archivo,
     local,
     marca,
     objetivo,
     objetivo_completado,
     persona,
     producto,
-    publicacion,
     recompensa,
     rol,
     seguimiento,

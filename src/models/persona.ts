@@ -13,14 +13,14 @@ interface PersonaCreationAttributes extends Optional<PersonaAttributes, 'id'> {}
 
 // Clase del modelo
 export class Persona extends Model<PersonaAttributes, PersonaCreationAttributes> implements PersonaAttributes {
-  public id!: bigint;
-  public usuario_id!: bigint | null;
-  public apellido!: string | null;
-  public fecha_nacimiento!: Date | null;
+  declare id: bigint;
+  declare usuario_id: bigint | null;
+  declare apellido: string | null;
+  declare fecha_nacimiento: Date | null;
 
   // Timestamps si aplican
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 // Inicializar el modelo

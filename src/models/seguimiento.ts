@@ -13,14 +13,14 @@ interface SeguimientoCreationAttributes extends Optional<SeguimientoAttributes, 
 
 // Clase del modelo
 export class Seguimiento extends Model<SeguimientoAttributes, SeguimientoCreationAttributes> implements SeguimientoAttributes {
-  public id!: bigint;
-  public seguidor_id!: bigint | null;
-  public seguido_id!: bigint | null;
-  public fecha_seguimiento!: Date | null;
+  declare id: bigint;
+  declare seguidor_id: bigint | null;
+  declare seguido_id: bigint | null;
+  declare fecha_seguimiento: Date | null;
 
   // Timestamps si aplican
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 // Inicializar el modelo

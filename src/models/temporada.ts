@@ -13,14 +13,14 @@ interface TemporadaCreationAttributes extends Optional<TemporadaAttributes, 'id'
 
 // Clase del modelo
 export class Temporada extends Model<TemporadaAttributes, TemporadaCreationAttributes> implements TemporadaAttributes {
-  public id!: bigint;
-  public nombre!: string;
-  public fecha_inicio!: Date;
-  public fecha_fin!: Date;
+  declare id: bigint;
+  declare nombre: string;
+  declare fecha_inicio: Date;
+  declare fecha_fin: Date;
 
   // Timestamps si aplican
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 // Inicializar el modelo

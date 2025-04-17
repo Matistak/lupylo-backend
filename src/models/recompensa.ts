@@ -1,27 +1,22 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
 
-// Definir los atributos del modelo
 interface RecompensaAttributes {
   id: bigint;
   descripcion: string;
   valor?: number | null;
 }
 
-// Definir los atributos opcionales para la creación
-interface RecompensaCreationAttributes extends Optional<RecompensaAttributes, 'id' | 'valor'> {}
+interface RecompensaCreationAttributes extends Optional<RecompensaAttributes, 'id'> {}
 
-// Clase del modelo
 export class Recompensa extends Model<RecompensaAttributes, RecompensaCreationAttributes> implements RecompensaAttributes {
-  public id!: bigint;
-  public descripcion!: string;
-  public valor!: number | null;
+  declare id: bigint;
+  declare descripcion: string;
+  declare valor: number | null;
 
-  // Timestamps si aplican
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
-// Inicializar el modelo
 export default function initRecompensa(sequelize: Sequelize): typeof Recompensa {
   Recompensa.init(
     {

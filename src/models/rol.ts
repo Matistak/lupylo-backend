@@ -11,12 +11,12 @@ interface RolCreationAttributes extends Optional<RolAttributes, 'id'> {}
 
 // Clase del modelo
 export class Rol extends Model<RolAttributes, RolCreationAttributes> implements RolAttributes {
-  public id!: bigint;
-  public nombre!: string;
+  declare id: bigint;
+  declare nombre: string;
 
   // Timestamps si aplican
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 // Inicializar el modelo

@@ -1,31 +1,30 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
 
-// Definir atributos del modelo
 interface LocalAttributes {
   id: bigint;
   marca_id?: bigint | null;
   direccion: string;
-  ciudad?: string | null;
-  pais?: string | null;
+  ciudad: string;
+  pais: string;
+  latitud?: number | null;
+  longitud?: number | null;
 }
 
-// Definir atributos opcionales para creación
 interface LocalCreationAttributes extends Optional<LocalAttributes, 'id'> {}
 
-// Clase del modelo
 export class Local extends Model<LocalAttributes, LocalCreationAttributes> implements LocalAttributes {
-  public id!: bigint;
-  public marca_id!: bigint | null;
-  public direccion!: string;
-  public ciudad!: string | null;
-  public pais!: string | null;
+  declare id: bigint;
+  declare marca_id: bigint | null;
+  declare direccion: string;
+  declare ciudad: string;
+  declare pais: string;
+  declare latitud: number | null;
+  declare longitud: number | null;
 
-  // Agrega timestamps si los usas
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
-// Inicializar el modelo
 export default function initLocal(sequelize: Sequelize): typeof Local {
   Local.init(
     {
@@ -40,7 +39,7 @@ export default function initLocal(sequelize: Sequelize): typeof Local {
         type: DataTypes.BIGINT,
         allowNull: true,
         references: {
-          model: 'marca', // Nombre de la tabla referenciada
+          model: 'marca',
           key: 'id',
         },
       },
@@ -50,10 +49,18 @@ export default function initLocal(sequelize: Sequelize): typeof Local {
       },
       ciudad: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
       },
       pais: {
         type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      latitud: {
+        type: DataTypes.DECIMAL,
+        allowNull: true,
+      },
+      longitud: {
+        type: DataTypes.DECIMAL,
         allowNull: true,
       },
     },
