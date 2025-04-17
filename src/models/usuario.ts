@@ -7,7 +7,6 @@ export interface UsuarioAttributes {
   tipo_usuario: string;
   fecha_creacion?: Date | null;
   contrasena: string;
-  refreshToken?: string;
 }
 
 interface UsuarioCreationAttributes extends Optional<UsuarioAttributes, 'id' | 'fecha_creacion'> {}
@@ -19,7 +18,6 @@ export class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes>
   declare tipo_usuario: string;
   declare fecha_creacion: Date | null;
   declare contrasena: string;
-  declare refreshToken: string;
 
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;
@@ -57,11 +55,6 @@ export default function initUsuario(sequelize: Sequelize): typeof Usuario {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      refreshToken: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        defaultValue: null,
-      }
     },
     {
       sequelize,

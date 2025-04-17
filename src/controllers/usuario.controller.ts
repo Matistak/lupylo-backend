@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import authService from '../services/auth.service.js';
 import { ACCESS_TOKEN_SECRET } from '../index.js';
 import jwt from 'jsonwebtoken';
-import aunthRepository from '../repositories/aunth.repository.js';
-
 
 const registerUserController = async (req: Request, res: Response) => {
     try {
@@ -15,12 +13,13 @@ const registerUserController = async (req: Request, res: Response) => {
 };
 
 const loginUserController = async (req: Request, res: Response) => {
+    const { nombre, contrasena } = req.body;
     try {
-        const { user, accessToken } = await authService.loginUserService(req.body.nombre, req.body.contrasena);
-        await user.save();
+        const { accessToken, refreshToken } = await authService.loginUserService(nombre, contrasena);
+
         res.json({
             accessToken,
-            refreshToken: user.refreshToken,
+            refreshToken,
             message: 'Login successful'
         });
     } catch (error) {
@@ -33,26 +32,26 @@ const authenticateController = (req: Request, res: Response, next: NextFunction)
     const authHeader = req.headers['authorization'];
     const accessToken = authHeader && authHeader.split(' ')[1];
     
-    if (!accessToken) return res.status(401).json({ error: 'Token required' });
-
-    try {
-        jwt.verify(accessToken, ACCESS_TOKEN_SECRET);
-        next();
-    } catch (error) {
-        console.error('Error verifying token:', error);
-        res.status(403).json({ error: 'Invalid token' });
-    }
+    if (!accessToken) {
+        res.status(401).json({ error: 'Token required' })
+    } else {
+        try {
+            jwt.verify(accessToken, ACCESS_TOKEN_SECRET);
+            res.status(200).json({ message: 'Pasa bobo pasa' });
+            //next();
+        } catch (error) {
+            console.error('Error verifying token:', error);
+            res.status(403).json({ error: 'Invalid token' });
+        }
+    };
 };
 
 const tokenUserController = async (req: Request, res: Response) => {
-    const { refreshToken } = req.body;
-    if (!refreshToken) return res.status(401).json({ error: 'Refresh token missing' });
-
-    const user = await aunthRepository.findUserByRefreshToken(refreshToken);
-    if (!user) return res.status(403).json({ error: 'Invalid refresh token' });
+    const { refreshToken, userName } = req.body;
+    if (!refreshToken) res.status(401).json({ error: 'Refresh token missing' });
 
     try {
-        const newAccessToken = await authService.refreshAccessTokenService(refreshToken);
+        const newAccessToken = await authService.refreshAccessTokenService(refreshToken, userName);
         res.json({
             accessToken: newAccessToken,
             message: 'Access token refreshed'
@@ -63,23 +62,10 @@ const tokenUserController = async (req: Request, res: Response) => {
     }
 }
 
-const logoutUserController = async (req: Request, res: Response) => {
-    const { refreshToken } = req.body;
-    if (!refreshToken) return res.status(401).json({ error: 'Refresh token missing' });
-
-    const user = await aunthRepository.findUserByRefreshToken(refreshToken);
-    if (!user) return res.status(403).json({ error: 'Invalid refresh token' });
-
-    user.refreshToken = "";
-    await user.save();
-    res.json({ message: 'Logout successful' });
-}
-
 
 export {
     registerUserController,
     loginUserController,
     authenticateController,
     tokenUserController,
-    logoutUserController
 };
