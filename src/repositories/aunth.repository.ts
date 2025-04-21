@@ -11,10 +11,6 @@ const findUserByUsername = async (username: string) => {
   return await usuario.findOne({ where: { nombre: username } });;
 };
 
-const findUserByRefreshToken = async (refreshToken: string) => {
-  return await usuario.findOne({ where: { refreshToken } });
-};
-
 /* const getAllUsers = async () => {
   return await User.findAll();
 };
@@ -38,7 +34,6 @@ const deleteUser = async (id) => {
 export default {
   createUser,
   findUserByUsername,
-  findUserByRefreshToken
 /*   getAllUsers,
   getUserById,
   updateUser,

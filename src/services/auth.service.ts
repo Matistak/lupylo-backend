@@ -26,8 +26,14 @@ const loginUserService = async (username: string, password: string) => {
 
     const accessToken = jwt.sign({ username }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });
     const refreshToken = jwt.sign({ username }, REFRESH_TOKEN_SECRET);
+    const usuario = {
+        id: user.id,
+        nombre: user.nombre,
+        email: user.email,
+    }
 
     return {
+        usuario,
         accessToken,
         refreshToken
     };

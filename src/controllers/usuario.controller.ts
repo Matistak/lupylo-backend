@@ -15,9 +15,10 @@ const registerUserController = async (req: Request, res: Response) => {
 const loginUserController = async (req: Request, res: Response) => {
     const { nombre, contrasena } = req.body;
     try {
-        const { accessToken, refreshToken } = await authService.loginUserService(nombre, contrasena);
+        const { accessToken, refreshToken, usuario } = await authService.loginUserService(nombre, contrasena);
 
         res.json({
+            usuario,
             accessToken,
             refreshToken,
             message: 'Login successful'
