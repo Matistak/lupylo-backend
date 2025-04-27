@@ -11,6 +11,10 @@ const findUserByUsername = async (username: string) => {
   return await usuario.findOne({ where: { nombre: username } });;
 };
 
+const findUserByEmail = async (email: string) => {
+  return await usuario.findOne({ where: { email } });;
+};
+
 /* const getAllUsers = async () => {
   return await User.findAll();
 };
@@ -34,6 +38,7 @@ const deleteUser = async (id) => {
 export default {
   createUser,
   findUserByUsername,
+  findUserByEmail
 /*   getAllUsers,
   getUserById,
   updateUser,

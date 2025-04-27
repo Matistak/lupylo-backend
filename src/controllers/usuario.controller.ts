@@ -13,9 +13,9 @@ const registerUserController = async (req: Request, res: Response) => {
 };
 
 const loginUserController = async (req: Request, res: Response) => {
-    const { nombre, contrasena } = req.body;
+    const { email, contrasena } = req.body;
     try {
-        const { accessToken, refreshToken, usuario } = await authService.loginUserService(nombre, contrasena);
+        const { accessToken, refreshToken, usuario } = await authService.loginUserService(email, contrasena);
 
         res.json({
             usuario,

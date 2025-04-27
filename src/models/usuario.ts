@@ -4,7 +4,7 @@ export interface UsuarioAttributes {
   id?: bigint;
   nombre: string;
   email: string;
-  tipo_usuario: string;
+  tipo_usuario?: string | null;
   fecha_creacion?: Date | null;
   contrasena: string;
 }
@@ -15,7 +15,7 @@ export class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes>
   declare id: bigint;
   declare nombre: string;
   declare email: string;
-  declare tipo_usuario: string;
+  declare tipo_usuario: string | null;
   declare fecha_creacion: Date | null;
   declare contrasena: string;
 
@@ -44,7 +44,7 @@ export default function initUsuario(sequelize: Sequelize): typeof Usuario {
       },
       tipo_usuario: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       fecha_creacion: {
         type: DataTypes.DATE,
