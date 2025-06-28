@@ -13,7 +13,7 @@ import _initTemporada from "./temporada.js";
 import _initUsuario from "./usuario.js";
 import _initUsuarioRol from "./usuario_rol.js";
 import _initArchivo from "./archivo.js";
-import sequelize from "../config/database.js";
+import sequelize from "../../config/postgresdb.js";
 
 function initModels (sequelize: Sequelize) {
   const SequelizeMeta = _SequelizeMeta(sequelize);

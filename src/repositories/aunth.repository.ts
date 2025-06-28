@@ -1,5 +1,5 @@
-import models from '../models/init-models.js'
-import { UsuarioAttributes } from '../models/usuario.js';
+import models from '../models/postgres/init-models.js'
+import { UsuarioAttributes } from '../models/postgres/usuario.js';
 
 const { usuario } = models;
 

@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
-import { Usuario } from '../models/usuario.js';
 import aunthRepository from '../repositories/aunth.repository.js';
 import jwt from 'jsonwebtoken';
 import { ACCESS_TOKEN_EXPIRATION, ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../index.js';
+import { Usuario } from '@/models/postgres/usuario.js';
 
 const registerUserService = async (userData: Usuario) => {
 
