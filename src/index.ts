@@ -1,5 +1,6 @@
 import app from "./app.js";
 import sequelize from "./config/postgresdb.js";
+import { initModels } from "./models/postgres/init-models.js";
 // import connectMongoDB from "./config/mongodb.js";
 
 export const ACCESS_TOKEN_SECRET = '01TzMX6RVg6ADwIa0mELcdP3mRzkiWPQVyIDAcQd6dYXZvIyuLVBoJbBdCmd2Q1E';
@@ -11,6 +12,10 @@ async function main() {
         // Autenticar la conexión a la base de datos PostgreSQL
         await sequelize.authenticate();
         console.log("PostgreSQL connection successful");
+
+        // Inicializar los modelos
+        initModels(sequelize);
+        console.log("Models initialized successfully");
 
         // Conectar a MongoDB
        //await connectMongoDB();

@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 
 const registerUserController = async (req: Request, res: Response) => {
     try {
+        console.log(req.body);
         const user = await authService.registerUserService(req.body);
         res.status(201).json(user);
     } catch (error) {
