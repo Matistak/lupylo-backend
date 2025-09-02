@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 
 const registerUserController = async (req: Request, res: Response) => {
     try {
-        console.log(req.body);
         const user = await authService.registerUserService(req.body);
         res.status(201).json(user);
     } catch (error) {
@@ -14,9 +13,9 @@ const registerUserController = async (req: Request, res: Response) => {
 };
 
 const loginUserController = async (req: Request, res: Response) => {
-    const { email, contrasena } = req.body;
+    const { email, passwordHash } = req.body;
     try {
-        const { accessToken, refreshToken, usuario } = await authService.loginUserService(email, contrasena);
+        const { accessToken, refreshToken, usuario } = await authService.loginUserService(email, passwordHash);
 
         res.json({
             usuario,

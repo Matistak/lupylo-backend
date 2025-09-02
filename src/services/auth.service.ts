@@ -17,11 +17,11 @@ const registerUserService = async (userData: UsuariosAttributes) => {
     return await aunthRepository.createUser(newUser);
 };
 
-const loginUserService = async (email: string, password: string) => {
+const loginUserService = async (email: string, passwordHash: string) => {
     const user = await aunthRepository.findUserByEmail(email);
     if (!user) throw new Error('Email not found');
 
-    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+    const isPasswordValid = await bcrypt.compare(passwordHash, user.passwordHash);
     if (!isPasswordValid) throw new Error('Invalid password');
 
     const accessToken = jwt.sign({ email }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });

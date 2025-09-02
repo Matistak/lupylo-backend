@@ -7,6 +7,7 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/lupylo';
 
 const connectMongoDB = async (): Promise<void> => {
   try {
+    mongoose.set('strictQuery', true);
     await mongoose.connect(MONGO_URI);
     console.log('MongoDB connection established successfully');
   } catch (error) {

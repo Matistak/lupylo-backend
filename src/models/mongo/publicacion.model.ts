@@ -1,41 +1,45 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IPublicacion extends Document {
-  usuario_id: string;
-  producto_id: string;
-  titulo: string;
+  autor_id: number;
+  tipo_publicacion_id: number;
+  titulo?: string;
   contenido: string;
-  puntuacion: number;
-  imagenes: string[];
-  tipo_publicacion: 'reseña' | 'promocion' | 'evento';
-  visibilidad: 'publica' | 'seguidores';
-  estado: 'activa' | 'moderada' | 'eliminada';
-  createdAt: Date;
+  imagen?: string;
+  local_id?: number;
+  marca_id?: number;
+  producto_id?: number;
+  puntuacion?: number;
+  color_cerveza?: string;
+  aroma?: string;
+  sensaciones?: string;
+  maridaje_probado?: string;
+  fecha_evento?: Date;
+  ubicacion_evento?: string;
+  estado: string;
+  creado_en: Date;
+  actualizado_en: Date;
 }
 
 const PublicacionSchema: Schema = new Schema({
-  usuario_id: { type: String, required: true },
-  producto_id: { type: String, required: true },
-  titulo: { type: String, required: true },
+  autor_id: { type: Number, required: true },
+  tipo_publicacion_id: { type: Number, required: true },
+  titulo: { type: String },
   contenido: { type: String, required: true },
+  imagen: { type: String },
+  local_id: { type: Number },
+  marca_id: { type: Number },
+  producto_id: { type: Number },
   puntuacion: { type: Number },
-  imagenes: [{ type: String }],
-  tipo_publicacion: { 
-    type: String, 
-    enum: ['reseña', 'promocion', 'evento'],
-    required: true 
-  },
-  visibilidad: { 
-    type: String, 
-    enum: ['publica', 'seguidores'],
-    default: 'publica' 
-  },
-  estado: { 
-    type: String, 
-    enum: ['activa', 'moderada', 'eliminada'],
-    default: 'activa' 
-  },
-  createdAt: { type: Date, default: Date.now }
+  color_cerveza: { type: String },
+  aroma: { type: String },
+  sensaciones: { type: String },
+  maridaje_probado: { type: String },
+  fecha_evento: { type: Date },
+  ubicacion_evento: { type: String },
+  estado: { type: String, default: 'activa' },
+  creado_en: { type: Date, default: Date.now },
+  actualizado_en: { type: Date, default: Date.now }
 });
 
 export default mongoose.model<IPublicacion>('Publicacion', PublicacionSchema);
