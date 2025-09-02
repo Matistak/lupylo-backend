@@ -1,189 +1,169 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { EstilosCerveza, EstilosCervezaId } from './estilosCerveza.js';
-import type { Marcas, MarcasId } from './marcas.js';
-import type { Objetivos, ObjetivosId } from './objetivos.js';
-import type { ProductoEnvases, ProductoEnvasesId } from './productoEnvases.js';
-import type { ProductoLocales, ProductoLocalesId } from './productoLocales.js';
-import type { Publicaciones, PublicacionesId } from './publicaciones.js';
+import type { marcas, marcasId } from './marcas.js';
+import type { producto_envases, producto_envasesId } from './producto_envases.js';
+import type { producto_locales, producto_localesId } from './producto_locales.js';
+import type { publicaciones, publicacionesId } from './publicaciones.js';
+import type { sub_objetivos, sub_objetivosId } from './sub_objetivos.js';
 
-export interface ProductosAttributes {
+export interface productosAttributes {
   id: number;
-  marcaId: number;
+  marca_id: number;
   nombre: string;
   descripcion?: string;
-  estiloId?: number;
+  estilo?: string;
   ibu?: number;
-  gradoAlcoholico?: number;
-  colorDescripcion?: string;
+  grado_alcoholico?: number;
+  color_descripcion?: string;
   maridaje?: string;
-  imagenEtiqueta?: string;
-  imagenProducto?: string;
+  imagen_etiqueta?: string;
+  imagen_producto?: string;
   estado?: string;
-  fechaCreacion?: Date;
-  actualizadoEn?: Date;
+  fecha_creacion?: Date;
+  actualizado_en?: Date;
 }
 
-export type ProductosPk = "id";
-export type ProductosId = Productos[ProductosPk];
-export type ProductosOptionalAttributes = "id" | "descripcion" | "estiloId" | "ibu" | "gradoAlcoholico" | "colorDescripcion" | "maridaje" | "imagenEtiqueta" | "imagenProducto" | "estado" | "fechaCreacion" | "actualizadoEn";
-export type ProductosCreationAttributes = Optional<ProductosAttributes, ProductosOptionalAttributes>;
+export type productosPk = "id";
+export type productosId = productos[productosPk];
+export type productosOptionalAttributes = "id" | "descripcion" | "estilo" | "ibu" | "grado_alcoholico" | "color_descripcion" | "maridaje" | "imagen_etiqueta" | "imagen_producto" | "estado" | "fecha_creacion" | "actualizado_en";
+export type productosCreationAttributes = Optional<productosAttributes, productosOptionalAttributes>;
 
-export class Productos extends Model<ProductosAttributes, ProductosCreationAttributes> implements ProductosAttributes {
+export class productos extends Model<productosAttributes, productosCreationAttributes> implements productosAttributes {
   id!: number;
-  marcaId!: number;
+  marca_id!: number;
   nombre!: string;
   descripcion?: string;
-  estiloId?: number;
+  estilo?: string;
   ibu?: number;
-  gradoAlcoholico?: number;
-  colorDescripcion?: string;
+  grado_alcoholico?: number;
+  color_descripcion?: string;
   maridaje?: string;
-  imagenEtiqueta?: string;
-  imagenProducto?: string;
+  imagen_etiqueta?: string;
+  imagen_producto?: string;
   estado?: string;
-  fechaCreacion?: Date;
-  actualizadoEn?: Date;
+  fecha_creacion?: Date;
+  actualizado_en?: Date;
 
-  // Productos belongsTo EstilosCerveza via estiloId
-  estilo!: EstilosCerveza;
-  getEstilo!: Sequelize.BelongsToGetAssociationMixin<EstilosCerveza>;
-  setEstilo!: Sequelize.BelongsToSetAssociationMixin<EstilosCerveza, EstilosCervezaId>;
-  createEstilo!: Sequelize.BelongsToCreateAssociationMixin<EstilosCerveza>;
-  // Productos belongsTo Marcas via marcaId
-  marca!: Marcas;
-  getMarca!: Sequelize.BelongsToGetAssociationMixin<Marcas>;
-  setMarca!: Sequelize.BelongsToSetAssociationMixin<Marcas, MarcasId>;
-  createMarca!: Sequelize.BelongsToCreateAssociationMixin<Marcas>;
-  // Productos hasMany Objetivos via productoId
-  objetivos!: Objetivos[];
-  getObjetivos!: Sequelize.HasManyGetAssociationsMixin<Objetivos>;
-  setObjetivos!: Sequelize.HasManySetAssociationsMixin<Objetivos, ObjetivosId>;
-  addObjetivo!: Sequelize.HasManyAddAssociationMixin<Objetivos, ObjetivosId>;
-  addObjetivos!: Sequelize.HasManyAddAssociationsMixin<Objetivos, ObjetivosId>;
-  createObjetivo!: Sequelize.HasManyCreateAssociationMixin<Objetivos>;
-  removeObjetivo!: Sequelize.HasManyRemoveAssociationMixin<Objetivos, ObjetivosId>;
-  removeObjetivos!: Sequelize.HasManyRemoveAssociationsMixin<Objetivos, ObjetivosId>;
-  hasObjetivo!: Sequelize.HasManyHasAssociationMixin<Objetivos, ObjetivosId>;
-  hasObjetivos!: Sequelize.HasManyHasAssociationsMixin<Objetivos, ObjetivosId>;
-  countObjetivos!: Sequelize.HasManyCountAssociationsMixin;
-  // Productos hasMany ProductoEnvases via productoId
-  productoEnvases!: ProductoEnvases[];
-  getProductoEnvases!: Sequelize.HasManyGetAssociationsMixin<ProductoEnvases>;
-  setProductoEnvases!: Sequelize.HasManySetAssociationsMixin<ProductoEnvases, ProductoEnvasesId>;
-  addProductoEnvase!: Sequelize.HasManyAddAssociationMixin<ProductoEnvases, ProductoEnvasesId>;
-  addProductoEnvases!: Sequelize.HasManyAddAssociationsMixin<ProductoEnvases, ProductoEnvasesId>;
-  createProductoEnvase!: Sequelize.HasManyCreateAssociationMixin<ProductoEnvases>;
-  removeProductoEnvase!: Sequelize.HasManyRemoveAssociationMixin<ProductoEnvases, ProductoEnvasesId>;
-  removeProductoEnvases!: Sequelize.HasManyRemoveAssociationsMixin<ProductoEnvases, ProductoEnvasesId>;
-  hasProductoEnvase!: Sequelize.HasManyHasAssociationMixin<ProductoEnvases, ProductoEnvasesId>;
-  hasProductoEnvases!: Sequelize.HasManyHasAssociationsMixin<ProductoEnvases, ProductoEnvasesId>;
-  countProductoEnvases!: Sequelize.HasManyCountAssociationsMixin;
-  // Productos hasMany ProductoLocales via productoId
-  productoLocales!: ProductoLocales[];
-  getProductoLocales!: Sequelize.HasManyGetAssociationsMixin<ProductoLocales>;
-  setProductoLocales!: Sequelize.HasManySetAssociationsMixin<ProductoLocales, ProductoLocalesId>;
-  addProductoLocale!: Sequelize.HasManyAddAssociationMixin<ProductoLocales, ProductoLocalesId>;
-  addProductoLocales!: Sequelize.HasManyAddAssociationsMixin<ProductoLocales, ProductoLocalesId>;
-  createProductoLocale!: Sequelize.HasManyCreateAssociationMixin<ProductoLocales>;
-  removeProductoLocale!: Sequelize.HasManyRemoveAssociationMixin<ProductoLocales, ProductoLocalesId>;
-  removeProductoLocales!: Sequelize.HasManyRemoveAssociationsMixin<ProductoLocales, ProductoLocalesId>;
-  hasProductoLocale!: Sequelize.HasManyHasAssociationMixin<ProductoLocales, ProductoLocalesId>;
-  hasProductoLocales!: Sequelize.HasManyHasAssociationsMixin<ProductoLocales, ProductoLocalesId>;
-  countProductoLocales!: Sequelize.HasManyCountAssociationsMixin;
-  // Productos hasMany Publicaciones via productoId
-  publicaciones!: Publicaciones[];
-  getPublicaciones!: Sequelize.HasManyGetAssociationsMixin<Publicaciones>;
-  setPublicaciones!: Sequelize.HasManySetAssociationsMixin<Publicaciones, PublicacionesId>;
-  addPublicacione!: Sequelize.HasManyAddAssociationMixin<Publicaciones, PublicacionesId>;
-  addPublicaciones!: Sequelize.HasManyAddAssociationsMixin<Publicaciones, PublicacionesId>;
-  createPublicacione!: Sequelize.HasManyCreateAssociationMixin<Publicaciones>;
-  removePublicacione!: Sequelize.HasManyRemoveAssociationMixin<Publicaciones, PublicacionesId>;
-  removePublicaciones!: Sequelize.HasManyRemoveAssociationsMixin<Publicaciones, PublicacionesId>;
-  hasPublicacione!: Sequelize.HasManyHasAssociationMixin<Publicaciones, PublicacionesId>;
-  hasPublicaciones!: Sequelize.HasManyHasAssociationsMixin<Publicaciones, PublicacionesId>;
+  // productos belongsTo marcas via marca_id
+  marca!: marcas;
+  getMarca!: Sequelize.BelongsToGetAssociationMixin<marcas>;
+  setMarca!: Sequelize.BelongsToSetAssociationMixin<marcas, marcasId>;
+  createMarca!: Sequelize.BelongsToCreateAssociationMixin<marcas>;
+  // productos hasMany producto_envases via producto_id
+  producto_envases!: producto_envases[];
+  getProducto_envases!: Sequelize.HasManyGetAssociationsMixin<producto_envases>;
+  setProducto_envases!: Sequelize.HasManySetAssociationsMixin<producto_envases, producto_envasesId>;
+  addProducto_envase!: Sequelize.HasManyAddAssociationMixin<producto_envases, producto_envasesId>;
+  addProducto_envases!: Sequelize.HasManyAddAssociationsMixin<producto_envases, producto_envasesId>;
+  createProducto_envase!: Sequelize.HasManyCreateAssociationMixin<producto_envases>;
+  removeProducto_envase!: Sequelize.HasManyRemoveAssociationMixin<producto_envases, producto_envasesId>;
+  removeProducto_envases!: Sequelize.HasManyRemoveAssociationsMixin<producto_envases, producto_envasesId>;
+  hasProducto_envase!: Sequelize.HasManyHasAssociationMixin<producto_envases, producto_envasesId>;
+  hasProducto_envases!: Sequelize.HasManyHasAssociationsMixin<producto_envases, producto_envasesId>;
+  countProducto_envases!: Sequelize.HasManyCountAssociationsMixin;
+  // productos hasMany producto_locales via producto_id
+  producto_locales!: producto_locales[];
+  getProducto_locales!: Sequelize.HasManyGetAssociationsMixin<producto_locales>;
+  setProducto_locales!: Sequelize.HasManySetAssociationsMixin<producto_locales, producto_localesId>;
+  addProducto_locale!: Sequelize.HasManyAddAssociationMixin<producto_locales, producto_localesId>;
+  addProducto_locales!: Sequelize.HasManyAddAssociationsMixin<producto_locales, producto_localesId>;
+  createProducto_locale!: Sequelize.HasManyCreateAssociationMixin<producto_locales>;
+  removeProducto_locale!: Sequelize.HasManyRemoveAssociationMixin<producto_locales, producto_localesId>;
+  removeProducto_locales!: Sequelize.HasManyRemoveAssociationsMixin<producto_locales, producto_localesId>;
+  hasProducto_locale!: Sequelize.HasManyHasAssociationMixin<producto_locales, producto_localesId>;
+  hasProducto_locales!: Sequelize.HasManyHasAssociationsMixin<producto_locales, producto_localesId>;
+  countProducto_locales!: Sequelize.HasManyCountAssociationsMixin;
+  // productos hasMany publicaciones via producto_id
+  publicaciones!: publicaciones[];
+  getPublicaciones!: Sequelize.HasManyGetAssociationsMixin<publicaciones>;
+  setPublicaciones!: Sequelize.HasManySetAssociationsMixin<publicaciones, publicacionesId>;
+  addPublicacione!: Sequelize.HasManyAddAssociationMixin<publicaciones, publicacionesId>;
+  addPublicaciones!: Sequelize.HasManyAddAssociationsMixin<publicaciones, publicacionesId>;
+  createPublicacione!: Sequelize.HasManyCreateAssociationMixin<publicaciones>;
+  removePublicacione!: Sequelize.HasManyRemoveAssociationMixin<publicaciones, publicacionesId>;
+  removePublicaciones!: Sequelize.HasManyRemoveAssociationsMixin<publicaciones, publicacionesId>;
+  hasPublicacione!: Sequelize.HasManyHasAssociationMixin<publicaciones, publicacionesId>;
+  hasPublicaciones!: Sequelize.HasManyHasAssociationsMixin<publicaciones, publicacionesId>;
   countPublicaciones!: Sequelize.HasManyCountAssociationsMixin;
+  // productos hasMany sub_objetivos via producto_id
+  sub_objetivos!: sub_objetivos[];
+  getSub_objetivos!: Sequelize.HasManyGetAssociationsMixin<sub_objetivos>;
+  setSub_objetivos!: Sequelize.HasManySetAssociationsMixin<sub_objetivos, sub_objetivosId>;
+  addSub_objetivo!: Sequelize.HasManyAddAssociationMixin<sub_objetivos, sub_objetivosId>;
+  addSub_objetivos!: Sequelize.HasManyAddAssociationsMixin<sub_objetivos, sub_objetivosId>;
+  createSub_objetivo!: Sequelize.HasManyCreateAssociationMixin<sub_objetivos>;
+  removeSub_objetivo!: Sequelize.HasManyRemoveAssociationMixin<sub_objetivos, sub_objetivosId>;
+  removeSub_objetivos!: Sequelize.HasManyRemoveAssociationsMixin<sub_objetivos, sub_objetivosId>;
+  hasSub_objetivo!: Sequelize.HasManyHasAssociationMixin<sub_objetivos, sub_objetivosId>;
+  hasSub_objetivos!: Sequelize.HasManyHasAssociationsMixin<sub_objetivos, sub_objetivosId>;
+  countSub_objetivos!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Productos {
-    return Productos.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof productos {
+    return productos.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    marcaId: {
+    marca_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'marcas',
         key: 'id'
-      },
-      unique: "productos_marca_id_nombre_key",
-      field: 'marca_id'
+      }
     },
     nombre: {
       type: DataTypes.STRING(150),
-      allowNull: false,
-      unique: "productos_marca_id_nombre_key"
+      allowNull: false
     },
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    estiloId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'estilos_cerveza',
-        key: 'id'
-      },
-      field: 'estilo_id'
+    estilo: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     ibu: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    gradoAlcoholico: {
+    grado_alcoholico: {
       type: DataTypes.DECIMAL,
-      allowNull: true,
-      field: 'grado_alcoholico'
+      allowNull: true
     },
-    colorDescripcion: {
+    color_descripcion: {
       type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'color_descripcion'
+      allowNull: true
     },
     maridaje: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    imagenEtiqueta: {
+    imagen_etiqueta: {
       type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'imagen_etiqueta'
+      allowNull: true
     },
-    imagenProducto: {
+    imagen_producto: {
       type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'imagen_producto'
+      allowNull: true
     },
     estado: {
       type: DataTypes.STRING(20),
       allowNull: true,
       defaultValue: "activo"
     },
-    fechaCreacion: {
+    fecha_creacion: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'fecha_creacion'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
-    actualizadoEn: {
+    actualizado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'actualizado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
@@ -204,6 +184,18 @@ export class Productos extends Model<ProductosAttributes, ProductosCreationAttri
         ]
       },
       {
+        name: "productos_idx_productos_estado",
+        fields: [
+          { name: "estado" },
+        ]
+      },
+      {
+        name: "productos_idx_productos_marca",
+        fields: [
+          { name: "marca_id" },
+        ]
+      },
+      {
         name: "productos_marca_id_nombre_key",
         unique: true,
         fields: [
@@ -216,6 +208,14 @@ export class Productos extends Model<ProductosAttributes, ProductosCreationAttri
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "productos_productos_marca_id_nombre_key",
+        unique: true,
+        fields: [
+          { name: "marca_id" },
+          { name: "nombre" },
         ]
       },
     ]

@@ -1,168 +1,174 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Objetivos, ObjetivosId } from './objetivos.js';
-import type { ProductoLocales, ProductoLocalesId } from './productoLocales.js';
-import type { Publicaciones, PublicacionesId } from './publicaciones.js';
-import type { RecompensasObtenidas, RecompensasObtenidasId } from './recompensasObtenidas.js';
-import type { Temporadas, TemporadasId } from './temporadas.js';
-import type { Usuarios, UsuariosId } from './usuarios.js';
-import type { ValidacionesQr, ValidacionesQrId } from './validacionesQr.js';
+import type { objetivos, objetivosId } from './objetivos.js';
+import type { producto_locales, producto_localesId } from './producto_locales.js';
+import type { publicaciones, publicacionesId } from './publicaciones.js';
+import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas.js';
+import type { temporadas, temporadasId } from './temporadas.js';
+import type { ubicaciones, ubicacionesId } from './ubicaciones.js';
+import type { usuarios, usuariosId } from './usuarios.js';
+import type { validaciones_qr, validaciones_qrId } from './validaciones_qr.js';
 
-export interface LocalesAttributes {
+export interface localesAttributes {
   id: number;
-  usuarioId: number;
-  nombreEstablecimiento: string;
-  tipoLocal: string;
+  usuario_id: number;
+  nombre_establecimiento: string;
+  tipo_local: string;
   descripcion?: string;
-  direccion: string;
+  ubicacion_id: number;
   telefono?: string;
-  horarioAtencion?: object;
+  horario_atencion?: object;
   imagen?: string;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 }
 
-export type LocalesPk = "id";
-export type LocalesId = Locales[LocalesPk];
-export type LocalesOptionalAttributes = "id" | "descripcion" | "telefono" | "horarioAtencion" | "imagen" | "estado" | "creadoEn" | "actualizadoEn";
-export type LocalesCreationAttributes = Optional<LocalesAttributes, LocalesOptionalAttributes>;
+export type localesPk = "id";
+export type localesId = locales[localesPk];
+export type localesOptionalAttributes = "id" | "descripcion" | "telefono" | "horario_atencion" | "imagen" | "estado" | "creado_en" | "actualizado_en";
+export type localesCreationAttributes = Optional<localesAttributes, localesOptionalAttributes>;
 
-export class Locales extends Model<LocalesAttributes, LocalesCreationAttributes> implements LocalesAttributes {
+export class locales extends Model<localesAttributes, localesCreationAttributes> implements localesAttributes {
   id!: number;
-  usuarioId!: number;
-  nombreEstablecimiento!: string;
-  tipoLocal!: string;
+  usuario_id!: number;
+  nombre_establecimiento!: string;
+  tipo_local!: string;
   descripcion?: string;
-  direccion!: string;
+  ubicacion_id!: number;
   telefono?: string;
-  horarioAtencion?: object;
+  horario_atencion?: object;
   imagen?: string;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 
-  // Locales hasMany Objetivos via localId
-  objetivos!: Objetivos[];
-  getObjetivos!: Sequelize.HasManyGetAssociationsMixin<Objetivos>;
-  setObjetivos!: Sequelize.HasManySetAssociationsMixin<Objetivos, ObjetivosId>;
-  addObjetivo!: Sequelize.HasManyAddAssociationMixin<Objetivos, ObjetivosId>;
-  addObjetivos!: Sequelize.HasManyAddAssociationsMixin<Objetivos, ObjetivosId>;
-  createObjetivo!: Sequelize.HasManyCreateAssociationMixin<Objetivos>;
-  removeObjetivo!: Sequelize.HasManyRemoveAssociationMixin<Objetivos, ObjetivosId>;
-  removeObjetivos!: Sequelize.HasManyRemoveAssociationsMixin<Objetivos, ObjetivosId>;
-  hasObjetivo!: Sequelize.HasManyHasAssociationMixin<Objetivos, ObjetivosId>;
-  hasObjetivos!: Sequelize.HasManyHasAssociationsMixin<Objetivos, ObjetivosId>;
+  // locales hasMany objetivos via local_id
+  objetivos!: objetivos[];
+  getObjetivos!: Sequelize.HasManyGetAssociationsMixin<objetivos>;
+  setObjetivos!: Sequelize.HasManySetAssociationsMixin<objetivos, objetivosId>;
+  addObjetivo!: Sequelize.HasManyAddAssociationMixin<objetivos, objetivosId>;
+  addObjetivos!: Sequelize.HasManyAddAssociationsMixin<objetivos, objetivosId>;
+  createObjetivo!: Sequelize.HasManyCreateAssociationMixin<objetivos>;
+  removeObjetivo!: Sequelize.HasManyRemoveAssociationMixin<objetivos, objetivosId>;
+  removeObjetivos!: Sequelize.HasManyRemoveAssociationsMixin<objetivos, objetivosId>;
+  hasObjetivo!: Sequelize.HasManyHasAssociationMixin<objetivos, objetivosId>;
+  hasObjetivos!: Sequelize.HasManyHasAssociationsMixin<objetivos, objetivosId>;
   countObjetivos!: Sequelize.HasManyCountAssociationsMixin;
-  // Locales hasMany ProductoLocales via localId
-  productoLocales!: ProductoLocales[];
-  getProductoLocales!: Sequelize.HasManyGetAssociationsMixin<ProductoLocales>;
-  setProductoLocales!: Sequelize.HasManySetAssociationsMixin<ProductoLocales, ProductoLocalesId>;
-  addProductoLocale!: Sequelize.HasManyAddAssociationMixin<ProductoLocales, ProductoLocalesId>;
-  addProductoLocales!: Sequelize.HasManyAddAssociationsMixin<ProductoLocales, ProductoLocalesId>;
-  createProductoLocale!: Sequelize.HasManyCreateAssociationMixin<ProductoLocales>;
-  removeProductoLocale!: Sequelize.HasManyRemoveAssociationMixin<ProductoLocales, ProductoLocalesId>;
-  removeProductoLocales!: Sequelize.HasManyRemoveAssociationsMixin<ProductoLocales, ProductoLocalesId>;
-  hasProductoLocale!: Sequelize.HasManyHasAssociationMixin<ProductoLocales, ProductoLocalesId>;
-  hasProductoLocales!: Sequelize.HasManyHasAssociationsMixin<ProductoLocales, ProductoLocalesId>;
-  countProductoLocales!: Sequelize.HasManyCountAssociationsMixin;
-  // Locales hasMany Publicaciones via localId
-  publicaciones!: Publicaciones[];
-  getPublicaciones!: Sequelize.HasManyGetAssociationsMixin<Publicaciones>;
-  setPublicaciones!: Sequelize.HasManySetAssociationsMixin<Publicaciones, PublicacionesId>;
-  addPublicacione!: Sequelize.HasManyAddAssociationMixin<Publicaciones, PublicacionesId>;
-  addPublicaciones!: Sequelize.HasManyAddAssociationsMixin<Publicaciones, PublicacionesId>;
-  createPublicacione!: Sequelize.HasManyCreateAssociationMixin<Publicaciones>;
-  removePublicacione!: Sequelize.HasManyRemoveAssociationMixin<Publicaciones, PublicacionesId>;
-  removePublicaciones!: Sequelize.HasManyRemoveAssociationsMixin<Publicaciones, PublicacionesId>;
-  hasPublicacione!: Sequelize.HasManyHasAssociationMixin<Publicaciones, PublicacionesId>;
-  hasPublicaciones!: Sequelize.HasManyHasAssociationsMixin<Publicaciones, PublicacionesId>;
+  // locales hasMany producto_locales via local_id
+  producto_locales!: producto_locales[];
+  getProducto_locales!: Sequelize.HasManyGetAssociationsMixin<producto_locales>;
+  setProducto_locales!: Sequelize.HasManySetAssociationsMixin<producto_locales, producto_localesId>;
+  addProducto_locale!: Sequelize.HasManyAddAssociationMixin<producto_locales, producto_localesId>;
+  addProducto_locales!: Sequelize.HasManyAddAssociationsMixin<producto_locales, producto_localesId>;
+  createProducto_locale!: Sequelize.HasManyCreateAssociationMixin<producto_locales>;
+  removeProducto_locale!: Sequelize.HasManyRemoveAssociationMixin<producto_locales, producto_localesId>;
+  removeProducto_locales!: Sequelize.HasManyRemoveAssociationsMixin<producto_locales, producto_localesId>;
+  hasProducto_locale!: Sequelize.HasManyHasAssociationMixin<producto_locales, producto_localesId>;
+  hasProducto_locales!: Sequelize.HasManyHasAssociationsMixin<producto_locales, producto_localesId>;
+  countProducto_locales!: Sequelize.HasManyCountAssociationsMixin;
+  // locales hasMany publicaciones via local_id
+  publicaciones!: publicaciones[];
+  getPublicaciones!: Sequelize.HasManyGetAssociationsMixin<publicaciones>;
+  setPublicaciones!: Sequelize.HasManySetAssociationsMixin<publicaciones, publicacionesId>;
+  addPublicacione!: Sequelize.HasManyAddAssociationMixin<publicaciones, publicacionesId>;
+  addPublicaciones!: Sequelize.HasManyAddAssociationsMixin<publicaciones, publicacionesId>;
+  createPublicacione!: Sequelize.HasManyCreateAssociationMixin<publicaciones>;
+  removePublicacione!: Sequelize.HasManyRemoveAssociationMixin<publicaciones, publicacionesId>;
+  removePublicaciones!: Sequelize.HasManyRemoveAssociationsMixin<publicaciones, publicacionesId>;
+  hasPublicacione!: Sequelize.HasManyHasAssociationMixin<publicaciones, publicacionesId>;
+  hasPublicaciones!: Sequelize.HasManyHasAssociationsMixin<publicaciones, publicacionesId>;
   countPublicaciones!: Sequelize.HasManyCountAssociationsMixin;
-  // Locales hasMany RecompensasObtenidas via localId
-  recompensasObtenidas!: RecompensasObtenidas[];
-  getRecompensasObtenidas!: Sequelize.HasManyGetAssociationsMixin<RecompensasObtenidas>;
-  setRecompensasObtenidas!: Sequelize.HasManySetAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  addRecompensasObtenida!: Sequelize.HasManyAddAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  addRecompensasObtenidas!: Sequelize.HasManyAddAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  createRecompensasObtenida!: Sequelize.HasManyCreateAssociationMixin<RecompensasObtenidas>;
-  removeRecompensasObtenida!: Sequelize.HasManyRemoveAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  removeRecompensasObtenidas!: Sequelize.HasManyRemoveAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  hasRecompensasObtenida!: Sequelize.HasManyHasAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  hasRecompensasObtenidas!: Sequelize.HasManyHasAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  countRecompensasObtenidas!: Sequelize.HasManyCountAssociationsMixin;
-  // Locales hasMany Temporadas via localId
-  temporadas!: Temporadas[];
-  getTemporadas!: Sequelize.HasManyGetAssociationsMixin<Temporadas>;
-  setTemporadas!: Sequelize.HasManySetAssociationsMixin<Temporadas, TemporadasId>;
-  addTemporada!: Sequelize.HasManyAddAssociationMixin<Temporadas, TemporadasId>;
-  addTemporadas!: Sequelize.HasManyAddAssociationsMixin<Temporadas, TemporadasId>;
-  createTemporada!: Sequelize.HasManyCreateAssociationMixin<Temporadas>;
-  removeTemporada!: Sequelize.HasManyRemoveAssociationMixin<Temporadas, TemporadasId>;
-  removeTemporadas!: Sequelize.HasManyRemoveAssociationsMixin<Temporadas, TemporadasId>;
-  hasTemporada!: Sequelize.HasManyHasAssociationMixin<Temporadas, TemporadasId>;
-  hasTemporadas!: Sequelize.HasManyHasAssociationsMixin<Temporadas, TemporadasId>;
+  // locales hasMany recompensas_obtenidas via local_id
+  recompensas_obtenidas!: recompensas_obtenidas[];
+  getRecompensas_obtenidas!: Sequelize.HasManyGetAssociationsMixin<recompensas_obtenidas>;
+  setRecompensas_obtenidas!: Sequelize.HasManySetAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  addRecompensas_obtenida!: Sequelize.HasManyAddAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  addRecompensas_obtenidas!: Sequelize.HasManyAddAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  createRecompensas_obtenida!: Sequelize.HasManyCreateAssociationMixin<recompensas_obtenidas>;
+  removeRecompensas_obtenida!: Sequelize.HasManyRemoveAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  removeRecompensas_obtenidas!: Sequelize.HasManyRemoveAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  hasRecompensas_obtenida!: Sequelize.HasManyHasAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  hasRecompensas_obtenidas!: Sequelize.HasManyHasAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  countRecompensas_obtenidas!: Sequelize.HasManyCountAssociationsMixin;
+  // locales hasMany temporadas via local_id
+  temporadas!: temporadas[];
+  getTemporadas!: Sequelize.HasManyGetAssociationsMixin<temporadas>;
+  setTemporadas!: Sequelize.HasManySetAssociationsMixin<temporadas, temporadasId>;
+  addTemporada!: Sequelize.HasManyAddAssociationMixin<temporadas, temporadasId>;
+  addTemporadas!: Sequelize.HasManyAddAssociationsMixin<temporadas, temporadasId>;
+  createTemporada!: Sequelize.HasManyCreateAssociationMixin<temporadas>;
+  removeTemporada!: Sequelize.HasManyRemoveAssociationMixin<temporadas, temporadasId>;
+  removeTemporadas!: Sequelize.HasManyRemoveAssociationsMixin<temporadas, temporadasId>;
+  hasTemporada!: Sequelize.HasManyHasAssociationMixin<temporadas, temporadasId>;
+  hasTemporadas!: Sequelize.HasManyHasAssociationsMixin<temporadas, temporadasId>;
   countTemporadas!: Sequelize.HasManyCountAssociationsMixin;
-  // Locales hasMany ValidacionesQr via localId
-  validacionesQrs!: ValidacionesQr[];
-  getValidacionesQrs!: Sequelize.HasManyGetAssociationsMixin<ValidacionesQr>;
-  setValidacionesQrs!: Sequelize.HasManySetAssociationsMixin<ValidacionesQr, ValidacionesQrId>;
-  addValidacionesQr!: Sequelize.HasManyAddAssociationMixin<ValidacionesQr, ValidacionesQrId>;
-  addValidacionesQrs!: Sequelize.HasManyAddAssociationsMixin<ValidacionesQr, ValidacionesQrId>;
-  createValidacionesQr!: Sequelize.HasManyCreateAssociationMixin<ValidacionesQr>;
-  removeValidacionesQr!: Sequelize.HasManyRemoveAssociationMixin<ValidacionesQr, ValidacionesQrId>;
-  removeValidacionesQrs!: Sequelize.HasManyRemoveAssociationsMixin<ValidacionesQr, ValidacionesQrId>;
-  hasValidacionesQr!: Sequelize.HasManyHasAssociationMixin<ValidacionesQr, ValidacionesQrId>;
-  hasValidacionesQrs!: Sequelize.HasManyHasAssociationsMixin<ValidacionesQr, ValidacionesQrId>;
-  countValidacionesQrs!: Sequelize.HasManyCountAssociationsMixin;
-  // Locales belongsTo Usuarios via usuarioId
-  usuario!: Usuarios;
-  getUsuario!: Sequelize.BelongsToGetAssociationMixin<Usuarios>;
-  setUsuario!: Sequelize.BelongsToSetAssociationMixin<Usuarios, UsuariosId>;
-  createUsuario!: Sequelize.BelongsToCreateAssociationMixin<Usuarios>;
+  // locales hasMany validaciones_qr via local_id
+  validaciones_qrs!: validaciones_qr[];
+  getValidaciones_qrs!: Sequelize.HasManyGetAssociationsMixin<validaciones_qr>;
+  setValidaciones_qrs!: Sequelize.HasManySetAssociationsMixin<validaciones_qr, validaciones_qrId>;
+  addValidaciones_qr!: Sequelize.HasManyAddAssociationMixin<validaciones_qr, validaciones_qrId>;
+  addValidaciones_qrs!: Sequelize.HasManyAddAssociationsMixin<validaciones_qr, validaciones_qrId>;
+  createValidaciones_qr!: Sequelize.HasManyCreateAssociationMixin<validaciones_qr>;
+  removeValidaciones_qr!: Sequelize.HasManyRemoveAssociationMixin<validaciones_qr, validaciones_qrId>;
+  removeValidaciones_qrs!: Sequelize.HasManyRemoveAssociationsMixin<validaciones_qr, validaciones_qrId>;
+  hasValidaciones_qr!: Sequelize.HasManyHasAssociationMixin<validaciones_qr, validaciones_qrId>;
+  hasValidaciones_qrs!: Sequelize.HasManyHasAssociationsMixin<validaciones_qr, validaciones_qrId>;
+  countValidaciones_qrs!: Sequelize.HasManyCountAssociationsMixin;
+  // locales belongsTo ubicaciones via ubicacion_id
+  ubicacion!: ubicaciones;
+  getUbicacion!: Sequelize.BelongsToGetAssociationMixin<ubicaciones>;
+  setUbicacion!: Sequelize.BelongsToSetAssociationMixin<ubicaciones, ubicacionesId>;
+  createUbicacion!: Sequelize.BelongsToCreateAssociationMixin<ubicaciones>;
+  // locales belongsTo usuarios via usuario_id
+  usuario!: usuarios;
+  getUsuario!: Sequelize.BelongsToGetAssociationMixin<usuarios>;
+  setUsuario!: Sequelize.BelongsToSetAssociationMixin<usuarios, usuariosId>;
+  createUsuario!: Sequelize.BelongsToCreateAssociationMixin<usuarios>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Locales {
-    return Locales.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof locales {
+    return locales.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    usuarioId: {
+    usuario_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'usuarios',
         key: 'id'
-      },
-      field: 'usuario_id'
+      }
     },
-    nombreEstablecimiento: {
+    nombre_establecimiento: {
       type: DataTypes.STRING(150),
-      allowNull: false,
-      field: 'nombre_establecimiento'
+      allowNull: false
     },
-    tipoLocal: {
+    tipo_local: {
       type: DataTypes.STRING(50),
-      allowNull: false,
-      field: 'tipo_local'
+      allowNull: false
     },
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    direccion: {
-      type: DataTypes.TEXT,
-      allowNull: false
+    ubicacion_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'ubicaciones',
+        key: 'id'
+      }
     },
     telefono: {
       type: DataTypes.STRING(20),
       allowNull: true
     },
-    horarioAtencion: {
+    horario_atencion: {
       type: DataTypes.JSONB,
-      allowNull: true,
-      field: 'horario_atencion'
+      allowNull: true
     },
     imagen: {
       type: DataTypes.TEXT,
@@ -173,17 +179,15 @@ export class Locales extends Model<LocalesAttributes, LocalesCreationAttributes>
       allowNull: true,
       defaultValue: "activo"
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
-    actualizadoEn: {
+    actualizado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'actualizado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,

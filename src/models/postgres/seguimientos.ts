@@ -1,71 +1,66 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Usuarios, UsuariosId } from './usuarios.js';
+import type { usuarios, usuariosId } from './usuarios.js';
 
-export interface SeguimientosAttributes {
+export interface seguimientosAttributes {
   id: number;
-  seguidorId: number;
-  seguidoId: number;
-  fechaSeguimiento?: Date;
+  seguidor_id: number;
+  seguido_id: number;
+  fecha_seguimiento?: Date;
   estado?: string;
 }
 
-export type SeguimientosPk = "id";
-export type SeguimientosId = Seguimientos[SeguimientosPk];
-export type SeguimientosOptionalAttributes = "id" | "fechaSeguimiento" | "estado";
-export type SeguimientosCreationAttributes = Optional<SeguimientosAttributes, SeguimientosOptionalAttributes>;
+export type seguimientosPk = "id";
+export type seguimientosId = seguimientos[seguimientosPk];
+export type seguimientosOptionalAttributes = "id" | "fecha_seguimiento" | "estado";
+export type seguimientosCreationAttributes = Optional<seguimientosAttributes, seguimientosOptionalAttributes>;
 
-export class Seguimientos extends Model<SeguimientosAttributes, SeguimientosCreationAttributes> implements SeguimientosAttributes {
+export class seguimientos extends Model<seguimientosAttributes, seguimientosCreationAttributes> implements seguimientosAttributes {
   id!: number;
-  seguidorId!: number;
-  seguidoId!: number;
-  fechaSeguimiento?: Date;
+  seguidor_id!: number;
+  seguido_id!: number;
+  fecha_seguimiento?: Date;
   estado?: string;
 
-  // Seguimientos belongsTo Usuarios via seguidoId
-  seguido!: Usuarios;
-  getSeguido!: Sequelize.BelongsToGetAssociationMixin<Usuarios>;
-  setSeguido!: Sequelize.BelongsToSetAssociationMixin<Usuarios, UsuariosId>;
-  createSeguido!: Sequelize.BelongsToCreateAssociationMixin<Usuarios>;
-  // Seguimientos belongsTo Usuarios via seguidorId
-  seguidor!: Usuarios;
-  getSeguidor!: Sequelize.BelongsToGetAssociationMixin<Usuarios>;
-  setSeguidor!: Sequelize.BelongsToSetAssociationMixin<Usuarios, UsuariosId>;
-  createSeguidor!: Sequelize.BelongsToCreateAssociationMixin<Usuarios>;
+  // seguimientos belongsTo usuarios via seguido_id
+  seguido!: usuarios;
+  getSeguido!: Sequelize.BelongsToGetAssociationMixin<usuarios>;
+  setSeguido!: Sequelize.BelongsToSetAssociationMixin<usuarios, usuariosId>;
+  createSeguido!: Sequelize.BelongsToCreateAssociationMixin<usuarios>;
+  // seguimientos belongsTo usuarios via seguidor_id
+  seguidor!: usuarios;
+  getSeguidor!: Sequelize.BelongsToGetAssociationMixin<usuarios>;
+  setSeguidor!: Sequelize.BelongsToSetAssociationMixin<usuarios, usuariosId>;
+  createSeguidor!: Sequelize.BelongsToCreateAssociationMixin<usuarios>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Seguimientos {
-    return Seguimientos.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof seguimientos {
+    return seguimientos.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    seguidorId: {
+    seguidor_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'usuarios',
         key: 'id'
-      },
-      unique: "seguimientos_seguidor_id_seguido_id_key",
-      field: 'seguidor_id'
+      }
     },
-    seguidoId: {
+    seguido_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'usuarios',
         key: 'id'
-      },
-      unique: "seguimientos_seguidor_id_seguido_id_key",
-      field: 'seguido_id'
+      }
     },
-    fechaSeguimiento: {
+    fecha_seguimiento: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'fecha_seguimiento'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     estado: {
       type: DataTypes.STRING(20),
@@ -91,6 +86,18 @@ export class Seguimientos extends Model<SeguimientosAttributes, SeguimientosCrea
         ]
       },
       {
+        name: "seguimientos_idx_seguimientos_seguido",
+        fields: [
+          { name: "seguido_id" },
+        ]
+      },
+      {
+        name: "seguimientos_idx_seguimientos_seguidor",
+        fields: [
+          { name: "seguidor_id" },
+        ]
+      },
+      {
         name: "seguimientos_pkey",
         unique: true,
         fields: [
@@ -99,6 +106,14 @@ export class Seguimientos extends Model<SeguimientosAttributes, SeguimientosCrea
       },
       {
         name: "seguimientos_seguidor_id_seguido_id_key",
+        unique: true,
+        fields: [
+          { name: "seguidor_id" },
+          { name: "seguido_id" },
+        ]
+      },
+      {
+        name: "seguimientos_seguimientos_seguidor_id_seguido_id_key",
         unique: true,
         fields: [
           { name: "seguidor_id" },

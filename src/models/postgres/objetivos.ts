@@ -1,151 +1,138 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Locales, LocalesId } from './locales.js';
-import type { Marcas, MarcasId } from './marcas.js';
-import type { Productos, ProductosId } from './productos.js';
-import type { RecompensasObtenidas, RecompensasObtenidasId } from './recompensasObtenidas.js';
-import type { Temporadas, TemporadasId } from './temporadas.js';
-import type { TokensQr, TokensQrId } from './tokensQr.js';
-import type { UsuarioObjetivos, UsuarioObjetivosId } from './usuarioObjetivos.js';
+import type { locales, localesId } from './locales.js';
+import type { marcas, marcasId } from './marcas.js';
+import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas.js';
+import type { sub_objetivos, sub_objetivosId } from './sub_objetivos.js';
+import type { temporadas, temporadasId } from './temporadas.js';
+import type { tokens_qr, tokens_qrId } from './tokens_qr.js';
+import type { usuario_objetivos, usuario_objetivosId } from './usuario_objetivos.js';
 
-export interface ObjetivosAttributes {
+export interface objetivosAttributes {
   id: number;
-  temporadaId: number;
-  localId: number;
-  marcaId: number;
-  productoId: number;
+  temporada_id: number;
+  local_id: number;
+  marca_id: number;
   nombre: string;
   descripcion?: string;
-  cantidadRequerida: number;
   recompensa: string;
-  puntosOtorgados?: number;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 }
 
-export type ObjetivosPk = "id";
-export type ObjetivosId = Objetivos[ObjetivosPk];
-export type ObjetivosOptionalAttributes = "id" | "descripcion" | "puntosOtorgados" | "estado" | "creadoEn" | "actualizadoEn";
-export type ObjetivosCreationAttributes = Optional<ObjetivosAttributes, ObjetivosOptionalAttributes>;
+export type objetivosPk = "id";
+export type objetivosId = objetivos[objetivosPk];
+export type objetivosOptionalAttributes = "id" | "descripcion" | "estado" | "creado_en" | "actualizado_en";
+export type objetivosCreationAttributes = Optional<objetivosAttributes, objetivosOptionalAttributes>;
 
-export class Objetivos extends Model<ObjetivosAttributes, ObjetivosCreationAttributes> implements ObjetivosAttributes {
+export class objetivos extends Model<objetivosAttributes, objetivosCreationAttributes> implements objetivosAttributes {
   id!: number;
-  temporadaId!: number;
-  localId!: number;
-  marcaId!: number;
-  productoId!: number;
+  temporada_id!: number;
+  local_id!: number;
+  marca_id!: number;
   nombre!: string;
   descripcion?: string;
-  cantidadRequerida!: number;
   recompensa!: string;
-  puntosOtorgados?: number;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 
-  // Objetivos belongsTo Locales via localId
-  local!: Locales;
-  getLocal!: Sequelize.BelongsToGetAssociationMixin<Locales>;
-  setLocal!: Sequelize.BelongsToSetAssociationMixin<Locales, LocalesId>;
-  createLocal!: Sequelize.BelongsToCreateAssociationMixin<Locales>;
-  // Objetivos belongsTo Marcas via marcaId
-  marca!: Marcas;
-  getMarca!: Sequelize.BelongsToGetAssociationMixin<Marcas>;
-  setMarca!: Sequelize.BelongsToSetAssociationMixin<Marcas, MarcasId>;
-  createMarca!: Sequelize.BelongsToCreateAssociationMixin<Marcas>;
-  // Objetivos hasMany RecompensasObtenidas via objetivoId
-  recompensasObtenidas!: RecompensasObtenidas[];
-  getRecompensasObtenidas!: Sequelize.HasManyGetAssociationsMixin<RecompensasObtenidas>;
-  setRecompensasObtenidas!: Sequelize.HasManySetAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  addRecompensasObtenida!: Sequelize.HasManyAddAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  addRecompensasObtenidas!: Sequelize.HasManyAddAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  createRecompensasObtenida!: Sequelize.HasManyCreateAssociationMixin<RecompensasObtenidas>;
-  removeRecompensasObtenida!: Sequelize.HasManyRemoveAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  removeRecompensasObtenidas!: Sequelize.HasManyRemoveAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  hasRecompensasObtenida!: Sequelize.HasManyHasAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  hasRecompensasObtenidas!: Sequelize.HasManyHasAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  countRecompensasObtenidas!: Sequelize.HasManyCountAssociationsMixin;
-  // Objetivos hasMany TokensQr via objetivoId
-  tokensQrs!: TokensQr[];
-  getTokensQrs!: Sequelize.HasManyGetAssociationsMixin<TokensQr>;
-  setTokensQrs!: Sequelize.HasManySetAssociationsMixin<TokensQr, TokensQrId>;
-  addTokensQr!: Sequelize.HasManyAddAssociationMixin<TokensQr, TokensQrId>;
-  addTokensQrs!: Sequelize.HasManyAddAssociationsMixin<TokensQr, TokensQrId>;
-  createTokensQr!: Sequelize.HasManyCreateAssociationMixin<TokensQr>;
-  removeTokensQr!: Sequelize.HasManyRemoveAssociationMixin<TokensQr, TokensQrId>;
-  removeTokensQrs!: Sequelize.HasManyRemoveAssociationsMixin<TokensQr, TokensQrId>;
-  hasTokensQr!: Sequelize.HasManyHasAssociationMixin<TokensQr, TokensQrId>;
-  hasTokensQrs!: Sequelize.HasManyHasAssociationsMixin<TokensQr, TokensQrId>;
-  countTokensQrs!: Sequelize.HasManyCountAssociationsMixin;
-  // Objetivos hasMany UsuarioObjetivos via objetivoId
-  usuarioObjetivos!: UsuarioObjetivos[];
-  getUsuarioObjetivos!: Sequelize.HasManyGetAssociationsMixin<UsuarioObjetivos>;
-  setUsuarioObjetivos!: Sequelize.HasManySetAssociationsMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  addUsuarioObjetivo!: Sequelize.HasManyAddAssociationMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  addUsuarioObjetivos!: Sequelize.HasManyAddAssociationsMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  createUsuarioObjetivo!: Sequelize.HasManyCreateAssociationMixin<UsuarioObjetivos>;
-  removeUsuarioObjetivo!: Sequelize.HasManyRemoveAssociationMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  removeUsuarioObjetivos!: Sequelize.HasManyRemoveAssociationsMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  hasUsuarioObjetivo!: Sequelize.HasManyHasAssociationMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  hasUsuarioObjetivos!: Sequelize.HasManyHasAssociationsMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  countUsuarioObjetivos!: Sequelize.HasManyCountAssociationsMixin;
-  // Objetivos belongsTo Productos via productoId
-  producto!: Productos;
-  getProducto!: Sequelize.BelongsToGetAssociationMixin<Productos>;
-  setProducto!: Sequelize.BelongsToSetAssociationMixin<Productos, ProductosId>;
-  createProducto!: Sequelize.BelongsToCreateAssociationMixin<Productos>;
-  // Objetivos belongsTo Temporadas via temporadaId
-  temporada!: Temporadas;
-  getTemporada!: Sequelize.BelongsToGetAssociationMixin<Temporadas>;
-  setTemporada!: Sequelize.BelongsToSetAssociationMixin<Temporadas, TemporadasId>;
-  createTemporada!: Sequelize.BelongsToCreateAssociationMixin<Temporadas>;
+  // objetivos belongsTo locales via local_id
+  local!: locales;
+  getLocal!: Sequelize.BelongsToGetAssociationMixin<locales>;
+  setLocal!: Sequelize.BelongsToSetAssociationMixin<locales, localesId>;
+  createLocal!: Sequelize.BelongsToCreateAssociationMixin<locales>;
+  // objetivos belongsTo marcas via marca_id
+  marca!: marcas;
+  getMarca!: Sequelize.BelongsToGetAssociationMixin<marcas>;
+  setMarca!: Sequelize.BelongsToSetAssociationMixin<marcas, marcasId>;
+  createMarca!: Sequelize.BelongsToCreateAssociationMixin<marcas>;
+  // objetivos hasMany recompensas_obtenidas via objetivo_id
+  recompensas_obtenidas!: recompensas_obtenidas[];
+  getRecompensas_obtenidas!: Sequelize.HasManyGetAssociationsMixin<recompensas_obtenidas>;
+  setRecompensas_obtenidas!: Sequelize.HasManySetAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  addRecompensas_obtenida!: Sequelize.HasManyAddAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  addRecompensas_obtenidas!: Sequelize.HasManyAddAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  createRecompensas_obtenida!: Sequelize.HasManyCreateAssociationMixin<recompensas_obtenidas>;
+  removeRecompensas_obtenida!: Sequelize.HasManyRemoveAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  removeRecompensas_obtenidas!: Sequelize.HasManyRemoveAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  hasRecompensas_obtenida!: Sequelize.HasManyHasAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  hasRecompensas_obtenidas!: Sequelize.HasManyHasAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  countRecompensas_obtenidas!: Sequelize.HasManyCountAssociationsMixin;
+  // objetivos hasMany sub_objetivos via objetivo_id
+  sub_objetivos!: sub_objetivos[];
+  getSub_objetivos!: Sequelize.HasManyGetAssociationsMixin<sub_objetivos>;
+  setSub_objetivos!: Sequelize.HasManySetAssociationsMixin<sub_objetivos, sub_objetivosId>;
+  addSub_objetivo!: Sequelize.HasManyAddAssociationMixin<sub_objetivos, sub_objetivosId>;
+  addSub_objetivos!: Sequelize.HasManyAddAssociationsMixin<sub_objetivos, sub_objetivosId>;
+  createSub_objetivo!: Sequelize.HasManyCreateAssociationMixin<sub_objetivos>;
+  removeSub_objetivo!: Sequelize.HasManyRemoveAssociationMixin<sub_objetivos, sub_objetivosId>;
+  removeSub_objetivos!: Sequelize.HasManyRemoveAssociationsMixin<sub_objetivos, sub_objetivosId>;
+  hasSub_objetivo!: Sequelize.HasManyHasAssociationMixin<sub_objetivos, sub_objetivosId>;
+  hasSub_objetivos!: Sequelize.HasManyHasAssociationsMixin<sub_objetivos, sub_objetivosId>;
+  countSub_objetivos!: Sequelize.HasManyCountAssociationsMixin;
+  // objetivos hasMany tokens_qr via objetivo_id
+  tokens_qrs!: tokens_qr[];
+  getTokens_qrs!: Sequelize.HasManyGetAssociationsMixin<tokens_qr>;
+  setTokens_qrs!: Sequelize.HasManySetAssociationsMixin<tokens_qr, tokens_qrId>;
+  addTokens_qr!: Sequelize.HasManyAddAssociationMixin<tokens_qr, tokens_qrId>;
+  addTokens_qrs!: Sequelize.HasManyAddAssociationsMixin<tokens_qr, tokens_qrId>;
+  createTokens_qr!: Sequelize.HasManyCreateAssociationMixin<tokens_qr>;
+  removeTokens_qr!: Sequelize.HasManyRemoveAssociationMixin<tokens_qr, tokens_qrId>;
+  removeTokens_qrs!: Sequelize.HasManyRemoveAssociationsMixin<tokens_qr, tokens_qrId>;
+  hasTokens_qr!: Sequelize.HasManyHasAssociationMixin<tokens_qr, tokens_qrId>;
+  hasTokens_qrs!: Sequelize.HasManyHasAssociationsMixin<tokens_qr, tokens_qrId>;
+  countTokens_qrs!: Sequelize.HasManyCountAssociationsMixin;
+  // objetivos hasMany usuario_objetivos via objetivo_id
+  usuario_objetivos!: usuario_objetivos[];
+  getUsuario_objetivos!: Sequelize.HasManyGetAssociationsMixin<usuario_objetivos>;
+  setUsuario_objetivos!: Sequelize.HasManySetAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
+  addUsuario_objetivo!: Sequelize.HasManyAddAssociationMixin<usuario_objetivos, usuario_objetivosId>;
+  addUsuario_objetivos!: Sequelize.HasManyAddAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
+  createUsuario_objetivo!: Sequelize.HasManyCreateAssociationMixin<usuario_objetivos>;
+  removeUsuario_objetivo!: Sequelize.HasManyRemoveAssociationMixin<usuario_objetivos, usuario_objetivosId>;
+  removeUsuario_objetivos!: Sequelize.HasManyRemoveAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
+  hasUsuario_objetivo!: Sequelize.HasManyHasAssociationMixin<usuario_objetivos, usuario_objetivosId>;
+  hasUsuario_objetivos!: Sequelize.HasManyHasAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
+  countUsuario_objetivos!: Sequelize.HasManyCountAssociationsMixin;
+  // objetivos belongsTo temporadas via temporada_id
+  temporada!: temporadas;
+  getTemporada!: Sequelize.BelongsToGetAssociationMixin<temporadas>;
+  setTemporada!: Sequelize.BelongsToSetAssociationMixin<temporadas, temporadasId>;
+  createTemporada!: Sequelize.BelongsToCreateAssociationMixin<temporadas>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Objetivos {
-    return Objetivos.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof objetivos {
+    return objetivos.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    temporadaId: {
+    temporada_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'temporadas',
         key: 'id'
-      },
-      unique: "objetivos_temporada_id_producto_id_key",
-      field: 'temporada_id'
+      }
     },
-    localId: {
+    local_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'locales',
         key: 'id'
-      },
-      field: 'local_id'
+      }
     },
-    marcaId: {
+    marca_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'marcas',
         key: 'id'
-      },
-      field: 'marca_id'
-    },
-    productoId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'productos',
-        key: 'id'
-      },
-      unique: "objetivos_temporada_id_producto_id_key",
-      field: 'producto_id'
+      }
     },
     nombre: {
       type: DataTypes.STRING(150),
@@ -155,37 +142,24 @@ export class Objetivos extends Model<ObjetivosAttributes, ObjetivosCreationAttri
       type: DataTypes.TEXT,
       allowNull: true
     },
-    cantidadRequerida: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      field: 'cantidad_requerida'
-    },
     recompensa: {
       type: DataTypes.TEXT,
       allowNull: false
-    },
-    puntosOtorgados: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 0,
-      field: 'puntos_otorgados'
     },
     estado: {
       type: DataTypes.STRING(20),
       allowNull: true,
       defaultValue: "activo"
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
-    actualizadoEn: {
+    actualizado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'actualizado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
@@ -200,13 +174,26 @@ export class Objetivos extends Model<ObjetivosAttributes, ObjetivosCreationAttri
         ]
       },
       {
-        name: "idx_objetivos_producto",
+        name: "idx_objetivos_temporada",
         fields: [
-          { name: "producto_id" },
+          { name: "temporada_id" },
         ]
       },
       {
-        name: "idx_objetivos_temporada",
+        name: "objetivos_idx_objetivos_local",
+        fields: [
+          { name: "local_id" },
+        ]
+      },
+      {
+        name: "objetivos_idx_objetivos_temporada",
+        fields: [
+          { name: "temporada_id" },
+        ]
+      },
+      {
+        name: "objetivos_objetivos_temporada_id_producto_id_key",
+        unique: true,
         fields: [
           { name: "temporada_id" },
         ]
@@ -216,14 +203,6 @@ export class Objetivos extends Model<ObjetivosAttributes, ObjetivosCreationAttri
         unique: true,
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "objetivos_temporada_id_producto_id_key",
-        unique: true,
-        fields: [
-          { name: "temporada_id" },
-          { name: "producto_id" },
         ]
       },
     ]

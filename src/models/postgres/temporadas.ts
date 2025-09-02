@@ -1,107 +1,100 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Locales, LocalesId } from './locales.js';
-import type { Objetivos, ObjetivosId } from './objetivos.js';
+import type { locales, localesId } from './locales.js';
+import type { objetivos, objetivosId } from './objetivos.js';
 
-export interface TemporadasAttributes {
+export interface temporadasAttributes {
   id: number;
-  localId: number;
+  local_id: number;
   nombre: string;
   descripcion?: string;
-  fechaInicio: string;
-  fechaFin: string;
+  fecha_inicio: string;
+  fecha_fin: string;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 }
 
-export type TemporadasPk = "id";
-export type TemporadasId = Temporadas[TemporadasPk];
-export type TemporadasOptionalAttributes = "id" | "descripcion" | "estado" | "creadoEn" | "actualizadoEn";
-export type TemporadasCreationAttributes = Optional<TemporadasAttributes, TemporadasOptionalAttributes>;
+export type temporadasPk = "id";
+export type temporadasId = temporadas[temporadasPk];
+export type temporadasOptionalAttributes = "id" | "descripcion" | "estado" | "creado_en" | "actualizado_en";
+export type temporadasCreationAttributes = Optional<temporadasAttributes, temporadasOptionalAttributes>;
 
-export class Temporadas extends Model<TemporadasAttributes, TemporadasCreationAttributes> implements TemporadasAttributes {
+export class temporadas extends Model<temporadasAttributes, temporadasCreationAttributes> implements temporadasAttributes {
   id!: number;
-  localId!: number;
+  local_id!: number;
   nombre!: string;
   descripcion?: string;
-  fechaInicio!: string;
-  fechaFin!: string;
+  fecha_inicio!: string;
+  fecha_fin!: string;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 
-  // Temporadas belongsTo Locales via localId
-  local!: Locales;
-  getLocal!: Sequelize.BelongsToGetAssociationMixin<Locales>;
-  setLocal!: Sequelize.BelongsToSetAssociationMixin<Locales, LocalesId>;
-  createLocal!: Sequelize.BelongsToCreateAssociationMixin<Locales>;
-  // Temporadas hasMany Objetivos via temporadaId
-  objetivos!: Objetivos[];
-  getObjetivos!: Sequelize.HasManyGetAssociationsMixin<Objetivos>;
-  setObjetivos!: Sequelize.HasManySetAssociationsMixin<Objetivos, ObjetivosId>;
-  addObjetivo!: Sequelize.HasManyAddAssociationMixin<Objetivos, ObjetivosId>;
-  addObjetivos!: Sequelize.HasManyAddAssociationsMixin<Objetivos, ObjetivosId>;
-  createObjetivo!: Sequelize.HasManyCreateAssociationMixin<Objetivos>;
-  removeObjetivo!: Sequelize.HasManyRemoveAssociationMixin<Objetivos, ObjetivosId>;
-  removeObjetivos!: Sequelize.HasManyRemoveAssociationsMixin<Objetivos, ObjetivosId>;
-  hasObjetivo!: Sequelize.HasManyHasAssociationMixin<Objetivos, ObjetivosId>;
-  hasObjetivos!: Sequelize.HasManyHasAssociationsMixin<Objetivos, ObjetivosId>;
+  // temporadas belongsTo locales via local_id
+  local!: locales;
+  getLocal!: Sequelize.BelongsToGetAssociationMixin<locales>;
+  setLocal!: Sequelize.BelongsToSetAssociationMixin<locales, localesId>;
+  createLocal!: Sequelize.BelongsToCreateAssociationMixin<locales>;
+  // temporadas hasMany objetivos via temporada_id
+  objetivos!: objetivos[];
+  getObjetivos!: Sequelize.HasManyGetAssociationsMixin<objetivos>;
+  setObjetivos!: Sequelize.HasManySetAssociationsMixin<objetivos, objetivosId>;
+  addObjetivo!: Sequelize.HasManyAddAssociationMixin<objetivos, objetivosId>;
+  addObjetivos!: Sequelize.HasManyAddAssociationsMixin<objetivos, objetivosId>;
+  createObjetivo!: Sequelize.HasManyCreateAssociationMixin<objetivos>;
+  removeObjetivo!: Sequelize.HasManyRemoveAssociationMixin<objetivos, objetivosId>;
+  removeObjetivos!: Sequelize.HasManyRemoveAssociationsMixin<objetivos, objetivosId>;
+  hasObjetivo!: Sequelize.HasManyHasAssociationMixin<objetivos, objetivosId>;
+  hasObjetivos!: Sequelize.HasManyHasAssociationsMixin<objetivos, objetivosId>;
   countObjetivos!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Temporadas {
-    return Temporadas.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof temporadas {
+    return temporadas.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    localId: {
+    local_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'locales',
         key: 'id'
-      },
-      unique: "temporadas_local_id_nombre_key",
-      field: 'local_id'
+      }
     },
     nombre: {
       type: DataTypes.STRING(150),
-      allowNull: false,
-      unique: "temporadas_local_id_nombre_key"
+      allowNull: false
     },
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    fechaInicio: {
+    fecha_inicio: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
-      field: 'fecha_inicio'
+      allowNull: false
     },
-    fechaFin: {
+    fecha_fin: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
-      field: 'fecha_fin'
+      allowNull: false
     },
     estado: {
       type: DataTypes.STRING(20),
       allowNull: true,
       defaultValue: "programada"
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
-    actualizadoEn: {
+    actualizado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'actualizado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
@@ -129,6 +122,25 @@ export class Temporadas extends Model<TemporadasAttributes, TemporadasCreationAt
         ]
       },
       {
+        name: "temporadas_idx_temporadas_estado",
+        fields: [
+          { name: "estado" },
+        ]
+      },
+      {
+        name: "temporadas_idx_temporadas_fechas",
+        fields: [
+          { name: "fecha_inicio" },
+          { name: "fecha_fin" },
+        ]
+      },
+      {
+        name: "temporadas_idx_temporadas_local",
+        fields: [
+          { name: "local_id" },
+        ]
+      },
+      {
         name: "temporadas_local_id_nombre_key",
         unique: true,
         fields: [
@@ -141,6 +153,14 @@ export class Temporadas extends Model<TemporadasAttributes, TemporadasCreationAt
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "temporadas_temporadas_local_id_nombre_key",
+        unique: true,
+        fields: [
+          { name: "local_id" },
+          { name: "nombre" },
         ]
       },
     ]

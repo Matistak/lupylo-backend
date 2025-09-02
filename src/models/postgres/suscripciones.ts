@@ -1,71 +1,68 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Usuarios, UsuariosId } from './usuarios.js';
+import type { usuarios, usuariosId } from './usuarios.js';
 
-export interface SuscripcionesAttributes {
+export interface suscripcionesAttributes {
   id: number;
-  usuarioId: number;
-  fechaInicio: Date;
-  fechaFin: Date;
+  usuario_id: number;
+  fecha_inicio: Date;
+  fecha_fin: Date;
   precio: number;
   estado?: string;
-  objetivosRestantes?: number;
-  metodoPago?: string;
-  transaccionId?: string;
-  autoRenovar?: boolean;
-  creadoEn?: Date;
+  objetivos_restantes?: number;
+  metodo_pago?: string;
+  transaccion_id?: string;
+  auto_renovar?: boolean;
+  creado_en?: Date;
 }
 
-export type SuscripcionesPk = "id";
-export type SuscripcionesId = Suscripciones[SuscripcionesPk];
-export type SuscripcionesOptionalAttributes = "id" | "estado" | "objetivosRestantes" | "metodoPago" | "transaccionId" | "autoRenovar" | "creadoEn";
-export type SuscripcionesCreationAttributes = Optional<SuscripcionesAttributes, SuscripcionesOptionalAttributes>;
+export type suscripcionesPk = "id";
+export type suscripcionesId = suscripciones[suscripcionesPk];
+export type suscripcionesOptionalAttributes = "id" | "estado" | "objetivos_restantes" | "metodo_pago" | "transaccion_id" | "auto_renovar" | "creado_en";
+export type suscripcionesCreationAttributes = Optional<suscripcionesAttributes, suscripcionesOptionalAttributes>;
 
-export class Suscripciones extends Model<SuscripcionesAttributes, SuscripcionesCreationAttributes> implements SuscripcionesAttributes {
+export class suscripciones extends Model<suscripcionesAttributes, suscripcionesCreationAttributes> implements suscripcionesAttributes {
   id!: number;
-  usuarioId!: number;
-  fechaInicio!: Date;
-  fechaFin!: Date;
+  usuario_id!: number;
+  fecha_inicio!: Date;
+  fecha_fin!: Date;
   precio!: number;
   estado?: string;
-  objetivosRestantes?: number;
-  metodoPago?: string;
-  transaccionId?: string;
-  autoRenovar?: boolean;
-  creadoEn?: Date;
+  objetivos_restantes?: number;
+  metodo_pago?: string;
+  transaccion_id?: string;
+  auto_renovar?: boolean;
+  creado_en?: Date;
 
-  // Suscripciones belongsTo Usuarios via usuarioId
-  usuario!: Usuarios;
-  getUsuario!: Sequelize.BelongsToGetAssociationMixin<Usuarios>;
-  setUsuario!: Sequelize.BelongsToSetAssociationMixin<Usuarios, UsuariosId>;
-  createUsuario!: Sequelize.BelongsToCreateAssociationMixin<Usuarios>;
+  // suscripciones belongsTo usuarios via usuario_id
+  usuario!: usuarios;
+  getUsuario!: Sequelize.BelongsToGetAssociationMixin<usuarios>;
+  setUsuario!: Sequelize.BelongsToSetAssociationMixin<usuarios, usuariosId>;
+  createUsuario!: Sequelize.BelongsToCreateAssociationMixin<usuarios>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Suscripciones {
-    return Suscripciones.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof suscripciones {
+    return suscripciones.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    usuarioId: {
+    usuario_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'usuarios',
         key: 'id'
-      },
-      field: 'usuario_id'
+      }
     },
-    fechaInicio: {
+    fecha_inicio: {
       type: DataTypes.DATE,
-      allowNull: false,
-      field: 'fecha_inicio'
+      allowNull: false
     },
-    fechaFin: {
+    fecha_fin: {
       type: DataTypes.DATE,
-      allowNull: false,
-      field: 'fecha_fin'
+      allowNull: false
     },
     precio: {
       type: DataTypes.DECIMAL,
@@ -76,33 +73,28 @@ export class Suscripciones extends Model<SuscripcionesAttributes, SuscripcionesC
       allowNull: true,
       defaultValue: "activa"
     },
-    objetivosRestantes: {
+    objetivos_restantes: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: 15,
-      field: 'objetivos_restantes'
+      defaultValue: 15
     },
-    metodoPago: {
+    metodo_pago: {
       type: DataTypes.STRING(50),
-      allowNull: true,
-      field: 'metodo_pago'
+      allowNull: true
     },
-    transaccionId: {
+    transaccion_id: {
       type: DataTypes.STRING(100),
-      allowNull: true,
-      field: 'transaccion_id'
+      allowNull: true
     },
-    autoRenovar: {
+    auto_renovar: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
-      defaultValue: true,
-      field: 'auto_renovar'
+      defaultValue: true
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
@@ -119,6 +111,19 @@ export class Suscripciones extends Model<SuscripcionesAttributes, SuscripcionesC
       },
       {
         name: "idx_suscripciones_usuario",
+        fields: [
+          { name: "usuario_id" },
+        ]
+      },
+      {
+        name: "suscripciones_idx_suscripciones_estado_fecha",
+        fields: [
+          { name: "estado" },
+          { name: "fecha_fin" },
+        ]
+      },
+      {
+        name: "suscripciones_idx_suscripciones_usuario",
         fields: [
           { name: "usuario_id" },
         ]

@@ -1,259 +1,257 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Comentarios, ComentariosId } from './comentarios.js';
-import type { HistorialPuntos, HistorialPuntosId } from './historialPuntos.js';
-import type { Likes, LikesId } from './likes.js';
-import type { Locales, LocalesId } from './locales.js';
-import type { LogsSistema, LogsSistemaId } from './logsSistema.js';
-import type { Marcas, MarcasId } from './marcas.js';
-import type { NivelesUsuario, NivelesUsuarioId } from './nivelesUsuario.js';
-import type { Publicaciones, PublicacionesId } from './publicaciones.js';
-import type { RecompensasObtenidas, RecompensasObtenidasId } from './recompensasObtenidas.js';
-import type { Seguimientos, SeguimientosId } from './seguimientos.js';
-import type { Suscripciones, SuscripcionesId } from './suscripciones.js';
-import type { TokensQr, TokensQrId } from './tokensQr.js';
-import type { UsuarioObjetivos, UsuarioObjetivosId } from './usuarioObjetivos.js';
-import type { UsuarioRoles, UsuarioRolesId } from './usuarioRoles.js';
-import type { ValidacionesQr, ValidacionesQrId } from './validacionesQr.js';
+import type { comentarios, comentariosId } from './comentarios.js';
+import type { historial_puntos, historial_puntosId } from './historial_puntos.js';
+import type { likes, likesId } from './likes.js';
+import type { locales, localesId } from './locales.js';
+import type { logs_sistema, logs_sistemaId } from './logs_sistema.js';
+import type { marcas, marcasId } from './marcas.js';
+import type { niveles_usuario, niveles_usuarioId } from './niveles_usuario.js';
+import type { publicaciones, publicacionesId } from './publicaciones.js';
+import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas.js';
+import type { seguimientos, seguimientosId } from './seguimientos.js';
+import type { solicitudes, solicitudesId } from './solicitudes.js';
+import type { suscripciones, suscripcionesId } from './suscripciones.js';
+import type { tokens_qr, tokens_qrId } from './tokens_qr.js';
+import type { usuario_objetivos, usuario_objetivosId } from './usuario_objetivos.js';
+import type { usuario_roles, usuario_rolesId } from './usuario_roles.js';
+import type { validaciones_qr, validaciones_qrId } from './validaciones_qr.js';
 
-export interface UsuariosAttributes {
+export interface usuariosAttributes {
   id: number;
   email: string;
-  passwordHash: string;
+  password_hash: string;
   nombre: string;
-  nombreUsuario?: string;
-  fotoPerfil?: string;
+  nombre_usuario?: string;
+  foto_perfil?: string;
   descripcion?: string;
   telefono?: string;
-  fechaNacimiento?: string;
+  fecha_nacimiento?: string;
   estado?: string;
-  nivelId?: number;
-  puntosTotales?: number;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  nivel_id?: number;
+  puntos_totales?: number;
+  creado_en?: Date;
+  actualizado_en?: Date;
+  solicitud_id?: number;
+  puntos?: number;
 }
 
-export type UsuariosPk = "id";
-export type UsuariosId = Usuarios[UsuariosPk];
-export type UsuariosOptionalAttributes = "id" | "nombreUsuario" | "fotoPerfil" | "descripcion" | "telefono" | "fechaNacimiento" | "estado" | "nivelId" | "puntosTotales" | "creadoEn" | "actualizadoEn";
-export type UsuariosCreationAttributes = Optional<UsuariosAttributes, UsuariosOptionalAttributes>;
+export type usuariosPk = "id";
+export type usuariosId = usuarios[usuariosPk];
+export type usuariosOptionalAttributes = "id" | "nombre_usuario" | "foto_perfil" | "descripcion" | "telefono" | "fecha_nacimiento" | "estado" | "nivel_id" | "puntos_totales" | "creado_en" | "actualizado_en" | "solicitud_id" | "puntos";
+export type usuariosCreationAttributes = Optional<usuariosAttributes, usuariosOptionalAttributes>;
 
-export class Usuarios extends Model<UsuariosAttributes, UsuariosCreationAttributes> implements UsuariosAttributes {
-  declare id: number;
-  declare email: string;
-  declare passwordHash: string;
-  declare nombre: string;
-  declare nombreUsuario?: string;
-  declare fotoPerfil?: string;
-  declare descripcion?: string;
-  declare telefono?: string;
-  declare fechaNacimiento?: string;
-  declare estado?: string;
-  declare nivelId?: number;
-  declare puntosTotales?: number;
-  declare creadoEn?: Date;
-  declare actualizadoEn?: Date;
+export class usuarios extends Model<usuariosAttributes, usuariosCreationAttributes> implements usuariosAttributes {
+  id!: number;
+  email!: string;
+  password_hash!: string;
+  nombre!: string;
+  nombre_usuario?: string;
+  foto_perfil?: string;
+  descripcion?: string;
+  telefono?: string;
+  fecha_nacimiento?: string;
+  estado?: string;
+  nivel_id?: number;
+  puntos_totales?: number;
+  creado_en?: Date;
+  actualizado_en?: Date;
+  solicitud_id?: number;
+  puntos?: number;
 
-  // Usuarios belongsTo NivelesUsuario via nivelId
-  nivel!: NivelesUsuario;
-  getNivel!: Sequelize.BelongsToGetAssociationMixin<NivelesUsuario>;
-  setNivel!: Sequelize.BelongsToSetAssociationMixin<NivelesUsuario, NivelesUsuarioId>;
-  createNivel!: Sequelize.BelongsToCreateAssociationMixin<NivelesUsuario>;
-  // Usuarios hasMany Comentarios via autorId
-  comentarios!: Comentarios[];
-  getComentarios!: Sequelize.HasManyGetAssociationsMixin<Comentarios>;
-  setComentarios!: Sequelize.HasManySetAssociationsMixin<Comentarios, ComentariosId>;
-  addComentario!: Sequelize.HasManyAddAssociationMixin<Comentarios, ComentariosId>;
-  addComentarios!: Sequelize.HasManyAddAssociationsMixin<Comentarios, ComentariosId>;
-  createComentario!: Sequelize.HasManyCreateAssociationMixin<Comentarios>;
-  removeComentario!: Sequelize.HasManyRemoveAssociationMixin<Comentarios, ComentariosId>;
-  removeComentarios!: Sequelize.HasManyRemoveAssociationsMixin<Comentarios, ComentariosId>;
-  hasComentario!: Sequelize.HasManyHasAssociationMixin<Comentarios, ComentariosId>;
-  hasComentarios!: Sequelize.HasManyHasAssociationsMixin<Comentarios, ComentariosId>;
+  // usuarios belongsTo niveles_usuario via nivel_id
+  nivel!: niveles_usuario;
+  getNivel!: Sequelize.BelongsToGetAssociationMixin<niveles_usuario>;
+  setNivel!: Sequelize.BelongsToSetAssociationMixin<niveles_usuario, niveles_usuarioId>;
+  createNivel!: Sequelize.BelongsToCreateAssociationMixin<niveles_usuario>;
+  // usuarios belongsTo solicitudes via solicitud_id
+  solicitud!: solicitudes;
+  getSolicitud!: Sequelize.BelongsToGetAssociationMixin<solicitudes>;
+  setSolicitud!: Sequelize.BelongsToSetAssociationMixin<solicitudes, solicitudesId>;
+  createSolicitud!: Sequelize.BelongsToCreateAssociationMixin<solicitudes>;
+  // usuarios hasMany comentarios via autor_id
+  comentarios!: comentarios[];
+  getComentarios!: Sequelize.HasManyGetAssociationsMixin<comentarios>;
+  setComentarios!: Sequelize.HasManySetAssociationsMixin<comentarios, comentariosId>;
+  addComentario!: Sequelize.HasManyAddAssociationMixin<comentarios, comentariosId>;
+  addComentarios!: Sequelize.HasManyAddAssociationsMixin<comentarios, comentariosId>;
+  createComentario!: Sequelize.HasManyCreateAssociationMixin<comentarios>;
+  removeComentario!: Sequelize.HasManyRemoveAssociationMixin<comentarios, comentariosId>;
+  removeComentarios!: Sequelize.HasManyRemoveAssociationsMixin<comentarios, comentariosId>;
+  hasComentario!: Sequelize.HasManyHasAssociationMixin<comentarios, comentariosId>;
+  hasComentarios!: Sequelize.HasManyHasAssociationsMixin<comentarios, comentariosId>;
   countComentarios!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany HistorialPuntos via usuarioId
-  historialPuntos!: HistorialPuntos[];
-  getHistorialPuntos!: Sequelize.HasManyGetAssociationsMixin<HistorialPuntos>;
-  setHistorialPuntos!: Sequelize.HasManySetAssociationsMixin<HistorialPuntos, HistorialPuntosId>;
-  addHistorialPunto!: Sequelize.HasManyAddAssociationMixin<HistorialPuntos, HistorialPuntosId>;
-  addHistorialPuntos!: Sequelize.HasManyAddAssociationsMixin<HistorialPuntos, HistorialPuntosId>;
-  createHistorialPunto!: Sequelize.HasManyCreateAssociationMixin<HistorialPuntos>;
-  removeHistorialPunto!: Sequelize.HasManyRemoveAssociationMixin<HistorialPuntos, HistorialPuntosId>;
-  removeHistorialPuntos!: Sequelize.HasManyRemoveAssociationsMixin<HistorialPuntos, HistorialPuntosId>;
-  hasHistorialPunto!: Sequelize.HasManyHasAssociationMixin<HistorialPuntos, HistorialPuntosId>;
-  hasHistorialPuntos!: Sequelize.HasManyHasAssociationsMixin<HistorialPuntos, HistorialPuntosId>;
-  countHistorialPuntos!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany Likes via usuarioId
-  likes!: Likes[];
-  getLikes!: Sequelize.HasManyGetAssociationsMixin<Likes>;
-  setLikes!: Sequelize.HasManySetAssociationsMixin<Likes, LikesId>;
-  addLike!: Sequelize.HasManyAddAssociationMixin<Likes, LikesId>;
-  addLikes!: Sequelize.HasManyAddAssociationsMixin<Likes, LikesId>;
-  createLike!: Sequelize.HasManyCreateAssociationMixin<Likes>;
-  removeLike!: Sequelize.HasManyRemoveAssociationMixin<Likes, LikesId>;
-  removeLikes!: Sequelize.HasManyRemoveAssociationsMixin<Likes, LikesId>;
-  hasLike!: Sequelize.HasManyHasAssociationMixin<Likes, LikesId>;
-  hasLikes!: Sequelize.HasManyHasAssociationsMixin<Likes, LikesId>;
+  // usuarios hasMany historial_puntos via usuario_id
+  historial_puntos!: historial_puntos[];
+  getHistorial_puntos!: Sequelize.HasManyGetAssociationsMixin<historial_puntos>;
+  setHistorial_puntos!: Sequelize.HasManySetAssociationsMixin<historial_puntos, historial_puntosId>;
+  addHistorial_punto!: Sequelize.HasManyAddAssociationMixin<historial_puntos, historial_puntosId>;
+  addHistorial_puntos!: Sequelize.HasManyAddAssociationsMixin<historial_puntos, historial_puntosId>;
+  createHistorial_punto!: Sequelize.HasManyCreateAssociationMixin<historial_puntos>;
+  removeHistorial_punto!: Sequelize.HasManyRemoveAssociationMixin<historial_puntos, historial_puntosId>;
+  removeHistorial_puntos!: Sequelize.HasManyRemoveAssociationsMixin<historial_puntos, historial_puntosId>;
+  hasHistorial_punto!: Sequelize.HasManyHasAssociationMixin<historial_puntos, historial_puntosId>;
+  hasHistorial_puntos!: Sequelize.HasManyHasAssociationsMixin<historial_puntos, historial_puntosId>;
+  countHistorial_puntos!: Sequelize.HasManyCountAssociationsMixin;
+  // usuarios hasMany likes via usuario_id
+  likes!: likes[];
+  getLikes!: Sequelize.HasManyGetAssociationsMixin<likes>;
+  setLikes!: Sequelize.HasManySetAssociationsMixin<likes, likesId>;
+  addLike!: Sequelize.HasManyAddAssociationMixin<likes, likesId>;
+  addLikes!: Sequelize.HasManyAddAssociationsMixin<likes, likesId>;
+  createLike!: Sequelize.HasManyCreateAssociationMixin<likes>;
+  removeLike!: Sequelize.HasManyRemoveAssociationMixin<likes, likesId>;
+  removeLikes!: Sequelize.HasManyRemoveAssociationsMixin<likes, likesId>;
+  hasLike!: Sequelize.HasManyHasAssociationMixin<likes, likesId>;
+  hasLikes!: Sequelize.HasManyHasAssociationsMixin<likes, likesId>;
   countLikes!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany Locales via usuarioId
-  locales!: Locales[];
-  getLocales!: Sequelize.HasManyGetAssociationsMixin<Locales>;
-  setLocales!: Sequelize.HasManySetAssociationsMixin<Locales, LocalesId>;
-  addLocale!: Sequelize.HasManyAddAssociationMixin<Locales, LocalesId>;
-  addLocales!: Sequelize.HasManyAddAssociationsMixin<Locales, LocalesId>;
-  createLocale!: Sequelize.HasManyCreateAssociationMixin<Locales>;
-  removeLocale!: Sequelize.HasManyRemoveAssociationMixin<Locales, LocalesId>;
-  removeLocales!: Sequelize.HasManyRemoveAssociationsMixin<Locales, LocalesId>;
-  hasLocale!: Sequelize.HasManyHasAssociationMixin<Locales, LocalesId>;
-  hasLocales!: Sequelize.HasManyHasAssociationsMixin<Locales, LocalesId>;
+  // usuarios hasMany locales via usuario_id
+  locales!: locales[];
+  getLocales!: Sequelize.HasManyGetAssociationsMixin<locales>;
+  setLocales!: Sequelize.HasManySetAssociationsMixin<locales, localesId>;
+  addLocale!: Sequelize.HasManyAddAssociationMixin<locales, localesId>;
+  addLocales!: Sequelize.HasManyAddAssociationsMixin<locales, localesId>;
+  createLocale!: Sequelize.HasManyCreateAssociationMixin<locales>;
+  removeLocale!: Sequelize.HasManyRemoveAssociationMixin<locales, localesId>;
+  removeLocales!: Sequelize.HasManyRemoveAssociationsMixin<locales, localesId>;
+  hasLocale!: Sequelize.HasManyHasAssociationMixin<locales, localesId>;
+  hasLocales!: Sequelize.HasManyHasAssociationsMixin<locales, localesId>;
   countLocales!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany LogsSistema via usuarioId
-  logsSistemas!: LogsSistema[];
-  getLogsSistemas!: Sequelize.HasManyGetAssociationsMixin<LogsSistema>;
-  setLogsSistemas!: Sequelize.HasManySetAssociationsMixin<LogsSistema, LogsSistemaId>;
-  addLogsSistema!: Sequelize.HasManyAddAssociationMixin<LogsSistema, LogsSistemaId>;
-  addLogsSistemas!: Sequelize.HasManyAddAssociationsMixin<LogsSistema, LogsSistemaId>;
-  createLogsSistema!: Sequelize.HasManyCreateAssociationMixin<LogsSistema>;
-  removeLogsSistema!: Sequelize.HasManyRemoveAssociationMixin<LogsSistema, LogsSistemaId>;
-  removeLogsSistemas!: Sequelize.HasManyRemoveAssociationsMixin<LogsSistema, LogsSistemaId>;
-  hasLogsSistema!: Sequelize.HasManyHasAssociationMixin<LogsSistema, LogsSistemaId>;
-  hasLogsSistemas!: Sequelize.HasManyHasAssociationsMixin<LogsSistema, LogsSistemaId>;
-  countLogsSistemas!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany Marcas via usuarioId
-  marcas!: Marcas[];
-  getMarcas!: Sequelize.HasManyGetAssociationsMixin<Marcas>;
-  setMarcas!: Sequelize.HasManySetAssociationsMixin<Marcas, MarcasId>;
-  addMarca!: Sequelize.HasManyAddAssociationMixin<Marcas, MarcasId>;
-  addMarcas!: Sequelize.HasManyAddAssociationsMixin<Marcas, MarcasId>;
-  createMarca!: Sequelize.HasManyCreateAssociationMixin<Marcas>;
-  removeMarca!: Sequelize.HasManyRemoveAssociationMixin<Marcas, MarcasId>;
-  removeMarcas!: Sequelize.HasManyRemoveAssociationsMixin<Marcas, MarcasId>;
-  hasMarca!: Sequelize.HasManyHasAssociationMixin<Marcas, MarcasId>;
-  hasMarcas!: Sequelize.HasManyHasAssociationsMixin<Marcas, MarcasId>;
+  // usuarios hasMany logs_sistema via usuario_id
+  logs_sistemas!: logs_sistema[];
+  getLogs_sistemas!: Sequelize.HasManyGetAssociationsMixin<logs_sistema>;
+  setLogs_sistemas!: Sequelize.HasManySetAssociationsMixin<logs_sistema, logs_sistemaId>;
+  addLogs_sistema!: Sequelize.HasManyAddAssociationMixin<logs_sistema, logs_sistemaId>;
+  addLogs_sistemas!: Sequelize.HasManyAddAssociationsMixin<logs_sistema, logs_sistemaId>;
+  createLogs_sistema!: Sequelize.HasManyCreateAssociationMixin<logs_sistema>;
+  removeLogs_sistema!: Sequelize.HasManyRemoveAssociationMixin<logs_sistema, logs_sistemaId>;
+  removeLogs_sistemas!: Sequelize.HasManyRemoveAssociationsMixin<logs_sistema, logs_sistemaId>;
+  hasLogs_sistema!: Sequelize.HasManyHasAssociationMixin<logs_sistema, logs_sistemaId>;
+  hasLogs_sistemas!: Sequelize.HasManyHasAssociationsMixin<logs_sistema, logs_sistemaId>;
+  countLogs_sistemas!: Sequelize.HasManyCountAssociationsMixin;
+  // usuarios hasMany marcas via usuario_id
+  marcas!: marcas[];
+  getMarcas!: Sequelize.HasManyGetAssociationsMixin<marcas>;
+  setMarcas!: Sequelize.HasManySetAssociationsMixin<marcas, marcasId>;
+  addMarca!: Sequelize.HasManyAddAssociationMixin<marcas, marcasId>;
+  addMarcas!: Sequelize.HasManyAddAssociationsMixin<marcas, marcasId>;
+  createMarca!: Sequelize.HasManyCreateAssociationMixin<marcas>;
+  removeMarca!: Sequelize.HasManyRemoveAssociationMixin<marcas, marcasId>;
+  removeMarcas!: Sequelize.HasManyRemoveAssociationsMixin<marcas, marcasId>;
+  hasMarca!: Sequelize.HasManyHasAssociationMixin<marcas, marcasId>;
+  hasMarcas!: Sequelize.HasManyHasAssociationsMixin<marcas, marcasId>;
   countMarcas!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany Publicaciones via autorId
-  publicaciones!: Publicaciones[];
-  getPublicaciones!: Sequelize.HasManyGetAssociationsMixin<Publicaciones>;
-  setPublicaciones!: Sequelize.HasManySetAssociationsMixin<Publicaciones, PublicacionesId>;
-  addPublicacione!: Sequelize.HasManyAddAssociationMixin<Publicaciones, PublicacionesId>;
-  addPublicaciones!: Sequelize.HasManyAddAssociationsMixin<Publicaciones, PublicacionesId>;
-  createPublicacione!: Sequelize.HasManyCreateAssociationMixin<Publicaciones>;
-  removePublicacione!: Sequelize.HasManyRemoveAssociationMixin<Publicaciones, PublicacionesId>;
-  removePublicaciones!: Sequelize.HasManyRemoveAssociationsMixin<Publicaciones, PublicacionesId>;
-  hasPublicacione!: Sequelize.HasManyHasAssociationMixin<Publicaciones, PublicacionesId>;
-  hasPublicaciones!: Sequelize.HasManyHasAssociationsMixin<Publicaciones, PublicacionesId>;
+  // usuarios hasMany publicaciones via autor_id
+  publicaciones!: publicaciones[];
+  getPublicaciones!: Sequelize.HasManyGetAssociationsMixin<publicaciones>;
+  setPublicaciones!: Sequelize.HasManySetAssociationsMixin<publicaciones, publicacionesId>;
+  addPublicacione!: Sequelize.HasManyAddAssociationMixin<publicaciones, publicacionesId>;
+  addPublicaciones!: Sequelize.HasManyAddAssociationsMixin<publicaciones, publicacionesId>;
+  createPublicacione!: Sequelize.HasManyCreateAssociationMixin<publicaciones>;
+  removePublicacione!: Sequelize.HasManyRemoveAssociationMixin<publicaciones, publicacionesId>;
+  removePublicaciones!: Sequelize.HasManyRemoveAssociationsMixin<publicaciones, publicacionesId>;
+  hasPublicacione!: Sequelize.HasManyHasAssociationMixin<publicaciones, publicacionesId>;
+  hasPublicaciones!: Sequelize.HasManyHasAssociationsMixin<publicaciones, publicacionesId>;
   countPublicaciones!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany RecompensasObtenidas via usuarioId
-  recompensasObtenidas!: RecompensasObtenidas[];
-  getRecompensasObtenidas!: Sequelize.HasManyGetAssociationsMixin<RecompensasObtenidas>;
-  setRecompensasObtenidas!: Sequelize.HasManySetAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  addRecompensasObtenida!: Sequelize.HasManyAddAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  addRecompensasObtenidas!: Sequelize.HasManyAddAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  createRecompensasObtenida!: Sequelize.HasManyCreateAssociationMixin<RecompensasObtenidas>;
-  removeRecompensasObtenida!: Sequelize.HasManyRemoveAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  removeRecompensasObtenidas!: Sequelize.HasManyRemoveAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  hasRecompensasObtenida!: Sequelize.HasManyHasAssociationMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  hasRecompensasObtenidas!: Sequelize.HasManyHasAssociationsMixin<RecompensasObtenidas, RecompensasObtenidasId>;
-  countRecompensasObtenidas!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany Seguimientos via seguidoId
-  seguimientos!: Seguimientos[];
-  getSeguimientos!: Sequelize.HasManyGetAssociationsMixin<Seguimientos>;
-  setSeguimientos!: Sequelize.HasManySetAssociationsMixin<Seguimientos, SeguimientosId>;
-  addSeguimiento!: Sequelize.HasManyAddAssociationMixin<Seguimientos, SeguimientosId>;
-  addSeguimientos!: Sequelize.HasManyAddAssociationsMixin<Seguimientos, SeguimientosId>;
-  createSeguimiento!: Sequelize.HasManyCreateAssociationMixin<Seguimientos>;
-  removeSeguimiento!: Sequelize.HasManyRemoveAssociationMixin<Seguimientos, SeguimientosId>;
-  removeSeguimientos!: Sequelize.HasManyRemoveAssociationsMixin<Seguimientos, SeguimientosId>;
-  hasSeguimiento!: Sequelize.HasManyHasAssociationMixin<Seguimientos, SeguimientosId>;
-  hasSeguimientos!: Sequelize.HasManyHasAssociationsMixin<Seguimientos, SeguimientosId>;
+  // usuarios hasMany recompensas_obtenidas via usuario_id
+  recompensas_obtenidas!: recompensas_obtenidas[];
+  getRecompensas_obtenidas!: Sequelize.HasManyGetAssociationsMixin<recompensas_obtenidas>;
+  setRecompensas_obtenidas!: Sequelize.HasManySetAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  addRecompensas_obtenida!: Sequelize.HasManyAddAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  addRecompensas_obtenidas!: Sequelize.HasManyAddAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  createRecompensas_obtenida!: Sequelize.HasManyCreateAssociationMixin<recompensas_obtenidas>;
+  removeRecompensas_obtenida!: Sequelize.HasManyRemoveAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  removeRecompensas_obtenidas!: Sequelize.HasManyRemoveAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  hasRecompensas_obtenida!: Sequelize.HasManyHasAssociationMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  hasRecompensas_obtenidas!: Sequelize.HasManyHasAssociationsMixin<recompensas_obtenidas, recompensas_obtenidasId>;
+  countRecompensas_obtenidas!: Sequelize.HasManyCountAssociationsMixin;
+  // usuarios hasMany seguimientos via seguido_id
+  seguimientos!: seguimientos[];
+  getSeguimientos!: Sequelize.HasManyGetAssociationsMixin<seguimientos>;
+  setSeguimientos!: Sequelize.HasManySetAssociationsMixin<seguimientos, seguimientosId>;
+  addSeguimiento!: Sequelize.HasManyAddAssociationMixin<seguimientos, seguimientosId>;
+  addSeguimientos!: Sequelize.HasManyAddAssociationsMixin<seguimientos, seguimientosId>;
+  createSeguimiento!: Sequelize.HasManyCreateAssociationMixin<seguimientos>;
+  removeSeguimiento!: Sequelize.HasManyRemoveAssociationMixin<seguimientos, seguimientosId>;
+  removeSeguimientos!: Sequelize.HasManyRemoveAssociationsMixin<seguimientos, seguimientosId>;
+  hasSeguimiento!: Sequelize.HasManyHasAssociationMixin<seguimientos, seguimientosId>;
+  hasSeguimientos!: Sequelize.HasManyHasAssociationsMixin<seguimientos, seguimientosId>;
   countSeguimientos!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany Seguimientos via seguidorId
-  seguidorSeguimientos!: Seguimientos[];
-  getSeguidorSeguimientos!: Sequelize.HasManyGetAssociationsMixin<Seguimientos>;
-  setSeguidorSeguimientos!: Sequelize.HasManySetAssociationsMixin<Seguimientos, SeguimientosId>;
-  addSeguidorSeguimiento!: Sequelize.HasManyAddAssociationMixin<Seguimientos, SeguimientosId>;
-  addSeguidorSeguimientos!: Sequelize.HasManyAddAssociationsMixin<Seguimientos, SeguimientosId>;
-  createSeguidorSeguimiento!: Sequelize.HasManyCreateAssociationMixin<Seguimientos>;
-  removeSeguidorSeguimiento!: Sequelize.HasManyRemoveAssociationMixin<Seguimientos, SeguimientosId>;
-  removeSeguidorSeguimientos!: Sequelize.HasManyRemoveAssociationsMixin<Seguimientos, SeguimientosId>;
-  hasSeguidorSeguimiento!: Sequelize.HasManyHasAssociationMixin<Seguimientos, SeguimientosId>;
-  hasSeguidorSeguimientos!: Sequelize.HasManyHasAssociationsMixin<Seguimientos, SeguimientosId>;
-  countSeguidorSeguimientos!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany Suscripciones via usuarioId
-  suscripciones!: Suscripciones[];
-  getSuscripciones!: Sequelize.HasManyGetAssociationsMixin<Suscripciones>;
-  setSuscripciones!: Sequelize.HasManySetAssociationsMixin<Suscripciones, SuscripcionesId>;
-  addSuscripcione!: Sequelize.HasManyAddAssociationMixin<Suscripciones, SuscripcionesId>;
-  addSuscripciones!: Sequelize.HasManyAddAssociationsMixin<Suscripciones, SuscripcionesId>;
-  createSuscripcione!: Sequelize.HasManyCreateAssociationMixin<Suscripciones>;
-  removeSuscripcione!: Sequelize.HasManyRemoveAssociationMixin<Suscripciones, SuscripcionesId>;
-  removeSuscripciones!: Sequelize.HasManyRemoveAssociationsMixin<Suscripciones, SuscripcionesId>;
-  hasSuscripcione!: Sequelize.HasManyHasAssociationMixin<Suscripciones, SuscripcionesId>;
-  hasSuscripciones!: Sequelize.HasManyHasAssociationsMixin<Suscripciones, SuscripcionesId>;
+  // usuarios hasMany seguimientos via seguidor_id
+  seguidor_seguimientos!: seguimientos[];
+  getSeguidor_seguimientos!: Sequelize.HasManyGetAssociationsMixin<seguimientos>;
+  setSeguidor_seguimientos!: Sequelize.HasManySetAssociationsMixin<seguimientos, seguimientosId>;
+  addSeguidor_seguimiento!: Sequelize.HasManyAddAssociationMixin<seguimientos, seguimientosId>;
+  addSeguidor_seguimientos!: Sequelize.HasManyAddAssociationsMixin<seguimientos, seguimientosId>;
+  createSeguidor_seguimiento!: Sequelize.HasManyCreateAssociationMixin<seguimientos>;
+  removeSeguidor_seguimiento!: Sequelize.HasManyRemoveAssociationMixin<seguimientos, seguimientosId>;
+  removeSeguidor_seguimientos!: Sequelize.HasManyRemoveAssociationsMixin<seguimientos, seguimientosId>;
+  hasSeguidor_seguimiento!: Sequelize.HasManyHasAssociationMixin<seguimientos, seguimientosId>;
+  hasSeguidor_seguimientos!: Sequelize.HasManyHasAssociationsMixin<seguimientos, seguimientosId>;
+  countSeguidor_seguimientos!: Sequelize.HasManyCountAssociationsMixin;
+  // usuarios hasMany suscripciones via usuario_id
+  suscripciones!: suscripciones[];
+  getSuscripciones!: Sequelize.HasManyGetAssociationsMixin<suscripciones>;
+  setSuscripciones!: Sequelize.HasManySetAssociationsMixin<suscripciones, suscripcionesId>;
+  addSuscripcione!: Sequelize.HasManyAddAssociationMixin<suscripciones, suscripcionesId>;
+  addSuscripciones!: Sequelize.HasManyAddAssociationsMixin<suscripciones, suscripcionesId>;
+  createSuscripcione!: Sequelize.HasManyCreateAssociationMixin<suscripciones>;
+  removeSuscripcione!: Sequelize.HasManyRemoveAssociationMixin<suscripciones, suscripcionesId>;
+  removeSuscripciones!: Sequelize.HasManyRemoveAssociationsMixin<suscripciones, suscripcionesId>;
+  hasSuscripcione!: Sequelize.HasManyHasAssociationMixin<suscripciones, suscripcionesId>;
+  hasSuscripciones!: Sequelize.HasManyHasAssociationsMixin<suscripciones, suscripcionesId>;
   countSuscripciones!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany TokensQr via usuarioId
-  tokensQrs!: TokensQr[];
-  getTokensQrs!: Sequelize.HasManyGetAssociationsMixin<TokensQr>;
-  setTokensQrs!: Sequelize.HasManySetAssociationsMixin<TokensQr, TokensQrId>;
-  addTokensQr!: Sequelize.HasManyAddAssociationMixin<TokensQr, TokensQrId>;
-  addTokensQrs!: Sequelize.HasManyAddAssociationsMixin<TokensQr, TokensQrId>;
-  createTokensQr!: Sequelize.HasManyCreateAssociationMixin<TokensQr>;
-  removeTokensQr!: Sequelize.HasManyRemoveAssociationMixin<TokensQr, TokensQrId>;
-  removeTokensQrs!: Sequelize.HasManyRemoveAssociationsMixin<TokensQr, TokensQrId>;
-  hasTokensQr!: Sequelize.HasManyHasAssociationMixin<TokensQr, TokensQrId>;
-  hasTokensQrs!: Sequelize.HasManyHasAssociationsMixin<TokensQr, TokensQrId>;
-  countTokensQrs!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany UsuarioObjetivos via usuarioId
-  usuarioObjetivos!: UsuarioObjetivos[];
-  getUsuarioObjetivos!: Sequelize.HasManyGetAssociationsMixin<UsuarioObjetivos>;
-  setUsuarioObjetivos!: Sequelize.HasManySetAssociationsMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  addUsuarioObjetivo!: Sequelize.HasManyAddAssociationMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  addUsuarioObjetivos!: Sequelize.HasManyAddAssociationsMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  createUsuarioObjetivo!: Sequelize.HasManyCreateAssociationMixin<UsuarioObjetivos>;
-  removeUsuarioObjetivo!: Sequelize.HasManyRemoveAssociationMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  removeUsuarioObjetivos!: Sequelize.HasManyRemoveAssociationsMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  hasUsuarioObjetivo!: Sequelize.HasManyHasAssociationMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  hasUsuarioObjetivos!: Sequelize.HasManyHasAssociationsMixin<UsuarioObjetivos, UsuarioObjetivosId>;
-  countUsuarioObjetivos!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany UsuarioRoles via aprobadoPor
-  usuarioRoles!: UsuarioRoles[];
-  getUsuarioRoles!: Sequelize.HasManyGetAssociationsMixin<UsuarioRoles>;
-  setUsuarioRoles!: Sequelize.HasManySetAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  addUsuarioRole!: Sequelize.HasManyAddAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  addUsuarioRoles!: Sequelize.HasManyAddAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  createUsuarioRole!: Sequelize.HasManyCreateAssociationMixin<UsuarioRoles>;
-  removeUsuarioRole!: Sequelize.HasManyRemoveAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  removeUsuarioRoles!: Sequelize.HasManyRemoveAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  hasUsuarioRole!: Sequelize.HasManyHasAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  hasUsuarioRoles!: Sequelize.HasManyHasAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  countUsuarioRoles!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany UsuarioRoles via usuarioId
-  usuarioUsuarioRoles!: UsuarioRoles[];
-  getUsuarioUsuarioRoles!: Sequelize.HasManyGetAssociationsMixin<UsuarioRoles>;
-  setUsuarioUsuarioRoles!: Sequelize.HasManySetAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  addUsuarioUsuarioRole!: Sequelize.HasManyAddAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  addUsuarioUsuarioRoles!: Sequelize.HasManyAddAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  createUsuarioUsuarioRole!: Sequelize.HasManyCreateAssociationMixin<UsuarioRoles>;
-  removeUsuarioUsuarioRole!: Sequelize.HasManyRemoveAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  removeUsuarioUsuarioRoles!: Sequelize.HasManyRemoveAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  hasUsuarioUsuarioRole!: Sequelize.HasManyHasAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  hasUsuarioUsuarioRoles!: Sequelize.HasManyHasAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  countUsuarioUsuarioRoles!: Sequelize.HasManyCountAssociationsMixin;
-  // Usuarios hasMany ValidacionesQr via validadoPor
-  validacionesQrs!: ValidacionesQr[];
-  getValidacionesQrs!: Sequelize.HasManyGetAssociationsMixin<ValidacionesQr>;
-  setValidacionesQrs!: Sequelize.HasManySetAssociationsMixin<ValidacionesQr, ValidacionesQrId>;
-  addValidacionesQr!: Sequelize.HasManyAddAssociationMixin<ValidacionesQr, ValidacionesQrId>;
-  addValidacionesQrs!: Sequelize.HasManyAddAssociationsMixin<ValidacionesQr, ValidacionesQrId>;
-  createValidacionesQr!: Sequelize.HasManyCreateAssociationMixin<ValidacionesQr>;
-  removeValidacionesQr!: Sequelize.HasManyRemoveAssociationMixin<ValidacionesQr, ValidacionesQrId>;
-  removeValidacionesQrs!: Sequelize.HasManyRemoveAssociationsMixin<ValidacionesQr, ValidacionesQrId>;
-  hasValidacionesQr!: Sequelize.HasManyHasAssociationMixin<ValidacionesQr, ValidacionesQrId>;
-  hasValidacionesQrs!: Sequelize.HasManyHasAssociationsMixin<ValidacionesQr, ValidacionesQrId>;
-  countValidacionesQrs!: Sequelize.HasManyCountAssociationsMixin;
+  // usuarios hasMany tokens_qr via usuario_id
+  tokens_qrs!: tokens_qr[];
+  getTokens_qrs!: Sequelize.HasManyGetAssociationsMixin<tokens_qr>;
+  setTokens_qrs!: Sequelize.HasManySetAssociationsMixin<tokens_qr, tokens_qrId>;
+  addTokens_qr!: Sequelize.HasManyAddAssociationMixin<tokens_qr, tokens_qrId>;
+  addTokens_qrs!: Sequelize.HasManyAddAssociationsMixin<tokens_qr, tokens_qrId>;
+  createTokens_qr!: Sequelize.HasManyCreateAssociationMixin<tokens_qr>;
+  removeTokens_qr!: Sequelize.HasManyRemoveAssociationMixin<tokens_qr, tokens_qrId>;
+  removeTokens_qrs!: Sequelize.HasManyRemoveAssociationsMixin<tokens_qr, tokens_qrId>;
+  hasTokens_qr!: Sequelize.HasManyHasAssociationMixin<tokens_qr, tokens_qrId>;
+  hasTokens_qrs!: Sequelize.HasManyHasAssociationsMixin<tokens_qr, tokens_qrId>;
+  countTokens_qrs!: Sequelize.HasManyCountAssociationsMixin;
+  // usuarios hasMany usuario_objetivos via usuario_id
+  usuario_objetivos!: usuario_objetivos[];
+  getUsuario_objetivos!: Sequelize.HasManyGetAssociationsMixin<usuario_objetivos>;
+  setUsuario_objetivos!: Sequelize.HasManySetAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
+  addUsuario_objetivo!: Sequelize.HasManyAddAssociationMixin<usuario_objetivos, usuario_objetivosId>;
+  addUsuario_objetivos!: Sequelize.HasManyAddAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
+  createUsuario_objetivo!: Sequelize.HasManyCreateAssociationMixin<usuario_objetivos>;
+  removeUsuario_objetivo!: Sequelize.HasManyRemoveAssociationMixin<usuario_objetivos, usuario_objetivosId>;
+  removeUsuario_objetivos!: Sequelize.HasManyRemoveAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
+  hasUsuario_objetivo!: Sequelize.HasManyHasAssociationMixin<usuario_objetivos, usuario_objetivosId>;
+  hasUsuario_objetivos!: Sequelize.HasManyHasAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
+  countUsuario_objetivos!: Sequelize.HasManyCountAssociationsMixin;
+  // usuarios hasMany usuario_roles via usuario_id
+  usuario_roles!: usuario_roles[];
+  getUsuario_roles!: Sequelize.HasManyGetAssociationsMixin<usuario_roles>;
+  setUsuario_roles!: Sequelize.HasManySetAssociationsMixin<usuario_roles, usuario_rolesId>;
+  addUsuario_role!: Sequelize.HasManyAddAssociationMixin<usuario_roles, usuario_rolesId>;
+  addUsuario_roles!: Sequelize.HasManyAddAssociationsMixin<usuario_roles, usuario_rolesId>;
+  createUsuario_role!: Sequelize.HasManyCreateAssociationMixin<usuario_roles>;
+  removeUsuario_role!: Sequelize.HasManyRemoveAssociationMixin<usuario_roles, usuario_rolesId>;
+  removeUsuario_roles!: Sequelize.HasManyRemoveAssociationsMixin<usuario_roles, usuario_rolesId>;
+  hasUsuario_role!: Sequelize.HasManyHasAssociationMixin<usuario_roles, usuario_rolesId>;
+  hasUsuario_roles!: Sequelize.HasManyHasAssociationsMixin<usuario_roles, usuario_rolesId>;
+  countUsuario_roles!: Sequelize.HasManyCountAssociationsMixin;
+  // usuarios hasMany validaciones_qr via validado_por
+  validaciones_qrs!: validaciones_qr[];
+  getValidaciones_qrs!: Sequelize.HasManyGetAssociationsMixin<validaciones_qr>;
+  setValidaciones_qrs!: Sequelize.HasManySetAssociationsMixin<validaciones_qr, validaciones_qrId>;
+  addValidaciones_qr!: Sequelize.HasManyAddAssociationMixin<validaciones_qr, validaciones_qrId>;
+  addValidaciones_qrs!: Sequelize.HasManyAddAssociationsMixin<validaciones_qr, validaciones_qrId>;
+  createValidaciones_qr!: Sequelize.HasManyCreateAssociationMixin<validaciones_qr>;
+  removeValidaciones_qr!: Sequelize.HasManyRemoveAssociationMixin<validaciones_qr, validaciones_qrId>;
+  removeValidaciones_qrs!: Sequelize.HasManyRemoveAssociationsMixin<validaciones_qr, validaciones_qrId>;
+  hasValidaciones_qr!: Sequelize.HasManyHasAssociationMixin<validaciones_qr, validaciones_qrId>;
+  hasValidaciones_qrs!: Sequelize.HasManyHasAssociationsMixin<validaciones_qr, validaciones_qrId>;
+  countValidaciones_qrs!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Usuarios {
-    return Usuarios.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof usuarios {
+    return usuarios.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -265,25 +263,22 @@ export class Usuarios extends Model<UsuariosAttributes, UsuariosCreationAttribut
       allowNull: false,
       unique: "usuarios_email_key"
     },
-    passwordHash: {
+    password_hash: {
       type: DataTypes.STRING(255),
-      allowNull: false,
-      field: 'password_hash'
+      allowNull: false
     },
     nombre: {
       type: DataTypes.STRING(100),
       allowNull: false
     },
-    nombreUsuario: {
+    nombre_usuario: {
       type: DataTypes.STRING(50),
       allowNull: true,
-      unique: "usuarios_nombre_usuario_key",
-      field: 'nombre_usuario'
+      unique: "usuarios_nombre_usuario_key"
     },
-    fotoPerfil: {
+    foto_perfil: {
       type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'foto_perfil'
+      allowNull: true
     },
     descripcion: {
       type: DataTypes.TEXT,
@@ -293,42 +288,49 @@ export class Usuarios extends Model<UsuariosAttributes, UsuariosCreationAttribut
       type: DataTypes.STRING(20),
       allowNull: true
     },
-    fechaNacimiento: {
+    fecha_nacimiento: {
       type: DataTypes.DATEONLY,
-      allowNull: true,
-      field: 'fecha_nacimiento'
+      allowNull: true
     },
     estado: {
       type: DataTypes.STRING(20),
       allowNull: true,
       defaultValue: "activo"
     },
-    nivelId: {
+    nivel_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'niveles_usuario',
         key: 'id'
-      },
-      field: 'nivel_id'
+      }
     },
-    puntosTotales: {
+    puntos_totales: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: 0,
-      field: 'puntos_totales'
+      defaultValue: 0
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
-    actualizadoEn: {
+    actualizado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'actualizado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    solicitud_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'solicitudes',
+        key: 'id'
+      }
+    },
+    puntos: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
@@ -337,28 +339,28 @@ export class Usuarios extends Model<UsuariosAttributes, UsuariosCreationAttribut
     timestamps: false,
     indexes: [
       {
-        name: "idx_usuarios_email",
+        name: "usuarios_email_key",
+        unique: true,
         fields: [
           { name: "email" },
         ]
       },
       {
-        name: "idx_usuarios_estado",
+        name: "usuarios_idx_usuarios_email",
+        fields: [
+          { name: "email" },
+        ]
+      },
+      {
+        name: "usuarios_idx_usuarios_estado",
         fields: [
           { name: "estado" },
         ]
       },
       {
-        name: "idx_usuarios_nombre_usuario",
+        name: "usuarios_idx_usuarios_nombre_usuario",
         fields: [
           { name: "nombre_usuario" },
-        ]
-      },
-      {
-        name: "usuarios_email_key",
-        unique: true,
-        fields: [
-          { name: "email" },
         ]
       },
       {
@@ -373,6 +375,20 @@ export class Usuarios extends Model<UsuariosAttributes, UsuariosCreationAttribut
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "usuarios_usuarios_email_key",
+        unique: true,
+        fields: [
+          { name: "email" },
+        ]
+      },
+      {
+        name: "usuarios_usuarios_nombre_usuario_key",
+        unique: true,
+        fields: [
+          { name: "nombre_usuario" },
         ]
       },
     ]

@@ -1,284 +1,312 @@
 import type { Sequelize } from "sequelize";
-import { Comentarios as _Comentarios } from "./comentarios.js";
-import type { ComentariosAttributes, ComentariosCreationAttributes } from "./comentarios.js";
-import { EstilosCerveza as _EstilosCerveza } from "./estilosCerveza.js";
-import type { EstilosCervezaAttributes, EstilosCervezaCreationAttributes } from "./estilosCerveza.js";
-import { HistorialPuntos as _HistorialPuntos } from "./historialPuntos.js";
-import type { HistorialPuntosAttributes, HistorialPuntosCreationAttributes } from "./historialPuntos.js";
-import { Likes as _Likes } from "./likes.js";
-import type { LikesAttributes, LikesCreationAttributes } from "./likes.js";
-import { Locales as _Locales } from "./locales.js";
-import type { LocalesAttributes, LocalesCreationAttributes } from "./locales.js";
-import { LogsSistema as _LogsSistema } from "./logsSistema.js";
-import type { LogsSistemaAttributes, LogsSistemaCreationAttributes } from "./logsSistema.js";
-import { Marcas as _Marcas } from "./marcas.js";
-import type { MarcasAttributes, MarcasCreationAttributes } from "./marcas.js";
-import { NivelesUsuario as _NivelesUsuario } from "./nivelesUsuario.js";
-import type { NivelesUsuarioAttributes, NivelesUsuarioCreationAttributes } from "./nivelesUsuario.js";
-import { Objetivos as _Objetivos } from "./objetivos.js";
-import type { ObjetivosAttributes, ObjetivosCreationAttributes } from "./objetivos.js";
-import { ProductoEnvases as _ProductoEnvases } from "./productoEnvases.js";
-import type { ProductoEnvasesAttributes, ProductoEnvasesCreationAttributes } from "./productoEnvases.js";
-import { ProductoLocales as _ProductoLocales } from "./productoLocales.js";
-import type { ProductoLocalesAttributes, ProductoLocalesCreationAttributes } from "./productoLocales.js";
-import { Productos as _Productos } from "./productos.js";
-import type { ProductosAttributes, ProductosCreationAttributes } from "./productos.js";
-import { Publicaciones as _Publicaciones } from "./publicaciones.js";
-import type { PublicacionesAttributes, PublicacionesCreationAttributes } from "./publicaciones.js";
-import { RecompensasObtenidas as _RecompensasObtenidas } from "./recompensasObtenidas.js";
-import type { RecompensasObtenidasAttributes, RecompensasObtenidasCreationAttributes } from "./recompensasObtenidas.js";
-import { Roles as _Roles } from "./roles.js";
-import type { RolesAttributes, RolesCreationAttributes } from "./roles.js";
-import { Seguimientos as _Seguimientos } from "./seguimientos.js";
-import type { SeguimientosAttributes, SeguimientosCreationAttributes } from "./seguimientos.js";
-import { Suscripciones as _Suscripciones } from "./suscripciones.js";
-import type { SuscripcionesAttributes, SuscripcionesCreationAttributes } from "./suscripciones.js";
-import { Temporadas as _Temporadas } from "./temporadas.js";
-import type { TemporadasAttributes, TemporadasCreationAttributes } from "./temporadas.js";
-import { TiposEnvase as _TiposEnvase } from "./tiposEnvase.js";
-import type { TiposEnvaseAttributes, TiposEnvaseCreationAttributes } from "./tiposEnvase.js";
-import { TiposPublicacion as _TiposPublicacion } from "./tiposPublicacion.js";
-import type { TiposPublicacionAttributes, TiposPublicacionCreationAttributes } from "./tiposPublicacion.js";
-import { TokensQr as _TokensQr } from "./tokensQr.js";
-import type { TokensQrAttributes, TokensQrCreationAttributes } from "./tokensQr.js";
-import { Ubicaciones as _Ubicaciones } from "./ubicaciones.js";
-import type { UbicacionesAttributes, UbicacionesCreationAttributes } from "./ubicaciones.js";
-import { UsuarioObjetivos as _UsuarioObjetivos } from "./usuarioObjetivos.js";
-import type { UsuarioObjetivosAttributes, UsuarioObjetivosCreationAttributes } from "./usuarioObjetivos.js";
-import { UsuarioRoles as _UsuarioRoles } from "./usuarioRoles.js";
-import type { UsuarioRolesAttributes, UsuarioRolesCreationAttributes } from "./usuarioRoles.js";
-import { Usuarios as _Usuarios } from "./usuarios.js";
-import type { UsuariosAttributes, UsuariosCreationAttributes } from "./usuarios.js";
-import { ValidacionesQr as _ValidacionesQr } from "./validacionesQr.js";
-import type { ValidacionesQrAttributes, ValidacionesQrCreationAttributes } from "./validacionesQr.js";
+import { comentarios as _comentarios } from "./comentarios.js";
+import type { comentariosAttributes, comentariosCreationAttributes } from "./comentarios.js";
+import { estilos_cerveza as _estilos_cerveza } from "./estilos_cerveza.js";
+import type { estilos_cervezaAttributes, estilos_cervezaCreationAttributes } from "./estilos_cerveza.js";
+import { historial_puntos as _historial_puntos } from "./historial_puntos.js";
+import type { historial_puntosAttributes, historial_puntosCreationAttributes } from "./historial_puntos.js";
+import { likes as _likes } from "./likes.js";
+import type { likesAttributes, likesCreationAttributes } from "./likes.js";
+import { locales as _locales } from "./locales.js";
+import type { localesAttributes, localesCreationAttributes } from "./locales.js";
+import { logs_sistema as _logs_sistema } from "./logs_sistema.js";
+import type { logs_sistemaAttributes, logs_sistemaCreationAttributes } from "./logs_sistema.js";
+import { marcas as _marcas } from "./marcas.js";
+import type { marcasAttributes, marcasCreationAttributes } from "./marcas.js";
+import { niveles_usuario as _niveles_usuario } from "./niveles_usuario.js";
+import type { niveles_usuarioAttributes, niveles_usuarioCreationAttributes } from "./niveles_usuario.js";
+import { objetivos as _objetivos } from "./objetivos.js";
+import type { objetivosAttributes, objetivosCreationAttributes } from "./objetivos.js";
+import { producto_envases as _producto_envases } from "./producto_envases.js";
+import type { producto_envasesAttributes, producto_envasesCreationAttributes } from "./producto_envases.js";
+import { producto_locales as _producto_locales } from "./producto_locales.js";
+import type { producto_localesAttributes, producto_localesCreationAttributes } from "./producto_locales.js";
+import { productos as _productos } from "./productos.js";
+import type { productosAttributes, productosCreationAttributes } from "./productos.js";
+import { publicaciones as _publicaciones } from "./publicaciones.js";
+import type { publicacionesAttributes, publicacionesCreationAttributes } from "./publicaciones.js";
+import { recompensas_obtenidas as _recompensas_obtenidas } from "./recompensas_obtenidas.js";
+import type { recompensas_obtenidasAttributes, recompensas_obtenidasCreationAttributes } from "./recompensas_obtenidas.js";
+import { referencias as _referencias } from "./referencias.js";
+import type { referenciasAttributes, referenciasCreationAttributes } from "./referencias.js";
+import { roles as _roles } from "./roles.js";
+import type { rolesAttributes, rolesCreationAttributes } from "./roles.js";
+import { seguimientos as _seguimientos } from "./seguimientos.js";
+import type { seguimientosAttributes, seguimientosCreationAttributes } from "./seguimientos.js";
+import { solicitudes as _solicitudes } from "./solicitudes.js";
+import type { solicitudesAttributes, solicitudesCreationAttributes } from "./solicitudes.js";
+import { sub_objetivos as _sub_objetivos } from "./sub_objetivos.js";
+import type { sub_objetivosAttributes, sub_objetivosCreationAttributes } from "./sub_objetivos.js";
+import { suscripciones as _suscripciones } from "./suscripciones.js";
+import type { suscripcionesAttributes, suscripcionesCreationAttributes } from "./suscripciones.js";
+import { temporadas as _temporadas } from "./temporadas.js";
+import type { temporadasAttributes, temporadasCreationAttributes } from "./temporadas.js";
+import { tipo_referencia as _tipo_referencia } from "./tipo_referencia.js";
+import type { tipo_referenciaAttributes, tipo_referenciaCreationAttributes } from "./tipo_referencia.js";
+import { tipos_envase as _tipos_envase } from "./tipos_envase.js";
+import type { tipos_envaseAttributes, tipos_envaseCreationAttributes } from "./tipos_envase.js";
+import { tipos_publicacion as _tipos_publicacion } from "./tipos_publicacion.js";
+import type { tipos_publicacionAttributes, tipos_publicacionCreationAttributes } from "./tipos_publicacion.js";
+import { tokens_qr as _tokens_qr } from "./tokens_qr.js";
+import type { tokens_qrAttributes, tokens_qrCreationAttributes } from "./tokens_qr.js";
+import { ubicaciones as _ubicaciones } from "./ubicaciones.js";
+import type { ubicacionesAttributes, ubicacionesCreationAttributes } from "./ubicaciones.js";
+import { usuario_objetivos as _usuario_objetivos } from "./usuario_objetivos.js";
+import type { usuario_objetivosAttributes, usuario_objetivosCreationAttributes } from "./usuario_objetivos.js";
+import { usuario_roles as _usuario_roles } from "./usuario_roles.js";
+import type { usuario_rolesAttributes, usuario_rolesCreationAttributes } from "./usuario_roles.js";
+import { usuarios as _usuarios } from "./usuarios.js";
+import type { usuariosAttributes, usuariosCreationAttributes } from "./usuarios.js";
+import { validaciones_qr as _validaciones_qr } from "./validaciones_qr.js";
+import type { validaciones_qrAttributes, validaciones_qrCreationAttributes } from "./validaciones_qr.js";
 
 export {
-  _Comentarios as Comentarios,
-  _EstilosCerveza as EstilosCerveza,
-  _HistorialPuntos as HistorialPuntos,
-  _Likes as Likes,
-  _Locales as Locales,
-  _LogsSistema as LogsSistema,
-  _Marcas as Marcas,
-  _NivelesUsuario as NivelesUsuario,
-  _Objetivos as Objetivos,
-  _ProductoEnvases as ProductoEnvases,
-  _ProductoLocales as ProductoLocales,
-  _Productos as Productos,
-  _Publicaciones as Publicaciones,
-  _RecompensasObtenidas as RecompensasObtenidas,
-  _Roles as Roles,
-  _Seguimientos as Seguimientos,
-  _Suscripciones as Suscripciones,
-  _Temporadas as Temporadas,
-  _TiposEnvase as TiposEnvase,
-  _TiposPublicacion as TiposPublicacion,
-  _TokensQr as TokensQr,
-  _Ubicaciones as Ubicaciones,
-  _UsuarioObjetivos as UsuarioObjetivos,
-  _UsuarioRoles as UsuarioRoles,
-  _Usuarios as Usuarios,
-  _ValidacionesQr as ValidacionesQr,
+  _comentarios as comentarios,
+  _estilos_cerveza as estilos_cerveza,
+  _historial_puntos as historial_puntos,
+  _likes as likes,
+  _locales as locales,
+  _logs_sistema as logs_sistema,
+  _marcas as marcas,
+  _niveles_usuario as niveles_usuario,
+  _objetivos as objetivos,
+  _producto_envases as producto_envases,
+  _producto_locales as producto_locales,
+  _productos as productos,
+  _publicaciones as publicaciones,
+  _recompensas_obtenidas as recompensas_obtenidas,
+  _referencias as referencias,
+  _roles as roles,
+  _seguimientos as seguimientos,
+  _solicitudes as solicitudes,
+  _sub_objetivos as sub_objetivos,
+  _suscripciones as suscripciones,
+  _temporadas as temporadas,
+  _tipo_referencia as tipo_referencia,
+  _tipos_envase as tipos_envase,
+  _tipos_publicacion as tipos_publicacion,
+  _tokens_qr as tokens_qr,
+  _ubicaciones as ubicaciones,
+  _usuario_objetivos as usuario_objetivos,
+  _usuario_roles as usuario_roles,
+  _usuarios as usuarios,
+  _validaciones_qr as validaciones_qr,
 };
 
 export type {
-  ComentariosAttributes,
-  ComentariosCreationAttributes,
-  EstilosCervezaAttributes,
-  EstilosCervezaCreationAttributes,
-  HistorialPuntosAttributes,
-  HistorialPuntosCreationAttributes,
-  LikesAttributes,
-  LikesCreationAttributes,
-  LocalesAttributes,
-  LocalesCreationAttributes,
-  LogsSistemaAttributes,
-  LogsSistemaCreationAttributes,
-  MarcasAttributes,
-  MarcasCreationAttributes,
-  NivelesUsuarioAttributes,
-  NivelesUsuarioCreationAttributes,
-  ObjetivosAttributes,
-  ObjetivosCreationAttributes,
-  ProductoEnvasesAttributes,
-  ProductoEnvasesCreationAttributes,
-  ProductoLocalesAttributes,
-  ProductoLocalesCreationAttributes,
-  ProductosAttributes,
-  ProductosCreationAttributes,
-  PublicacionesAttributes,
-  PublicacionesCreationAttributes,
-  RecompensasObtenidasAttributes,
-  RecompensasObtenidasCreationAttributes,
-  RolesAttributes,
-  RolesCreationAttributes,
-  SeguimientosAttributes,
-  SeguimientosCreationAttributes,
-  SuscripcionesAttributes,
-  SuscripcionesCreationAttributes,
-  TemporadasAttributes,
-  TemporadasCreationAttributes,
-  TiposEnvaseAttributes,
-  TiposEnvaseCreationAttributes,
-  TiposPublicacionAttributes,
-  TiposPublicacionCreationAttributes,
-  TokensQrAttributes,
-  TokensQrCreationAttributes,
-  UbicacionesAttributes,
-  UbicacionesCreationAttributes,
-  UsuarioObjetivosAttributes,
-  UsuarioObjetivosCreationAttributes,
-  UsuarioRolesAttributes,
-  UsuarioRolesCreationAttributes,
-  UsuariosAttributes,
-  UsuariosCreationAttributes,
-  ValidacionesQrAttributes,
-  ValidacionesQrCreationAttributes,
+  comentariosAttributes,
+  comentariosCreationAttributes,
+  estilos_cervezaAttributes,
+  estilos_cervezaCreationAttributes,
+  historial_puntosAttributes,
+  historial_puntosCreationAttributes,
+  likesAttributes,
+  likesCreationAttributes,
+  localesAttributes,
+  localesCreationAttributes,
+  logs_sistemaAttributes,
+  logs_sistemaCreationAttributes,
+  marcasAttributes,
+  marcasCreationAttributes,
+  niveles_usuarioAttributes,
+  niveles_usuarioCreationAttributes,
+  objetivosAttributes,
+  objetivosCreationAttributes,
+  producto_envasesAttributes,
+  producto_envasesCreationAttributes,
+  producto_localesAttributes,
+  producto_localesCreationAttributes,
+  productosAttributes,
+  productosCreationAttributes,
+  publicacionesAttributes,
+  publicacionesCreationAttributes,
+  recompensas_obtenidasAttributes,
+  recompensas_obtenidasCreationAttributes,
+  referenciasAttributes,
+  referenciasCreationAttributes,
+  rolesAttributes,
+  rolesCreationAttributes,
+  seguimientosAttributes,
+  seguimientosCreationAttributes,
+  solicitudesAttributes,
+  solicitudesCreationAttributes,
+  sub_objetivosAttributes,
+  sub_objetivosCreationAttributes,
+  suscripcionesAttributes,
+  suscripcionesCreationAttributes,
+  temporadasAttributes,
+  temporadasCreationAttributes,
+  tipo_referenciaAttributes,
+  tipo_referenciaCreationAttributes,
+  tipos_envaseAttributes,
+  tipos_envaseCreationAttributes,
+  tipos_publicacionAttributes,
+  tipos_publicacionCreationAttributes,
+  tokens_qrAttributes,
+  tokens_qrCreationAttributes,
+  ubicacionesAttributes,
+  ubicacionesCreationAttributes,
+  usuario_objetivosAttributes,
+  usuario_objetivosCreationAttributes,
+  usuario_rolesAttributes,
+  usuario_rolesCreationAttributes,
+  usuariosAttributes,
+  usuariosCreationAttributes,
+  validaciones_qrAttributes,
+  validaciones_qrCreationAttributes,
 };
 
 export function initModels(sequelize: Sequelize) {
-  const Comentarios = _Comentarios.initModel(sequelize);
-  const EstilosCerveza = _EstilosCerveza.initModel(sequelize);
-  const HistorialPuntos = _HistorialPuntos.initModel(sequelize);
-  const Likes = _Likes.initModel(sequelize);
-  const Locales = _Locales.initModel(sequelize);
-  const LogsSistema = _LogsSistema.initModel(sequelize);
-  const Marcas = _Marcas.initModel(sequelize);
-  const NivelesUsuario = _NivelesUsuario.initModel(sequelize);
-  const Objetivos = _Objetivos.initModel(sequelize);
-  const ProductoEnvases = _ProductoEnvases.initModel(sequelize);
-  const ProductoLocales = _ProductoLocales.initModel(sequelize);
-  const Productos = _Productos.initModel(sequelize);
-  const Publicaciones = _Publicaciones.initModel(sequelize);
-  const RecompensasObtenidas = _RecompensasObtenidas.initModel(sequelize);
-  const Roles = _Roles.initModel(sequelize);
-  const Seguimientos = _Seguimientos.initModel(sequelize);
-  const Suscripciones = _Suscripciones.initModel(sequelize);
-  const Temporadas = _Temporadas.initModel(sequelize);
-  const TiposEnvase = _TiposEnvase.initModel(sequelize);
-  const TiposPublicacion = _TiposPublicacion.initModel(sequelize);
-  const TokensQr = _TokensQr.initModel(sequelize);
-  const Ubicaciones = _Ubicaciones.initModel(sequelize);
-  const UsuarioObjetivos = _UsuarioObjetivos.initModel(sequelize);
-  const UsuarioRoles = _UsuarioRoles.initModel(sequelize);
-  const Usuarios = _Usuarios.initModel(sequelize);
-  const ValidacionesQr = _ValidacionesQr.initModel(sequelize);
+  const comentarios = _comentarios.initModel(sequelize);
+  const estilos_cerveza = _estilos_cerveza.initModel(sequelize);
+  const historial_puntos = _historial_puntos.initModel(sequelize);
+  const likes = _likes.initModel(sequelize);
+  const locales = _locales.initModel(sequelize);
+  const logs_sistema = _logs_sistema.initModel(sequelize);
+  const marcas = _marcas.initModel(sequelize);
+  const niveles_usuario = _niveles_usuario.initModel(sequelize);
+  const objetivos = _objetivos.initModel(sequelize);
+  const producto_envases = _producto_envases.initModel(sequelize);
+  const producto_locales = _producto_locales.initModel(sequelize);
+  const productos = _productos.initModel(sequelize);
+  const publicaciones = _publicaciones.initModel(sequelize);
+  const recompensas_obtenidas = _recompensas_obtenidas.initModel(sequelize);
+  const referencias = _referencias.initModel(sequelize);
+  const roles = _roles.initModel(sequelize);
+  const seguimientos = _seguimientos.initModel(sequelize);
+  const solicitudes = _solicitudes.initModel(sequelize);
+  const sub_objetivos = _sub_objetivos.initModel(sequelize);
+  const suscripciones = _suscripciones.initModel(sequelize);
+  const temporadas = _temporadas.initModel(sequelize);
+  const tipo_referencia = _tipo_referencia.initModel(sequelize);
+  const tipos_envase = _tipos_envase.initModel(sequelize);
+  const tipos_publicacion = _tipos_publicacion.initModel(sequelize);
+  const tokens_qr = _tokens_qr.initModel(sequelize);
+  const ubicaciones = _ubicaciones.initModel(sequelize);
+  const usuario_objetivos = _usuario_objetivos.initModel(sequelize);
+  const usuario_roles = _usuario_roles.initModel(sequelize);
+  const usuarios = _usuarios.initModel(sequelize);
+  const validaciones_qr = _validaciones_qr.initModel(sequelize);
 
-  Comentarios.belongsTo(Comentarios, { as: "comentarioPadre", foreignKey: "comentarioPadreId"});
-  Comentarios.hasMany(Comentarios, { as: "comentarios", foreignKey: "comentarioPadreId"});
-  Likes.belongsTo(Comentarios, { as: "comentario", foreignKey: "comentarioId"});
-  Comentarios.hasOne(Likes, { as: "like", foreignKey: "comentarioId"});
-  Productos.belongsTo(EstilosCerveza, { as: "estilo", foreignKey: "estiloId"});
-  EstilosCerveza.hasMany(Productos, { as: "productos", foreignKey: "estiloId"});
-  Objetivos.belongsTo(Locales, { as: "local", foreignKey: "localId"});
-  Locales.hasMany(Objetivos, { as: "objetivos", foreignKey: "localId"});
-  ProductoLocales.belongsTo(Locales, { as: "local", foreignKey: "localId"});
-  Locales.hasMany(ProductoLocales, { as: "productoLocales", foreignKey: "localId"});
-  Publicaciones.belongsTo(Locales, { as: "local", foreignKey: "localId"});
-  Locales.hasMany(Publicaciones, { as: "publicaciones", foreignKey: "localId"});
-  RecompensasObtenidas.belongsTo(Locales, { as: "local", foreignKey: "localId"});
-  Locales.hasMany(RecompensasObtenidas, { as: "recompensasObtenidas", foreignKey: "localId"});
-  Temporadas.belongsTo(Locales, { as: "local", foreignKey: "localId"});
-  Locales.hasMany(Temporadas, { as: "temporadas", foreignKey: "localId"});
-  ValidacionesQr.belongsTo(Locales, { as: "local", foreignKey: "localId"});
-  Locales.hasMany(ValidacionesQr, { as: "validacionesQrs", foreignKey: "localId"});
-  Objetivos.belongsTo(Marcas, { as: "marca", foreignKey: "marcaId"});
-  Marcas.hasMany(Objetivos, { as: "objetivos", foreignKey: "marcaId"});
-  ProductoLocales.belongsTo(Marcas, { as: "marca", foreignKey: "marcaId"});
-  Marcas.hasMany(ProductoLocales, { as: "productoLocales", foreignKey: "marcaId"});
-  Productos.belongsTo(Marcas, { as: "marca", foreignKey: "marcaId"});
-  Marcas.hasMany(Productos, { as: "productos", foreignKey: "marcaId"});
-  Publicaciones.belongsTo(Marcas, { as: "marca", foreignKey: "marcaId"});
-  Marcas.hasMany(Publicaciones, { as: "publicaciones", foreignKey: "marcaId"});
-  Usuarios.belongsTo(NivelesUsuario, { as: "nivel", foreignKey: "nivelId"});
-  NivelesUsuario.hasMany(Usuarios, { as: "usuarios", foreignKey: "nivelId"});
-  RecompensasObtenidas.belongsTo(Objetivos, { as: "objetivo", foreignKey: "objetivoId"});
-  Objetivos.hasMany(RecompensasObtenidas, { as: "recompensasObtenidas", foreignKey: "objetivoId"});
-  TokensQr.belongsTo(Objetivos, { as: "objetivo", foreignKey: "objetivoId"});
-  Objetivos.hasMany(TokensQr, { as: "tokensQrs", foreignKey: "objetivoId"});
-  UsuarioObjetivos.belongsTo(Objetivos, { as: "objetivo", foreignKey: "objetivoId"});
-  Objetivos.hasMany(UsuarioObjetivos, { as: "usuarioObjetivos", foreignKey: "objetivoId"});
-  Objetivos.belongsTo(Productos, { as: "producto", foreignKey: "productoId"});
-  Productos.hasMany(Objetivos, { as: "objetivos", foreignKey: "productoId"});
-  ProductoEnvases.belongsTo(Productos, { as: "producto", foreignKey: "productoId"});
-  Productos.hasMany(ProductoEnvases, { as: "productoEnvases", foreignKey: "productoId"});
-  ProductoLocales.belongsTo(Productos, { as: "producto", foreignKey: "productoId"});
-  Productos.hasMany(ProductoLocales, { as: "productoLocales", foreignKey: "productoId"});
-  Publicaciones.belongsTo(Productos, { as: "producto", foreignKey: "productoId"});
-  Productos.hasMany(Publicaciones, { as: "publicaciones", foreignKey: "productoId"});
-  Comentarios.belongsTo(Publicaciones, { as: "publicacion", foreignKey: "publicacionId"});
-  Publicaciones.hasMany(Comentarios, { as: "comentarios", foreignKey: "publicacionId"});
-  Likes.belongsTo(Publicaciones, { as: "publicacion", foreignKey: "publicacionId"});
-  Publicaciones.hasMany(Likes, { as: "likes", foreignKey: "publicacionId"});
-  UsuarioRoles.belongsTo(Roles, { as: "rol", foreignKey: "rolId"});
-  Roles.hasMany(UsuarioRoles, { as: "usuarioRoles", foreignKey: "rolId"});
-  Objetivos.belongsTo(Temporadas, { as: "temporada", foreignKey: "temporadaId"});
-  Temporadas.hasMany(Objetivos, { as: "objetivos", foreignKey: "temporadaId"});
-  ProductoEnvases.belongsTo(TiposEnvase, { as: "tipoEnvase", foreignKey: "tipoEnvaseId"});
-  TiposEnvase.hasMany(ProductoEnvases, { as: "productoEnvases", foreignKey: "tipoEnvaseId"});
-  Publicaciones.belongsTo(TiposPublicacion, { as: "tipoPublicacion", foreignKey: "tipoPublicacionId"});
-  TiposPublicacion.hasMany(Publicaciones, { as: "publicaciones", foreignKey: "tipoPublicacionId"});
-  ValidacionesQr.belongsTo(UsuarioObjetivos, { as: "usuarioObjetivo", foreignKey: "usuarioObjetivoId"});
-  UsuarioObjetivos.hasMany(ValidacionesQr, { as: "validacionesQrs", foreignKey: "usuarioObjetivoId"});
-  Comentarios.belongsTo(Usuarios, { as: "autor", foreignKey: "autorId"});
-  Usuarios.hasMany(Comentarios, { as: "comentarios", foreignKey: "autorId"});
-  HistorialPuntos.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(HistorialPuntos, { as: "historialPuntos", foreignKey: "usuarioId"});
-  Likes.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(Likes, { as: "likes", foreignKey: "usuarioId"});
-  Locales.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(Locales, { as: "locales", foreignKey: "usuarioId"});
-  LogsSistema.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(LogsSistema, { as: "logsSistemas", foreignKey: "usuarioId"});
-  Marcas.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(Marcas, { as: "marcas", foreignKey: "usuarioId"});
-  Publicaciones.belongsTo(Usuarios, { as: "autor", foreignKey: "autorId"});
-  Usuarios.hasMany(Publicaciones, { as: "publicaciones", foreignKey: "autorId"});
-  RecompensasObtenidas.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(RecompensasObtenidas, { as: "recompensasObtenidas", foreignKey: "usuarioId"});
-  Seguimientos.belongsTo(Usuarios, { as: "seguido", foreignKey: "seguidoId"});
-  Usuarios.hasMany(Seguimientos, { as: "seguimientos", foreignKey: "seguidoId"});
-  Seguimientos.belongsTo(Usuarios, { as: "seguidor", foreignKey: "seguidorId"});
-  Usuarios.hasMany(Seguimientos, { as: "seguidorSeguimientos", foreignKey: "seguidorId"});
-  Suscripciones.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(Suscripciones, { as: "suscripciones", foreignKey: "usuarioId"});
-  TokensQr.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(TokensQr, { as: "tokensQrs", foreignKey: "usuarioId"});
-  UsuarioObjetivos.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(UsuarioObjetivos, { as: "usuarioObjetivos", foreignKey: "usuarioId"});
-  UsuarioRoles.belongsTo(Usuarios, { as: "aprobadoPorUsuario", foreignKey: "aprobadoPor"});
-  Usuarios.hasMany(UsuarioRoles, { as: "usuarioRoles", foreignKey: "aprobadoPor"});
-  UsuarioRoles.belongsTo(Usuarios, { as: "usuario", foreignKey: "usuarioId"});
-  Usuarios.hasMany(UsuarioRoles, { as: "usuarioUsuarioRoles", foreignKey: "usuarioId"});
-  ValidacionesQr.belongsTo(Usuarios, { as: "validadoPorUsuario", foreignKey: "validadoPor"});
-  Usuarios.hasMany(ValidacionesQr, { as: "validacionesQrs", foreignKey: "validadoPor"});
+  comentarios.belongsTo(comentarios, { as: "comentario_padre", foreignKey: "comentario_padre_id"});
+  comentarios.hasMany(comentarios, { as: "comentarios", foreignKey: "comentario_padre_id"});
+  likes.belongsTo(comentarios, { as: "comentario", foreignKey: "comentario_id"});
+  comentarios.hasMany(likes, { as: "likes", foreignKey: "comentario_id"});
+  objetivos.belongsTo(locales, { as: "local", foreignKey: "local_id"});
+  locales.hasMany(objetivos, { as: "objetivos", foreignKey: "local_id"});
+  producto_locales.belongsTo(locales, { as: "local", foreignKey: "local_id"});
+  locales.hasMany(producto_locales, { as: "producto_locales", foreignKey: "local_id"});
+  publicaciones.belongsTo(locales, { as: "local", foreignKey: "local_id"});
+  locales.hasMany(publicaciones, { as: "publicaciones", foreignKey: "local_id"});
+  recompensas_obtenidas.belongsTo(locales, { as: "local", foreignKey: "local_id"});
+  locales.hasMany(recompensas_obtenidas, { as: "recompensas_obtenidas", foreignKey: "local_id"});
+  temporadas.belongsTo(locales, { as: "local", foreignKey: "local_id"});
+  locales.hasMany(temporadas, { as: "temporadas", foreignKey: "local_id"});
+  validaciones_qr.belongsTo(locales, { as: "local", foreignKey: "local_id"});
+  locales.hasMany(validaciones_qr, { as: "validaciones_qrs", foreignKey: "local_id"});
+  objetivos.belongsTo(marcas, { as: "marca", foreignKey: "marca_id"});
+  marcas.hasMany(objetivos, { as: "objetivos", foreignKey: "marca_id"});
+  producto_locales.belongsTo(marcas, { as: "marca", foreignKey: "marca_id"});
+  marcas.hasMany(producto_locales, { as: "producto_locales", foreignKey: "marca_id"});
+  productos.belongsTo(marcas, { as: "marca", foreignKey: "marca_id"});
+  marcas.hasMany(productos, { as: "productos", foreignKey: "marca_id"});
+  publicaciones.belongsTo(marcas, { as: "marca", foreignKey: "marca_id"});
+  marcas.hasMany(publicaciones, { as: "publicaciones", foreignKey: "marca_id"});
+  usuarios.belongsTo(niveles_usuario, { as: "nivel", foreignKey: "nivel_id"});
+  niveles_usuario.hasMany(usuarios, { as: "usuarios", foreignKey: "nivel_id"});
+  recompensas_obtenidas.belongsTo(objetivos, { as: "objetivo", foreignKey: "objetivo_id"});
+  objetivos.hasMany(recompensas_obtenidas, { as: "recompensas_obtenidas", foreignKey: "objetivo_id"});
+  sub_objetivos.belongsTo(objetivos, { as: "objetivo", foreignKey: "objetivo_id"});
+  objetivos.hasMany(sub_objetivos, { as: "sub_objetivos", foreignKey: "objetivo_id"});
+  tokens_qr.belongsTo(objetivos, { as: "objetivo", foreignKey: "objetivo_id"});
+  objetivos.hasMany(tokens_qr, { as: "tokens_qrs", foreignKey: "objetivo_id"});
+  usuario_objetivos.belongsTo(objetivos, { as: "objetivo", foreignKey: "objetivo_id"});
+  objetivos.hasMany(usuario_objetivos, { as: "usuario_objetivos", foreignKey: "objetivo_id"});
+  producto_envases.belongsTo(productos, { as: "producto", foreignKey: "producto_id"});
+  productos.hasMany(producto_envases, { as: "producto_envases", foreignKey: "producto_id"});
+  producto_locales.belongsTo(productos, { as: "producto", foreignKey: "producto_id"});
+  productos.hasMany(producto_locales, { as: "producto_locales", foreignKey: "producto_id"});
+  publicaciones.belongsTo(productos, { as: "producto", foreignKey: "producto_id"});
+  productos.hasMany(publicaciones, { as: "publicaciones", foreignKey: "producto_id"});
+  sub_objetivos.belongsTo(productos, { as: "producto", foreignKey: "producto_id"});
+  productos.hasMany(sub_objetivos, { as: "sub_objetivos", foreignKey: "producto_id"});
+  comentarios.belongsTo(publicaciones, { as: "publicacion", foreignKey: "publicacion_id"});
+  publicaciones.hasMany(comentarios, { as: "comentarios", foreignKey: "publicacion_id"});
+  likes.belongsTo(publicaciones, { as: "publicacion", foreignKey: "publicacion_id"});
+  publicaciones.hasMany(likes, { as: "likes", foreignKey: "publicacion_id"});
+  usuario_roles.belongsTo(roles, { as: "rol", foreignKey: "rol_id"});
+  roles.hasMany(usuario_roles, { as: "usuario_roles", foreignKey: "rol_id"});
+  usuarios.belongsTo(solicitudes, { as: "solicitud", foreignKey: "solicitud_id"});
+  solicitudes.hasMany(usuarios, { as: "usuarios", foreignKey: "solicitud_id"});
+  objetivos.belongsTo(temporadas, { as: "temporada", foreignKey: "temporada_id"});
+  temporadas.hasMany(objetivos, { as: "objetivos", foreignKey: "temporada_id"});
+  referencias.belongsTo(tipo_referencia, { as: "tipo_referencium", foreignKey: "tipo_referencia_id"});
+  tipo_referencia.hasMany(referencias, { as: "referencia", foreignKey: "tipo_referencia_id"});
+  locales.belongsTo(ubicaciones, { as: "ubicacion", foreignKey: "ubicacion_id"});
+  ubicaciones.hasMany(locales, { as: "locales", foreignKey: "ubicacion_id"});
+  validaciones_qr.belongsTo(usuario_objetivos, { as: "usuario_objetivo", foreignKey: "usuario_objetivo_id"});
+  usuario_objetivos.hasMany(validaciones_qr, { as: "validaciones_qrs", foreignKey: "usuario_objetivo_id"});
+  comentarios.belongsTo(usuarios, { as: "autor", foreignKey: "autor_id"});
+  usuarios.hasMany(comentarios, { as: "comentarios", foreignKey: "autor_id"});
+  historial_puntos.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(historial_puntos, { as: "historial_puntos", foreignKey: "usuario_id"});
+  likes.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(likes, { as: "likes", foreignKey: "usuario_id"});
+  locales.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(locales, { as: "locales", foreignKey: "usuario_id"});
+  logs_sistema.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(logs_sistema, { as: "logs_sistemas", foreignKey: "usuario_id"});
+  marcas.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(marcas, { as: "marcas", foreignKey: "usuario_id"});
+  publicaciones.belongsTo(usuarios, { as: "autor", foreignKey: "autor_id"});
+  usuarios.hasMany(publicaciones, { as: "publicaciones", foreignKey: "autor_id"});
+  recompensas_obtenidas.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(recompensas_obtenidas, { as: "recompensas_obtenidas", foreignKey: "usuario_id"});
+  seguimientos.belongsTo(usuarios, { as: "seguido", foreignKey: "seguido_id"});
+  usuarios.hasMany(seguimientos, { as: "seguimientos", foreignKey: "seguido_id"});
+  seguimientos.belongsTo(usuarios, { as: "seguidor", foreignKey: "seguidor_id"});
+  usuarios.hasMany(seguimientos, { as: "seguidor_seguimientos", foreignKey: "seguidor_id"});
+  suscripciones.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(suscripciones, { as: "suscripciones", foreignKey: "usuario_id"});
+  tokens_qr.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(tokens_qr, { as: "tokens_qrs", foreignKey: "usuario_id"});
+  usuario_objetivos.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(usuario_objetivos, { as: "usuario_objetivos", foreignKey: "usuario_id"});
+  usuario_roles.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
+  usuarios.hasMany(usuario_roles, { as: "usuario_roles", foreignKey: "usuario_id"});
+  validaciones_qr.belongsTo(usuarios, { as: "validado_por_usuario", foreignKey: "validado_por"});
+  usuarios.hasMany(validaciones_qr, { as: "validaciones_qrs", foreignKey: "validado_por"});
 
   return {
-    Comentarios: Comentarios,
-    EstilosCerveza: EstilosCerveza,
-    HistorialPuntos: HistorialPuntos,
-    Likes: Likes,
-    Locales: Locales,
-    LogsSistema: LogsSistema,
-    Marcas: Marcas,
-    NivelesUsuario: NivelesUsuario,
-    Objetivos: Objetivos,
-    ProductoEnvases: ProductoEnvases,
-    ProductoLocales: ProductoLocales,
-    Productos: Productos,
-    Publicaciones: Publicaciones,
-    RecompensasObtenidas: RecompensasObtenidas,
-    Roles: Roles,
-    Seguimientos: Seguimientos,
-    Suscripciones: Suscripciones,
-    Temporadas: Temporadas,
-    TiposEnvase: TiposEnvase,
-    TiposPublicacion: TiposPublicacion,
-    TokensQr: TokensQr,
-    Ubicaciones: Ubicaciones,
-    UsuarioObjetivos: UsuarioObjetivos,
-    UsuarioRoles: UsuarioRoles,
-    Usuarios: Usuarios,
-    ValidacionesQr: ValidacionesQr,
+    comentarios: comentarios,
+    estilos_cerveza: estilos_cerveza,
+    historial_puntos: historial_puntos,
+    likes: likes,
+    locales: locales,
+    logs_sistema: logs_sistema,
+    marcas: marcas,
+    niveles_usuario: niveles_usuario,
+    objetivos: objetivos,
+    producto_envases: producto_envases,
+    producto_locales: producto_locales,
+    productos: productos,
+    publicaciones: publicaciones,
+    recompensas_obtenidas: recompensas_obtenidas,
+    referencias: referencias,
+    roles: roles,
+    seguimientos: seguimientos,
+    solicitudes: solicitudes,
+    sub_objetivos: sub_objetivos,
+    suscripciones: suscripciones,
+    temporadas: temporadas,
+    tipo_referencia: tipo_referencia,
+    tipos_envase: tipos_envase,
+    tipos_publicacion: tipos_publicacion,
+    tokens_qr: tokens_qr,
+    ubicaciones: ubicaciones,
+    usuario_objetivos: usuario_objetivos,
+    usuario_roles: usuario_roles,
+    usuarios: usuarios,
+    validaciones_qr: validaciones_qr,
   };
 }

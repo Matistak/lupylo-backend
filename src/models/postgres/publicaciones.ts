@@ -1,136 +1,124 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Comentarios, ComentariosId } from './comentarios.js';
-import type { Likes, LikesId } from './likes.js';
-import type { Locales, LocalesId } from './locales.js';
-import type { Marcas, MarcasId } from './marcas.js';
-import type { Productos, ProductosId } from './productos.js';
-import type { TiposPublicacion, TiposPublicacionId } from './tiposPublicacion.js';
-import type { Usuarios, UsuariosId } from './usuarios.js';
+import type { comentarios, comentariosId } from './comentarios.js';
+import type { likes, likesId } from './likes.js';
+import type { locales, localesId } from './locales.js';
+import type { marcas, marcasId } from './marcas.js';
+import type { productos, productosId } from './productos.js';
+import type { usuarios, usuariosId } from './usuarios.js';
 
-export interface PublicacionesAttributes {
+export interface publicacionesAttributes {
   id: number;
-  autorId: number;
-  tipoPublicacionId: number;
+  autor_id: number;
+  tipo_publicacion_id: number;
   titulo?: string;
   contenido: string;
   imagen?: string;
-  localId?: number;
-  marcaId?: number;
-  productoId?: number;
+  local_id?: number;
+  marca_id?: number;
+  producto_id?: number;
   puntuacion?: number;
-  colorCerveza?: string;
+  color_cerveza?: string;
   aroma?: string;
   sensaciones?: string;
-  maridajeProbado?: string;
-  fechaEvento?: Date;
-  ubicacionEvento?: string;
+  maridaje_probado?: string;
+  fecha_evento?: Date;
+  ubicacion_evento?: string;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 }
 
-export type PublicacionesPk = "id";
-export type PublicacionesId = Publicaciones[PublicacionesPk];
-export type PublicacionesOptionalAttributes = "id" | "titulo" | "imagen" | "localId" | "marcaId" | "productoId" | "puntuacion" | "colorCerveza" | "aroma" | "sensaciones" | "maridajeProbado" | "fechaEvento" | "ubicacionEvento" | "estado" | "creadoEn" | "actualizadoEn";
-export type PublicacionesCreationAttributes = Optional<PublicacionesAttributes, PublicacionesOptionalAttributes>;
+export type publicacionesPk = "id";
+export type publicacionesId = publicaciones[publicacionesPk];
+export type publicacionesOptionalAttributes = "id" | "titulo" | "imagen" | "local_id" | "marca_id" | "producto_id" | "puntuacion" | "color_cerveza" | "aroma" | "sensaciones" | "maridaje_probado" | "fecha_evento" | "ubicacion_evento" | "estado" | "creado_en" | "actualizado_en";
+export type publicacionesCreationAttributes = Optional<publicacionesAttributes, publicacionesOptionalAttributes>;
 
-export class Publicaciones extends Model<PublicacionesAttributes, PublicacionesCreationAttributes> implements PublicacionesAttributes {
+export class publicaciones extends Model<publicacionesAttributes, publicacionesCreationAttributes> implements publicacionesAttributes {
   id!: number;
-  autorId!: number;
-  tipoPublicacionId!: number;
+  autor_id!: number;
+  tipo_publicacion_id!: number;
   titulo?: string;
   contenido!: string;
   imagen?: string;
-  localId?: number;
-  marcaId?: number;
-  productoId?: number;
+  local_id?: number;
+  marca_id?: number;
+  producto_id?: number;
   puntuacion?: number;
-  colorCerveza?: string;
+  color_cerveza?: string;
   aroma?: string;
   sensaciones?: string;
-  maridajeProbado?: string;
-  fechaEvento?: Date;
-  ubicacionEvento?: string;
+  maridaje_probado?: string;
+  fecha_evento?: Date;
+  ubicacion_evento?: string;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 
-  // Publicaciones belongsTo Locales via localId
-  local!: Locales;
-  getLocal!: Sequelize.BelongsToGetAssociationMixin<Locales>;
-  setLocal!: Sequelize.BelongsToSetAssociationMixin<Locales, LocalesId>;
-  createLocal!: Sequelize.BelongsToCreateAssociationMixin<Locales>;
-  // Publicaciones belongsTo Marcas via marcaId
-  marca!: Marcas;
-  getMarca!: Sequelize.BelongsToGetAssociationMixin<Marcas>;
-  setMarca!: Sequelize.BelongsToSetAssociationMixin<Marcas, MarcasId>;
-  createMarca!: Sequelize.BelongsToCreateAssociationMixin<Marcas>;
-  // Publicaciones belongsTo Productos via productoId
-  producto!: Productos;
-  getProducto!: Sequelize.BelongsToGetAssociationMixin<Productos>;
-  setProducto!: Sequelize.BelongsToSetAssociationMixin<Productos, ProductosId>;
-  createProducto!: Sequelize.BelongsToCreateAssociationMixin<Productos>;
-  // Publicaciones hasMany Comentarios via publicacionId
-  comentarios!: Comentarios[];
-  getComentarios!: Sequelize.HasManyGetAssociationsMixin<Comentarios>;
-  setComentarios!: Sequelize.HasManySetAssociationsMixin<Comentarios, ComentariosId>;
-  addComentario!: Sequelize.HasManyAddAssociationMixin<Comentarios, ComentariosId>;
-  addComentarios!: Sequelize.HasManyAddAssociationsMixin<Comentarios, ComentariosId>;
-  createComentario!: Sequelize.HasManyCreateAssociationMixin<Comentarios>;
-  removeComentario!: Sequelize.HasManyRemoveAssociationMixin<Comentarios, ComentariosId>;
-  removeComentarios!: Sequelize.HasManyRemoveAssociationsMixin<Comentarios, ComentariosId>;
-  hasComentario!: Sequelize.HasManyHasAssociationMixin<Comentarios, ComentariosId>;
-  hasComentarios!: Sequelize.HasManyHasAssociationsMixin<Comentarios, ComentariosId>;
+  // publicaciones belongsTo locales via local_id
+  local!: locales;
+  getLocal!: Sequelize.BelongsToGetAssociationMixin<locales>;
+  setLocal!: Sequelize.BelongsToSetAssociationMixin<locales, localesId>;
+  createLocal!: Sequelize.BelongsToCreateAssociationMixin<locales>;
+  // publicaciones belongsTo marcas via marca_id
+  marca!: marcas;
+  getMarca!: Sequelize.BelongsToGetAssociationMixin<marcas>;
+  setMarca!: Sequelize.BelongsToSetAssociationMixin<marcas, marcasId>;
+  createMarca!: Sequelize.BelongsToCreateAssociationMixin<marcas>;
+  // publicaciones belongsTo productos via producto_id
+  producto!: productos;
+  getProducto!: Sequelize.BelongsToGetAssociationMixin<productos>;
+  setProducto!: Sequelize.BelongsToSetAssociationMixin<productos, productosId>;
+  createProducto!: Sequelize.BelongsToCreateAssociationMixin<productos>;
+  // publicaciones hasMany comentarios via publicacion_id
+  comentarios!: comentarios[];
+  getComentarios!: Sequelize.HasManyGetAssociationsMixin<comentarios>;
+  setComentarios!: Sequelize.HasManySetAssociationsMixin<comentarios, comentariosId>;
+  addComentario!: Sequelize.HasManyAddAssociationMixin<comentarios, comentariosId>;
+  addComentarios!: Sequelize.HasManyAddAssociationsMixin<comentarios, comentariosId>;
+  createComentario!: Sequelize.HasManyCreateAssociationMixin<comentarios>;
+  removeComentario!: Sequelize.HasManyRemoveAssociationMixin<comentarios, comentariosId>;
+  removeComentarios!: Sequelize.HasManyRemoveAssociationsMixin<comentarios, comentariosId>;
+  hasComentario!: Sequelize.HasManyHasAssociationMixin<comentarios, comentariosId>;
+  hasComentarios!: Sequelize.HasManyHasAssociationsMixin<comentarios, comentariosId>;
   countComentarios!: Sequelize.HasManyCountAssociationsMixin;
-  // Publicaciones hasMany Likes via publicacionId
-  likes!: Likes[];
-  getLikes!: Sequelize.HasManyGetAssociationsMixin<Likes>;
-  setLikes!: Sequelize.HasManySetAssociationsMixin<Likes, LikesId>;
-  addLike!: Sequelize.HasManyAddAssociationMixin<Likes, LikesId>;
-  addLikes!: Sequelize.HasManyAddAssociationsMixin<Likes, LikesId>;
-  createLike!: Sequelize.HasManyCreateAssociationMixin<Likes>;
-  removeLike!: Sequelize.HasManyRemoveAssociationMixin<Likes, LikesId>;
-  removeLikes!: Sequelize.HasManyRemoveAssociationsMixin<Likes, LikesId>;
-  hasLike!: Sequelize.HasManyHasAssociationMixin<Likes, LikesId>;
-  hasLikes!: Sequelize.HasManyHasAssociationsMixin<Likes, LikesId>;
+  // publicaciones hasMany likes via publicacion_id
+  likes!: likes[];
+  getLikes!: Sequelize.HasManyGetAssociationsMixin<likes>;
+  setLikes!: Sequelize.HasManySetAssociationsMixin<likes, likesId>;
+  addLike!: Sequelize.HasManyAddAssociationMixin<likes, likesId>;
+  addLikes!: Sequelize.HasManyAddAssociationsMixin<likes, likesId>;
+  createLike!: Sequelize.HasManyCreateAssociationMixin<likes>;
+  removeLike!: Sequelize.HasManyRemoveAssociationMixin<likes, likesId>;
+  removeLikes!: Sequelize.HasManyRemoveAssociationsMixin<likes, likesId>;
+  hasLike!: Sequelize.HasManyHasAssociationMixin<likes, likesId>;
+  hasLikes!: Sequelize.HasManyHasAssociationsMixin<likes, likesId>;
   countLikes!: Sequelize.HasManyCountAssociationsMixin;
-  // Publicaciones belongsTo TiposPublicacion via tipoPublicacionId
-  tipoPublicacion!: TiposPublicacion;
-  getTipoPublicacion!: Sequelize.BelongsToGetAssociationMixin<TiposPublicacion>;
-  setTipoPublicacion!: Sequelize.BelongsToSetAssociationMixin<TiposPublicacion, TiposPublicacionId>;
-  createTipoPublicacion!: Sequelize.BelongsToCreateAssociationMixin<TiposPublicacion>;
-  // Publicaciones belongsTo Usuarios via autorId
-  autor!: Usuarios;
-  getAutor!: Sequelize.BelongsToGetAssociationMixin<Usuarios>;
-  setAutor!: Sequelize.BelongsToSetAssociationMixin<Usuarios, UsuariosId>;
-  createAutor!: Sequelize.BelongsToCreateAssociationMixin<Usuarios>;
+  // publicaciones belongsTo usuarios via autor_id
+  autor!: usuarios;
+  getAutor!: Sequelize.BelongsToGetAssociationMixin<usuarios>;
+  setAutor!: Sequelize.BelongsToSetAssociationMixin<usuarios, usuariosId>;
+  createAutor!: Sequelize.BelongsToCreateAssociationMixin<usuarios>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Publicaciones {
-    return Publicaciones.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof publicaciones {
+    return publicaciones.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    autorId: {
+    autor_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'usuarios',
         key: 'id'
-      },
-      field: 'autor_id'
+      }
     },
-    tipoPublicacionId: {
+    tipo_publicacion_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'tipos_publicacion',
-        key: 'id'
-      },
-      field: 'tipo_publicacion_id'
+      allowNull: false
     },
     titulo: {
       type: DataTypes.STRING(200),
@@ -144,41 +132,37 @@ export class Publicaciones extends Model<PublicacionesAttributes, PublicacionesC
       type: DataTypes.TEXT,
       allowNull: true
     },
-    localId: {
+    local_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'locales',
         key: 'id'
-      },
-      field: 'local_id'
+      }
     },
-    marcaId: {
+    marca_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'marcas',
         key: 'id'
-      },
-      field: 'marca_id'
+      }
     },
-    productoId: {
+    producto_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'productos',
         key: 'id'
-      },
-      field: 'producto_id'
+      }
     },
     puntuacion: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    colorCerveza: {
+    color_cerveza: {
       type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'color_cerveza'
+      allowNull: true
     },
     aroma: {
       type: DataTypes.TEXT,
@@ -188,37 +172,32 @@ export class Publicaciones extends Model<PublicacionesAttributes, PublicacionesC
       type: DataTypes.TEXT,
       allowNull: true
     },
-    maridajeProbado: {
+    maridaje_probado: {
       type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'maridaje_probado'
+      allowNull: true
     },
-    fechaEvento: {
+    fecha_evento: {
       type: DataTypes.DATE,
-      allowNull: true,
-      field: 'fecha_evento'
+      allowNull: true
     },
-    ubicacionEvento: {
+    ubicacion_evento: {
       type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'ubicacion_evento'
+      allowNull: true
     },
     estado: {
       type: DataTypes.STRING(20),
       allowNull: true,
       defaultValue: "activa"
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
-    actualizadoEn: {
+    actualizado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'actualizado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
@@ -240,6 +219,24 @@ export class Publicaciones extends Model<PublicacionesAttributes, PublicacionesC
       },
       {
         name: "idx_publicaciones_tipo",
+        fields: [
+          { name: "tipo_publicacion_id" },
+        ]
+      },
+      {
+        name: "publicaciones_idx_publicaciones_autor",
+        fields: [
+          { name: "autor_id" },
+        ]
+      },
+      {
+        name: "publicaciones_idx_publicaciones_fecha",
+        fields: [
+          { name: "creado_en" },
+        ]
+      },
+      {
+        name: "publicaciones_idx_publicaciones_tipo",
         fields: [
           { name: "tipo_publicacion_id" },
         ]

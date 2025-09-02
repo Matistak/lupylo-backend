@@ -1,111 +1,113 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Likes, LikesCreationAttributes, LikesId } from './likes.js';
-import type { Publicaciones, PublicacionesId } from './publicaciones.js';
-import type { Usuarios, UsuariosId } from './usuarios.js';
+import type { likes, likesId } from './likes.js';
+import type { publicaciones, publicacionesId } from './publicaciones.js';
+import type { usuarios, usuariosId } from './usuarios.js';
 
-export interface ComentariosAttributes {
+export interface comentariosAttributes {
   id: number;
-  publicacionId: number;
-  autorId: number;
+  publicacion_id: number;
+  autor_id: number;
   contenido: string;
-  comentarioPadreId?: number;
+  comentario_padre_id?: number; 
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 }
 
-export type ComentariosPk = "id";
-export type ComentariosId = Comentarios[ComentariosPk];
-export type ComentariosOptionalAttributes = "id" | "comentarioPadreId" | "estado" | "creadoEn" | "actualizadoEn";
-export type ComentariosCreationAttributes = Optional<ComentariosAttributes, ComentariosOptionalAttributes>;
+export type comentariosPk = "id";
+export type comentariosId = comentarios[comentariosPk];
+export type comentariosOptionalAttributes = "id" | "comentario_padre_id" | "estado" | "creado_en" | "actualizado_en";
+export type comentariosCreationAttributes = Optional<comentariosAttributes, comentariosOptionalAttributes>;
 
-export class Comentarios extends Model<ComentariosAttributes, ComentariosCreationAttributes> implements ComentariosAttributes {
+export class comentarios extends Model<comentariosAttributes, comentariosCreationAttributes> implements comentariosAttributes {
   id!: number;
-  publicacionId!: number;
-  autorId!: number;
+  publicacion_id!: number;
+  autor_id!: number;
   contenido!: string;
-  comentarioPadreId?: number;
+  comentario_padre_id?: number;
   estado?: string;
-  creadoEn?: Date;
-  actualizadoEn?: Date;
+  creado_en?: Date;
+  actualizado_en?: Date;
 
-  // Comentarios belongsTo Comentarios via comentarioPadreId
-  comentarioPadre!: Comentarios;
-  getComentarioPadre!: Sequelize.BelongsToGetAssociationMixin<Comentarios>;
-  setComentarioPadre!: Sequelize.BelongsToSetAssociationMixin<Comentarios, ComentariosId>;
-  createComentarioPadre!: Sequelize.BelongsToCreateAssociationMixin<Comentarios>;
-  // Comentarios hasOne Likes via comentarioId
-  like!: Likes;
-  getLike!: Sequelize.HasOneGetAssociationMixin<Likes>;
-  setLike!: Sequelize.HasOneSetAssociationMixin<Likes, LikesId>;
-  createLike!: Sequelize.HasOneCreateAssociationMixin<Likes>;
-  // Comentarios belongsTo Publicaciones via publicacionId
-  publicacion!: Publicaciones;
-  getPublicacion!: Sequelize.BelongsToGetAssociationMixin<Publicaciones>;
-  setPublicacion!: Sequelize.BelongsToSetAssociationMixin<Publicaciones, PublicacionesId>;
-  createPublicacion!: Sequelize.BelongsToCreateAssociationMixin<Publicaciones>;
-  // Comentarios belongsTo Usuarios via autorId
-  autor!: Usuarios;
-  getAutor!: Sequelize.BelongsToGetAssociationMixin<Usuarios>;
-  setAutor!: Sequelize.BelongsToSetAssociationMixin<Usuarios, UsuariosId>;
-  createAutor!: Sequelize.BelongsToCreateAssociationMixin<Usuarios>;
+  // comentarios belongsTo comentarios via comentario_padre_id
+  comentario_padre!: comentarios;
+  getComentario_padre!: Sequelize.BelongsToGetAssociationMixin<comentarios>;
+  setComentario_padre!: Sequelize.BelongsToSetAssociationMixin<comentarios, comentariosId>;
+  createComentario_padre!: Sequelize.BelongsToCreateAssociationMixin<comentarios>;
+  // comentarios hasMany likes via comentario_id
+  likes!: likes[];
+  getLikes!: Sequelize.HasManyGetAssociationsMixin<likes>;
+  setLikes!: Sequelize.HasManySetAssociationsMixin<likes, likesId>;
+  addLike!: Sequelize.HasManyAddAssociationMixin<likes, likesId>;
+  addLikes!: Sequelize.HasManyAddAssociationsMixin<likes, likesId>;
+  createLike!: Sequelize.HasManyCreateAssociationMixin<likes>;
+  removeLike!: Sequelize.HasManyRemoveAssociationMixin<likes, likesId>;
+  removeLikes!: Sequelize.HasManyRemoveAssociationsMixin<likes, likesId>;
+  hasLike!: Sequelize.HasManyHasAssociationMixin<likes, likesId>;
+  hasLikes!: Sequelize.HasManyHasAssociationsMixin<likes, likesId>;
+  countLikes!: Sequelize.HasManyCountAssociationsMixin;
+  // comentarios belongsTo publicaciones via publicacion_id
+  publicacion!: publicaciones;
+  getPublicacion!: Sequelize.BelongsToGetAssociationMixin<publicaciones>;
+  setPublicacion!: Sequelize.BelongsToSetAssociationMixin<publicaciones, publicacionesId>;
+  createPublicacion!: Sequelize.BelongsToCreateAssociationMixin<publicaciones>;
+  // comentarios belongsTo usuarios via autor_id
+  autor!: usuarios;
+  getAutor!: Sequelize.BelongsToGetAssociationMixin<usuarios>;
+  setAutor!: Sequelize.BelongsToSetAssociationMixin<usuarios, usuariosId>;
+  createAutor!: Sequelize.BelongsToCreateAssociationMixin<usuarios>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Comentarios {
-    return Comentarios.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof comentarios {
+    return comentarios.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    publicacionId: {
+    publicacion_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'publicaciones',
         key: 'id'
-      },
-      field: 'publicacion_id'
+      }
     },
-    autorId: {
+    autor_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'usuarios',
         key: 'id'
-      },
-      field: 'autor_id'
+      }
     },
     contenido: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    comentarioPadreId: {
+    comentario_padre_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'comentarios',
         key: 'id'
-      },
-      field: 'comentario_padre_id'
+      }
     },
     estado: {
       type: DataTypes.STRING(20),
       allowNull: true,
       defaultValue: "activo"
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
-    actualizadoEn: {
+    actualizado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'actualizado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,

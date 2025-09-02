@@ -1,40 +1,40 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { UsuarioRoles, UsuarioRolesId } from './usuarioRoles.js';
+import type { usuario_roles, usuario_rolesId } from './usuario_roles.js';
 
-export interface RolesAttributes {
+export interface rolesAttributes {
   id: number;
   nombre: string;
   descripcion?: string;
-  creadoEn?: Date;
+  creado_en?: Date;
 }
 
-export type RolesPk = "id";
-export type RolesId = Roles[RolesPk];
-export type RolesOptionalAttributes = "id" | "descripcion" | "creadoEn";
-export type RolesCreationAttributes = Optional<RolesAttributes, RolesOptionalAttributes>;
+export type rolesPk = "id";
+export type rolesId = roles[rolesPk];
+export type rolesOptionalAttributes = "id" | "descripcion" | "creado_en";
+export type rolesCreationAttributes = Optional<rolesAttributes, rolesOptionalAttributes>;
 
-export class Roles extends Model<RolesAttributes, RolesCreationAttributes> implements RolesAttributes {
+export class roles extends Model<rolesAttributes, rolesCreationAttributes> implements rolesAttributes {
   id!: number;
   nombre!: string;
   descripcion?: string;
-  creadoEn?: Date;
+  creado_en?: Date;
 
-  // Roles hasMany UsuarioRoles via rolId
-  usuarioRoles!: UsuarioRoles[];
-  getUsuarioRoles!: Sequelize.HasManyGetAssociationsMixin<UsuarioRoles>;
-  setUsuarioRoles!: Sequelize.HasManySetAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  addUsuarioRole!: Sequelize.HasManyAddAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  addUsuarioRoles!: Sequelize.HasManyAddAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  createUsuarioRole!: Sequelize.HasManyCreateAssociationMixin<UsuarioRoles>;
-  removeUsuarioRole!: Sequelize.HasManyRemoveAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  removeUsuarioRoles!: Sequelize.HasManyRemoveAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  hasUsuarioRole!: Sequelize.HasManyHasAssociationMixin<UsuarioRoles, UsuarioRolesId>;
-  hasUsuarioRoles!: Sequelize.HasManyHasAssociationsMixin<UsuarioRoles, UsuarioRolesId>;
-  countUsuarioRoles!: Sequelize.HasManyCountAssociationsMixin;
+  // roles hasMany usuario_roles via rol_id
+  usuario_roles!: usuario_roles[];
+  getUsuario_roles!: Sequelize.HasManyGetAssociationsMixin<usuario_roles>;
+  setUsuario_roles!: Sequelize.HasManySetAssociationsMixin<usuario_roles, usuario_rolesId>;
+  addUsuario_role!: Sequelize.HasManyAddAssociationMixin<usuario_roles, usuario_rolesId>;
+  addUsuario_roles!: Sequelize.HasManyAddAssociationsMixin<usuario_roles, usuario_rolesId>;
+  createUsuario_role!: Sequelize.HasManyCreateAssociationMixin<usuario_roles>;
+  removeUsuario_role!: Sequelize.HasManyRemoveAssociationMixin<usuario_roles, usuario_rolesId>;
+  removeUsuario_roles!: Sequelize.HasManyRemoveAssociationsMixin<usuario_roles, usuario_rolesId>;
+  hasUsuario_role!: Sequelize.HasManyHasAssociationMixin<usuario_roles, usuario_rolesId>;
+  hasUsuario_roles!: Sequelize.HasManyHasAssociationsMixin<usuario_roles, usuario_rolesId>;
+  countUsuario_roles!: Sequelize.HasManyCountAssociationsMixin;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Roles {
-    return Roles.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof roles {
+    return roles.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -50,11 +50,10 @@ export class Roles extends Model<RolesAttributes, RolesCreationAttributes> imple
       type: DataTypes.TEXT,
       allowNull: true
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
@@ -74,6 +73,13 @@ export class Roles extends Model<RolesAttributes, RolesCreationAttributes> imple
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "roles_roles_nombre_key",
+        unique: true,
+        fields: [
+          { name: "nombre" },
         ]
       },
     ]

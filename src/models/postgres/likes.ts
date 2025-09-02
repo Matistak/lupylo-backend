@@ -1,88 +1,81 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { Comentarios, ComentariosId } from './comentarios.js';
-import type { Publicaciones, PublicacionesId } from './publicaciones.js';
-import type { Usuarios, UsuariosId } from './usuarios.js';
+import type { comentarios, comentariosId } from './comentarios.js';
+import type { publicaciones, publicacionesId } from './publicaciones.js';
+import type { usuarios, usuariosId } from './usuarios.js';
 
-export interface LikesAttributes {
+export interface likesAttributes {
   id: number;
-  usuarioId: number;
-  publicacionId?: number;
-  comentarioId?: number;
-  creadoEn?: Date;
+  usuario_id: number;
+  publicacion_id?: number;
+  comentario_id?: number;
+  creado_en?: Date;
 }
 
-export type LikesPk = "id";
-export type LikesId = Likes[LikesPk];
-export type LikesOptionalAttributes = "id" | "publicacionId" | "comentarioId" | "creadoEn";
-export type LikesCreationAttributes = Optional<LikesAttributes, LikesOptionalAttributes>;
+export type likesPk = "id";
+export type likesId = likes[likesPk];
+export type likesOptionalAttributes = "id" | "publicacion_id" | "comentario_id" | "creado_en";
+export type likesCreationAttributes = Optional<likesAttributes, likesOptionalAttributes>;
 
-export class Likes extends Model<LikesAttributes, LikesCreationAttributes> implements LikesAttributes {
+export class likes extends Model<likesAttributes, likesCreationAttributes> implements likesAttributes {
   id!: number;
-  usuarioId!: number;
-  publicacionId?: number;
-  comentarioId?: number;
-  creadoEn?: Date;
+  usuario_id!: number;
+  publicacion_id?: number;
+  comentario_id?: number;
+  creado_en?: Date;
 
-  // Likes belongsTo Comentarios via comentarioId
-  comentario!: Comentarios;
-  getComentario!: Sequelize.BelongsToGetAssociationMixin<Comentarios>;
-  setComentario!: Sequelize.BelongsToSetAssociationMixin<Comentarios, ComentariosId>;
-  createComentario!: Sequelize.BelongsToCreateAssociationMixin<Comentarios>;
-  // Likes belongsTo Publicaciones via publicacionId
-  publicacion!: Publicaciones;
-  getPublicacion!: Sequelize.BelongsToGetAssociationMixin<Publicaciones>;
-  setPublicacion!: Sequelize.BelongsToSetAssociationMixin<Publicaciones, PublicacionesId>;
-  createPublicacion!: Sequelize.BelongsToCreateAssociationMixin<Publicaciones>;
-  // Likes belongsTo Usuarios via usuarioId
-  usuario!: Usuarios;
-  getUsuario!: Sequelize.BelongsToGetAssociationMixin<Usuarios>;
-  setUsuario!: Sequelize.BelongsToSetAssociationMixin<Usuarios, UsuariosId>;
-  createUsuario!: Sequelize.BelongsToCreateAssociationMixin<Usuarios>;
+  // likes belongsTo comentarios via comentario_id
+  comentario!: comentarios;
+  getComentario!: Sequelize.BelongsToGetAssociationMixin<comentarios>;
+  setComentario!: Sequelize.BelongsToSetAssociationMixin<comentarios, comentariosId>;
+  createComentario!: Sequelize.BelongsToCreateAssociationMixin<comentarios>;
+  // likes belongsTo publicaciones via publicacion_id
+  publicacion!: publicaciones;
+  getPublicacion!: Sequelize.BelongsToGetAssociationMixin<publicaciones>;
+  setPublicacion!: Sequelize.BelongsToSetAssociationMixin<publicaciones, publicacionesId>;
+  createPublicacion!: Sequelize.BelongsToCreateAssociationMixin<publicaciones>;
+  // likes belongsTo usuarios via usuario_id
+  usuario!: usuarios;
+  getUsuario!: Sequelize.BelongsToGetAssociationMixin<usuarios>;
+  setUsuario!: Sequelize.BelongsToSetAssociationMixin<usuarios, usuariosId>;
+  createUsuario!: Sequelize.BelongsToCreateAssociationMixin<usuarios>;
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Likes {
-    return Likes.init({
+  static initModel(sequelize: Sequelize.Sequelize): typeof likes {
+    return likes.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    usuarioId: {
+    usuario_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'usuarios',
         key: 'id'
-      },
-      unique: "likes_usuario_id_publicacion_id_key",
-      field: 'usuario_id'
+      }
     },
-    publicacionId: {
+    publicacion_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'publicaciones',
         key: 'id'
-      },
-      unique: "likes_usuario_id_publicacion_id_key",
-      field: 'publicacion_id'
+      }
     },
-    comentarioId: {
+    comentario_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'comentarios',
         key: 'id'
-      },
-      unique: "likes_usuario_id_comentario_id_key",
-      field: 'comentario_id'
+      }
     },
-    creadoEn: {
+    creado_en: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      field: 'creado_en'
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
@@ -90,6 +83,22 @@ export class Likes extends Model<LikesAttributes, LikesCreationAttributes> imple
     schema: 'proyecto_tesis',
     timestamps: false,
     indexes: [
+      {
+        name: "likes_likes_usuario_id_comentario_id_key",
+        unique: true,
+        fields: [
+          { name: "usuario_id" },
+          { name: "comentario_id" },
+        ]
+      },
+      {
+        name: "likes_likes_usuario_id_publicacion_id_key",
+        unique: true,
+        fields: [
+          { name: "usuario_id" },
+          { name: "publicacion_id" },
+        ]
+      },
       {
         name: "likes_pkey",
         unique: true,

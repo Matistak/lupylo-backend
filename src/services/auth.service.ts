@@ -2,17 +2,17 @@ import bcrypt from 'bcryptjs';
 import aunthRepository from '../repositories/aunth.repository.js';
 import jwt from 'jsonwebtoken';
 import { ACCESS_TOKEN_EXPIRATION, ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../index.js';
-import { UsuariosAttributes } from '@/models/postgres/usuarios.js';
+import { usuariosAttributes } from '@/models/postgres/usuarios.js';
 
-const registerUserService = async (userData: UsuariosAttributes) => {
+const registerUserService = async (userData: usuariosAttributes) => {
 
     const existingUser = await aunthRepository.findUserByEmail(userData.email);
     if (existingUser) throw new Error('User already exists');
 
-    const hashedPassword = await bcrypt.hash(userData.passwordHash, 10);
+    const hashedPassword = await bcrypt.hash(userData.password_hash, 10);
     const newUser = {
         ...userData,
-        passwordHash: hashedPassword,
+        password_hash: hashedPassword,
     }
     return await aunthRepository.createUser(newUser);
 };
@@ -21,7 +21,7 @@ const loginUserService = async (email: string, passwordHash: string) => {
     const user = await aunthRepository.findUserByEmail(email);
     if (!user) throw new Error('Email not found');
 
-    const isPasswordValid = await bcrypt.compare(passwordHash, user.passwordHash);
+    const isPasswordValid = await bcrypt.compare(passwordHash, user.password_hash);
     if (!isPasswordValid) throw new Error('Invalid password');
 
     const accessToken = jwt.sign({ email }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });
