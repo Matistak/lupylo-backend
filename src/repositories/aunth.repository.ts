@@ -1,36 +1,35 @@
-import models from '../models/init-models.js'
-import { UsuarioAttributes } from '../models/usuario.js';
+import { usuarios, usuariosAttributes } from "@/models/postgres/usuarios.js";
 
-const { usuario } = models;
 
-const createUser = async (userData: UsuarioAttributes) => {
-  return await usuario.create(userData)
+
+const createUser = async (userData: usuariosAttributes) => {
+  return await usuarios.create(userData)
 };
 
 const findUserByUsername = async (username: string) => {
-  return await usuario.findOne({ where: { nombre: username } });;
+  return await usuarios.findOne({ where: { nombre: username } });
 };
 
-const findUserByRefreshToken = async (refreshToken: string) => {
-  return await usuario.findOne({ where: { refreshToken } });
+const findUserByEmail = async (email: string) => {
+  return await usuarios.findOne({ where: { email } });
 };
 
-/* const getAllUsers = async () => {
-  return await User.findAll();
+/* const getAllUsuarios = async () => {
+  return await usuarios.findAll();
 };
 
 const getUserById = async (id) => {
-  return await User.findByPk(id);
+  return await usuarios.findByPk(id);
 };
 
 const updateUser = async (id, userData) => {
-  const user = await User.findByPk(id);
+  const user = await usuarios.findByPk(id);
   if (!user) throw new Error('User not found');
   return await user.update(userData);
 };
 
 const deleteUser = async (id) => {
-  const user = await User.findByPk(id);
+  const user = await usuarios.findByPk(id);
   if (!user) throw new Error('User not found');
   await user.destroy();
 }; */
@@ -38,9 +37,5 @@ const deleteUser = async (id) => {
 export default {
   createUser,
   findUserByUsername,
-  findUserByRefreshToken
-/*   getAllUsers,
-  getUserById,
-  updateUser,
-  deleteUser, */
+  findUserByEmail
 };
