@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -23,7 +22,6 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 app.use('/auth', authRouter);
 

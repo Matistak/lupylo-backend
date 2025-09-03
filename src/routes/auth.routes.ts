@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { authenticateController, loginUserController, registerUserController, tokenUserController} from "../controllers/usuario.controller.js";
 
-const router = Router();
+const authRouter = Router();
 
-router.post("/registerUser", registerUserController);
-router.post("/login", loginUserController);
-router.get("/protected", authenticateController);
-router.post("/newAccessToken", tokenUserController);
+authRouter.post("/registerUser", registerUserController);
+authRouter.post("/login", loginUserController);
+authRouter.get("/protected", authenticateController);
+authRouter.post("/newAccessToken", tokenUserController);
 
-export default router;
+export default authRouter;
