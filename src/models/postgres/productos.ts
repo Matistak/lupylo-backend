@@ -1,10 +1,10 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { marcas, marcasId } from './marcas.js';
-import type { producto_envases, producto_envasesId } from './producto_envases.js';
-import type { producto_locales, producto_localesId } from './producto_locales.js';
-import type { publicaciones, publicacionesId } from './publicaciones.js';
-import type { sub_objetivos, sub_objetivosId } from './sub_objetivos.js';
+import type { marcas, marcasId } from './marcas';
+import type { producto_envases, producto_envasesId } from './producto_envases';
+import type { producto_locales, producto_localesId } from './producto_locales';
+import type { publicaciones, publicacionesId } from './publicaciones';
+import type { sub_objetivos, sub_objetivosId } from './sub_objetivos';
 
 export interface productosAttributes {
   id: number;

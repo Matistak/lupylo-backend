@@ -1,8 +1,8 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { objetivos, objetivosId } from './objetivos.js';
-import type { usuarios, usuariosId } from './usuarios.js';
-import type { validaciones_qr, validaciones_qrId } from './validaciones_qr.js';
+import type { objetivos, objetivosId } from './objetivos';
+import type { usuarios, usuariosId } from './usuarios';
+import type { validaciones_qr, validaciones_qrId } from './validaciones_qr';
 
 export interface usuario_objetivosAttributes {
   id: number;

@@ -1,8 +1,8 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { locales, localesId } from './locales.js';
-import type { marcas, marcasId } from './marcas.js';
-import type { productos, productosId } from './productos.js';
+import type { locales, localesId } from './locales';
+import type { marcas, marcasId } from './marcas';
+import type { productos, productosId } from './productos';
 
 export interface producto_localesAttributes {
   id: number;

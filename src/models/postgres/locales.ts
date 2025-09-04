@@ -1,19 +1,18 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { objetivos, objetivosId } from './objetivos.js';
-import type { producto_locales, producto_localesId } from './producto_locales.js';
-import type { publicaciones, publicacionesId } from './publicaciones.js';
-import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas.js';
-import type { temporadas, temporadasId } from './temporadas.js';
-import type { ubicaciones, ubicacionesId } from './ubicaciones.js';
-import type { usuarios, usuariosId } from './usuarios.js';
-import type { validaciones_qr, validaciones_qrId } from './validaciones_qr.js';
+import type { objetivos, objetivosId } from './objetivos';
+import type { producto_locales, producto_localesId } from './producto_locales';
+import type { publicaciones, publicacionesId } from './publicaciones';
+import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas';
+import type { temporadas, temporadasId } from './temporadas';
+import type { ubicaciones, ubicacionesId } from './ubicaciones';
+import type { usuarios, usuariosId } from './usuarios';
+import type { validaciones_qr, validaciones_qrId } from './validaciones_qr';
 
 export interface localesAttributes {
   id: number;
   usuario_id: number;
   nombre_establecimiento: string;
-  tipo_local: string;
   descripcion?: string;
   ubicacion_id: number;
   telefono?: string;
@@ -33,7 +32,6 @@ export class locales extends Model<localesAttributes, localesCreationAttributes>
   id!: number;
   usuario_id!: number;
   nombre_establecimiento!: string;
-  tipo_local!: string;
   descripcion?: string;
   ubicacion_id!: number;
   telefono?: string;
@@ -144,10 +142,6 @@ export class locales extends Model<localesAttributes, localesCreationAttributes>
     },
     nombre_establecimiento: {
       type: DataTypes.STRING(150),
-      allowNull: false
-    },
-    tipo_local: {
-      type: DataTypes.STRING(50),
       allowNull: false
     },
     descripcion: {

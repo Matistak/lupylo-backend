@@ -20,7 +20,6 @@ CREATE SEQUENCE IF NOT EXISTS tokens_qr_id_seq;
 CREATE SEQUENCE IF NOT EXISTS publicaciones_id_seq;
 CREATE SEQUENCE IF NOT EXISTS producto_envases_id_seq;
 CREATE SEQUENCE IF NOT EXISTS roles_id_seq;
-CREATE SEQUENCE IF NOT EXISTS usuario_roles_id_seq;
 CREATE SEQUENCE IF NOT EXISTS locales_id_seq;
 
 CREATE TABLE "proyecto_tesis"."referencias" (
@@ -122,6 +121,9 @@ ON "proyecto_tesis"."productos" ("marca_id");
 
 CREATE TABLE "proyecto_tesis"."usuarios" (
     "id" integer NOT NULL DEFAULT nextval('usuarios_id_seq'::regclass),
+    "rol_id" integer,
+    "nivel_id" integer,
+    "solicitud_id" integer,
     "email" character varying(255) NOT NULL UNIQUE,
     "password_hash" character varying(255) NOT NULL,
     "nombre" character varying(100) NOT NULL,
@@ -131,11 +133,9 @@ CREATE TABLE "proyecto_tesis"."usuarios" (
     "telefono" character varying(20),
     "fecha_nacimiento" date,
     "estado" character varying(20) DEFAULT '''activo''::character varying',
-    "nivel_id" integer,
     "puntos_totales" integer DEFAULT 0,
     "creado_en" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     "actualizado_en" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    "solicitud_id" integer,
     "puntos" integer,
     PRIMARY KEY ("id")
 );
@@ -161,8 +161,6 @@ CREATE TABLE "proyecto_tesis"."marcas" (
     "id" integer NOT NULL DEFAULT nextval('marcas_id_seq'::regclass),
     "usuario_id" integer NOT NULL,
     "nombre_comercial" character varying(150) NOT NULL,
-    "razon_social" character varying(200),
-    "ruc" character varying(20) UNIQUE,
     "descripcion" text,
     "sitio_web" character varying(255),
     "año_fundacion" integer,
@@ -173,9 +171,6 @@ CREATE TABLE "proyecto_tesis"."marcas" (
     PRIMARY KEY ("id")
 );
 
-
-CREATE UNIQUE INDEX "marcas_marcas_ruc_key"
-ON "proyecto_tesis"."marcas" ("ruc");
 
 
 CREATE TABLE "proyecto_tesis"."logs_sistema" (
@@ -370,9 +365,13 @@ ON "proyecto_tesis"."ubicaciones" ("latitud", "longitud");
 
 CREATE TABLE "proyecto_tesis"."solicitudes" (
     "id" integer NOT NULL,
+    "rol_id" integer,
+    "usuario_admin_id" integer,
+    "datos" jsonb,
     "estado" character varying,
     "fecha_solicitud" timestamp,
     "fecha_aprobacion" timestamp,
+    "motivo" integer,
     PRIMARY KEY ("id")
 );
 
@@ -504,26 +503,12 @@ CREATE UNIQUE INDEX "roles_roles_nombre_key"
 ON "proyecto_tesis"."roles" ("nombre");
 
 
-CREATE TABLE "proyecto_tesis"."usuario_roles" (
-    "id" integer NOT NULL DEFAULT nextval('usuario_roles_id_seq'::regclass),
-    "usuario_id" integer NOT NULL,
-    "rol_id" integer NOT NULL,
-    "estado" character varying(20) DEFAULT '''pendiente''::character varying',
-    PRIMARY KEY ("id")
-);
-
-
-CREATE UNIQUE INDEX "usuario_roles_usuario_roles_usuario_id_rol_id_key"
-ON "proyecto_tesis"."usuario_roles" ("usuario_id", "rol_id");
-
-
 CREATE TABLE "proyecto_tesis"."locales" (
     "id" integer NOT NULL DEFAULT nextval('locales_id_seq'::regclass),
     "usuario_id" integer NOT NULL,
-    "nombre_establecimiento" character varying(150) NOT NULL,
-    "tipo_local" character varying(50) NOT NULL,
-    "descripcion" text,
     "ubicacion_id" integer NOT NULL,
+    "nombre_establecimiento" character varying(150) NOT NULL,
+    "descripcion" text,
     "telefono" character varying(20),
     "horario_atencion" jsonb,
     "imagen" text,
@@ -643,14 +628,11 @@ ADD CONSTRAINT "fk_usuario_objetivos_objetivo_id_objetivos_id" FOREIGN KEY("obje
 ALTER TABLE "proyecto_tesis"."usuario_objetivos"
 ADD CONSTRAINT "fk_usuario_objetivos_usuario_id_usuarios_id" FOREIGN KEY("usuario_id") REFERENCES "proyecto_tesis"."usuarios"("id");
 
-ALTER TABLE "proyecto_tesis"."usuario_roles"
-ADD CONSTRAINT "fk_usuario_roles_rol_id_roles_id" FOREIGN KEY("rol_id") REFERENCES "proyecto_tesis"."roles"("id");
-
-ALTER TABLE "proyecto_tesis"."usuario_roles"
-ADD CONSTRAINT "fk_usuario_roles_usuario_id_usuarios_id" FOREIGN KEY("usuario_id") REFERENCES "proyecto_tesis"."usuarios"("id");
-
 ALTER TABLE "proyecto_tesis"."usuarios"
 ADD CONSTRAINT "fk_usuarios_nivel_id_niveles_usuario_id" FOREIGN KEY("nivel_id") REFERENCES "proyecto_tesis"."niveles_usuario"("id");
+
+ALTER TABLE "proyecto_tesis"."usuarios"
+ADD CONSTRAINT "fk_usuarios_rol_id_roles_id" FOREIGN KEY("rol_id") REFERENCES "proyecto_tesis"."roles"("id");
 
 ALTER TABLE "proyecto_tesis"."usuarios"
 ADD CONSTRAINT "fk_usuarios_solicitud_id_solicitudes_id" FOREIGN KEY("solicitud_id") REFERENCES "proyecto_tesis"."solicitudes"("id");

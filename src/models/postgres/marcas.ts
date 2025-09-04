@@ -1,17 +1,15 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { objetivos, objetivosId } from './objetivos.js';
-import type { producto_locales, producto_localesId } from './producto_locales.js';
-import type { productos, productosId } from './productos.js';
-import type { publicaciones, publicacionesId } from './publicaciones.js';
-import type { usuarios, usuariosId } from './usuarios.js';
+import type { objetivos, objetivosId } from './objetivos';
+import type { producto_locales, producto_localesId } from './producto_locales';
+import type { productos, productosId } from './productos';
+import type { publicaciones, publicacionesId } from './publicaciones';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface marcasAttributes {
   id: number;
   usuario_id: number;
   nombre_comercial: string;
-  razon_social?: string;
-  ruc?: string;
   descripcion?: string;
   sitio_web?: string;
   'año_fundacion'?: number;
@@ -23,15 +21,13 @@ export interface marcasAttributes {
 
 export type marcasPk = "id";
 export type marcasId = marcas[marcasPk];
-export type marcasOptionalAttributes = "id" | "razon_social" | "ruc" | "descripcion" | "sitio_web" | "año_fundacion" | "logo" | "estado" | "creado_en" | "actualizado_en";
+export type marcasOptionalAttributes = "id" | "descripcion" | "sitio_web" | "año_fundacion" | "logo" | "estado" | "creado_en" | "actualizado_en";
 export type marcasCreationAttributes = Optional<marcasAttributes, marcasOptionalAttributes>;
 
 export class marcas extends Model<marcasAttributes, marcasCreationAttributes> implements marcasAttributes {
   id!: number;
   usuario_id!: number;
   nombre_comercial!: string;
-  razon_social?: string;
-  ruc?: string;
   descripcion?: string;
   sitio_web?: string;
   'año_fundacion'?: number;
@@ -114,15 +110,6 @@ export class marcas extends Model<marcasAttributes, marcasCreationAttributes> im
       type: DataTypes.STRING(150),
       allowNull: false
     },
-    razon_social: {
-      type: DataTypes.STRING(200),
-      allowNull: true
-    },
-    ruc: {
-      type: DataTypes.STRING(20),
-      allowNull: true,
-      unique: "marcas_ruc_key"
-    },
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: true
@@ -161,24 +148,10 @@ export class marcas extends Model<marcasAttributes, marcasCreationAttributes> im
     timestamps: false,
     indexes: [
       {
-        name: "marcas_marcas_ruc_key",
-        unique: true,
-        fields: [
-          { name: "ruc" },
-        ]
-      },
-      {
         name: "marcas_pkey",
         unique: true,
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "marcas_ruc_key",
-        unique: true,
-        fields: [
-          { name: "ruc" },
         ]
       },
     ]

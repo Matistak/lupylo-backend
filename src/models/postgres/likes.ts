@@ -1,8 +1,8 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { comentarios, comentariosId } from './comentarios.js';
-import type { publicaciones, publicacionesId } from './publicaciones.js';
-import type { usuarios, usuariosId } from './usuarios.js';
+import type { comentarios, comentariosId } from './comentarios';
+import type { publicaciones, publicacionesId } from './publicaciones';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface likesAttributes {
   id: number;

@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { locales, localesId } from './locales.js';
-import type { objetivos, objetivosId } from './objetivos.js';
+import type { locales, localesId } from './locales';
+import type { objetivos, objetivosId } from './objetivos';
 
 export interface temporadasAttributes {
   id: number;

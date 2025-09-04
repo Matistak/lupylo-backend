@@ -1,8 +1,8 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { locales, localesId } from './locales.js';
-import type { usuario_objetivos, usuario_objetivosId } from './usuario_objetivos.js';
-import type { usuarios, usuariosId } from './usuarios.js';
+import type { locales, localesId } from './locales';
+import type { usuario_objetivos, usuario_objetivosId } from './usuario_objetivos';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface validaciones_qrAttributes {
   id: number;

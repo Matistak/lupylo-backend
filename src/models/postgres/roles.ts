@@ -1,6 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { usuario_roles, usuario_rolesId } from './usuario_roles.js';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface rolesAttributes {
   id: number;
@@ -20,18 +20,18 @@ export class roles extends Model<rolesAttributes, rolesCreationAttributes> imple
   descripcion?: string;
   creado_en?: Date;
 
-  // roles hasMany usuario_roles via rol_id
-  usuario_roles!: usuario_roles[];
-  getUsuario_roles!: Sequelize.HasManyGetAssociationsMixin<usuario_roles>;
-  setUsuario_roles!: Sequelize.HasManySetAssociationsMixin<usuario_roles, usuario_rolesId>;
-  addUsuario_role!: Sequelize.HasManyAddAssociationMixin<usuario_roles, usuario_rolesId>;
-  addUsuario_roles!: Sequelize.HasManyAddAssociationsMixin<usuario_roles, usuario_rolesId>;
-  createUsuario_role!: Sequelize.HasManyCreateAssociationMixin<usuario_roles>;
-  removeUsuario_role!: Sequelize.HasManyRemoveAssociationMixin<usuario_roles, usuario_rolesId>;
-  removeUsuario_roles!: Sequelize.HasManyRemoveAssociationsMixin<usuario_roles, usuario_rolesId>;
-  hasUsuario_role!: Sequelize.HasManyHasAssociationMixin<usuario_roles, usuario_rolesId>;
-  hasUsuario_roles!: Sequelize.HasManyHasAssociationsMixin<usuario_roles, usuario_rolesId>;
-  countUsuario_roles!: Sequelize.HasManyCountAssociationsMixin;
+  // roles hasMany usuarios via rol_id
+  usuarios!: usuarios[];
+  getUsuarios!: Sequelize.HasManyGetAssociationsMixin<usuarios>;
+  setUsuarios!: Sequelize.HasManySetAssociationsMixin<usuarios, usuariosId>;
+  addUsuario!: Sequelize.HasManyAddAssociationMixin<usuarios, usuariosId>;
+  addUsuarios!: Sequelize.HasManyAddAssociationsMixin<usuarios, usuariosId>;
+  createUsuario!: Sequelize.HasManyCreateAssociationMixin<usuarios>;
+  removeUsuario!: Sequelize.HasManyRemoveAssociationMixin<usuarios, usuariosId>;
+  removeUsuarios!: Sequelize.HasManyRemoveAssociationsMixin<usuarios, usuariosId>;
+  hasUsuario!: Sequelize.HasManyHasAssociationMixin<usuarios, usuariosId>;
+  hasUsuarios!: Sequelize.HasManyHasAssociationsMixin<usuarios, usuariosId>;
+  countUsuarios!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof roles {
     return roles.init({

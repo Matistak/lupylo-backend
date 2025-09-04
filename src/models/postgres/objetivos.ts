@@ -1,12 +1,12 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { locales, localesId } from './locales.js';
-import type { marcas, marcasId } from './marcas.js';
-import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas.js';
-import type { sub_objetivos, sub_objetivosId } from './sub_objetivos.js';
-import type { temporadas, temporadasId } from './temporadas.js';
-import type { tokens_qr, tokens_qrId } from './tokens_qr.js';
-import type { usuario_objetivos, usuario_objetivosId } from './usuario_objetivos.js';
+import type { locales, localesId } from './locales';
+import type { marcas, marcasId } from './marcas';
+import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas';
+import type { sub_objetivos, sub_objetivosId } from './sub_objetivos';
+import type { temporadas, temporadasId } from './temporadas';
+import type { tokens_qr, tokens_qrId } from './tokens_qr';
+import type { usuario_objetivos, usuario_objetivosId } from './usuario_objetivos';
 
 export interface objetivosAttributes {
   id: number;

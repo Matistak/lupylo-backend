@@ -1,64 +1,62 @@
 import type { Sequelize } from "sequelize";
-import { comentarios as _comentarios } from "./comentarios.js";
-import type { comentariosAttributes, comentariosCreationAttributes } from "./comentarios.js";
-import { estilos_cerveza as _estilos_cerveza } from "./estilos_cerveza.js";
-import type { estilos_cervezaAttributes, estilos_cervezaCreationAttributes } from "./estilos_cerveza.js";
-import { historial_puntos as _historial_puntos } from "./historial_puntos.js";
-import type { historial_puntosAttributes, historial_puntosCreationAttributes } from "./historial_puntos.js";
-import { likes as _likes } from "./likes.js";
-import type { likesAttributes, likesCreationAttributes } from "./likes.js";
-import { locales as _locales } from "./locales.js";
-import type { localesAttributes, localesCreationAttributes } from "./locales.js";
-import { logs_sistema as _logs_sistema } from "./logs_sistema.js";
-import type { logs_sistemaAttributes, logs_sistemaCreationAttributes } from "./logs_sistema.js";
-import { marcas as _marcas } from "./marcas.js";
-import type { marcasAttributes, marcasCreationAttributes } from "./marcas.js";
-import { niveles_usuario as _niveles_usuario } from "./niveles_usuario.js";
-import type { niveles_usuarioAttributes, niveles_usuarioCreationAttributes } from "./niveles_usuario.js";
-import { objetivos as _objetivos } from "./objetivos.js";
-import type { objetivosAttributes, objetivosCreationAttributes } from "./objetivos.js";
-import { producto_envases as _producto_envases } from "./producto_envases.js";
-import type { producto_envasesAttributes, producto_envasesCreationAttributes } from "./producto_envases.js";
-import { producto_locales as _producto_locales } from "./producto_locales.js";
-import type { producto_localesAttributes, producto_localesCreationAttributes } from "./producto_locales.js";
-import { productos as _productos } from "./productos.js";
-import type { productosAttributes, productosCreationAttributes } from "./productos.js";
-import { publicaciones as _publicaciones } from "./publicaciones.js";
-import type { publicacionesAttributes, publicacionesCreationAttributes } from "./publicaciones.js";
-import { recompensas_obtenidas as _recompensas_obtenidas } from "./recompensas_obtenidas.js";
-import type { recompensas_obtenidasAttributes, recompensas_obtenidasCreationAttributes } from "./recompensas_obtenidas.js";
-import { referencias as _referencias } from "./referencias.js";
-import type { referenciasAttributes, referenciasCreationAttributes } from "./referencias.js";
-import { roles as _roles } from "./roles.js";
-import type { rolesAttributes, rolesCreationAttributes } from "./roles.js";
-import { seguimientos as _seguimientos } from "./seguimientos.js";
-import type { seguimientosAttributes, seguimientosCreationAttributes } from "./seguimientos.js";
-import { solicitudes as _solicitudes } from "./solicitudes.js";
-import type { solicitudesAttributes, solicitudesCreationAttributes } from "./solicitudes.js";
-import { sub_objetivos as _sub_objetivos } from "./sub_objetivos.js";
-import type { sub_objetivosAttributes, sub_objetivosCreationAttributes } from "./sub_objetivos.js";
-import { suscripciones as _suscripciones } from "./suscripciones.js";
-import type { suscripcionesAttributes, suscripcionesCreationAttributes } from "./suscripciones.js";
-import { temporadas as _temporadas } from "./temporadas.js";
-import type { temporadasAttributes, temporadasCreationAttributes } from "./temporadas.js";
-import { tipo_referencia as _tipo_referencia } from "./tipo_referencia.js";
-import type { tipo_referenciaAttributes, tipo_referenciaCreationAttributes } from "./tipo_referencia.js";
-import { tipos_envase as _tipos_envase } from "./tipos_envase.js";
-import type { tipos_envaseAttributes, tipos_envaseCreationAttributes } from "./tipos_envase.js";
-import { tipos_publicacion as _tipos_publicacion } from "./tipos_publicacion.js";
-import type { tipos_publicacionAttributes, tipos_publicacionCreationAttributes } from "./tipos_publicacion.js";
-import { tokens_qr as _tokens_qr } from "./tokens_qr.js";
-import type { tokens_qrAttributes, tokens_qrCreationAttributes } from "./tokens_qr.js";
-import { ubicaciones as _ubicaciones } from "./ubicaciones.js";
-import type { ubicacionesAttributes, ubicacionesCreationAttributes } from "./ubicaciones.js";
-import { usuario_objetivos as _usuario_objetivos } from "./usuario_objetivos.js";
-import type { usuario_objetivosAttributes, usuario_objetivosCreationAttributes } from "./usuario_objetivos.js";
-import { usuario_roles as _usuario_roles } from "./usuario_roles.js";
-import type { usuario_rolesAttributes, usuario_rolesCreationAttributes } from "./usuario_roles.js";
-import { usuarios as _usuarios } from "./usuarios.js";
-import type { usuariosAttributes, usuariosCreationAttributes } from "./usuarios.js";
-import { validaciones_qr as _validaciones_qr } from "./validaciones_qr.js";
-import type { validaciones_qrAttributes, validaciones_qrCreationAttributes } from "./validaciones_qr.js";
+import { comentarios as _comentarios } from "./comentarios";
+import type { comentariosAttributes, comentariosCreationAttributes } from "./comentarios";
+import { estilos_cerveza as _estilos_cerveza } from "./estilos_cerveza";
+import type { estilos_cervezaAttributes, estilos_cervezaCreationAttributes } from "./estilos_cerveza";
+import { historial_puntos as _historial_puntos } from "./historial_puntos";
+import type { historial_puntosAttributes, historial_puntosCreationAttributes } from "./historial_puntos";
+import { likes as _likes } from "./likes";
+import type { likesAttributes, likesCreationAttributes } from "./likes";
+import { locales as _locales } from "./locales";
+import type { localesAttributes, localesCreationAttributes } from "./locales";
+import { logs_sistema as _logs_sistema } from "./logs_sistema";
+import type { logs_sistemaAttributes, logs_sistemaCreationAttributes } from "./logs_sistema";
+import { marcas as _marcas } from "./marcas";
+import type { marcasAttributes, marcasCreationAttributes } from "./marcas";
+import { niveles_usuario as _niveles_usuario } from "./niveles_usuario";
+import type { niveles_usuarioAttributes, niveles_usuarioCreationAttributes } from "./niveles_usuario";
+import { objetivos as _objetivos } from "./objetivos";
+import type { objetivosAttributes, objetivosCreationAttributes } from "./objetivos";
+import { producto_envases as _producto_envases } from "./producto_envases";
+import type { producto_envasesAttributes, producto_envasesCreationAttributes } from "./producto_envases";
+import { producto_locales as _producto_locales } from "./producto_locales";
+import type { producto_localesAttributes, producto_localesCreationAttributes } from "./producto_locales";
+import { productos as _productos } from "./productos";
+import type { productosAttributes, productosCreationAttributes } from "./productos";
+import { publicaciones as _publicaciones } from "./publicaciones";
+import type { publicacionesAttributes, publicacionesCreationAttributes } from "./publicaciones";
+import { recompensas_obtenidas as _recompensas_obtenidas } from "./recompensas_obtenidas";
+import type { recompensas_obtenidasAttributes, recompensas_obtenidasCreationAttributes } from "./recompensas_obtenidas";
+import { referencias as _referencias } from "./referencias";
+import type { referenciasAttributes, referenciasCreationAttributes } from "./referencias";
+import { roles as _roles } from "./roles";
+import type { rolesAttributes, rolesCreationAttributes } from "./roles";
+import { seguimientos as _seguimientos } from "./seguimientos";
+import type { seguimientosAttributes, seguimientosCreationAttributes } from "./seguimientos";
+import { solicitudes as _solicitudes } from "./solicitudes";
+import type { solicitudesAttributes, solicitudesCreationAttributes } from "./solicitudes";
+import { sub_objetivos as _sub_objetivos } from "./sub_objetivos";
+import type { sub_objetivosAttributes, sub_objetivosCreationAttributes } from "./sub_objetivos";
+import { suscripciones as _suscripciones } from "./suscripciones";
+import type { suscripcionesAttributes, suscripcionesCreationAttributes } from "./suscripciones";
+import { temporadas as _temporadas } from "./temporadas";
+import type { temporadasAttributes, temporadasCreationAttributes } from "./temporadas";
+import { tipo_referencia as _tipo_referencia } from "./tipo_referencia";
+import type { tipo_referenciaAttributes, tipo_referenciaCreationAttributes } from "./tipo_referencia";
+import { tipos_envase as _tipos_envase } from "./tipos_envase";
+import type { tipos_envaseAttributes, tipos_envaseCreationAttributes } from "./tipos_envase";
+import { tipos_publicacion as _tipos_publicacion } from "./tipos_publicacion";
+import type { tipos_publicacionAttributes, tipos_publicacionCreationAttributes } from "./tipos_publicacion";
+import { tokens_qr as _tokens_qr } from "./tokens_qr";
+import type { tokens_qrAttributes, tokens_qrCreationAttributes } from "./tokens_qr";
+import { ubicaciones as _ubicaciones } from "./ubicaciones";
+import type { ubicacionesAttributes, ubicacionesCreationAttributes } from "./ubicaciones";
+import { usuario_objetivos as _usuario_objetivos } from "./usuario_objetivos";
+import type { usuario_objetivosAttributes, usuario_objetivosCreationAttributes } from "./usuario_objetivos";
+import { usuarios as _usuarios } from "./usuarios";
+import type { usuariosAttributes, usuariosCreationAttributes } from "./usuarios";
+import { validaciones_qr as _validaciones_qr } from "./validaciones_qr";
+import type { validaciones_qrAttributes, validaciones_qrCreationAttributes } from "./validaciones_qr";
 
 export {
   _comentarios as comentarios,
@@ -88,7 +86,6 @@ export {
   _tokens_qr as tokens_qr,
   _ubicaciones as ubicaciones,
   _usuario_objetivos as usuario_objetivos,
-  _usuario_roles as usuario_roles,
   _usuarios as usuarios,
   _validaciones_qr as validaciones_qr,
 };
@@ -148,8 +145,6 @@ export type {
   ubicacionesCreationAttributes,
   usuario_objetivosAttributes,
   usuario_objetivosCreationAttributes,
-  usuario_rolesAttributes,
-  usuario_rolesCreationAttributes,
   usuariosAttributes,
   usuariosCreationAttributes,
   validaciones_qrAttributes,
@@ -184,7 +179,6 @@ export function initModels(sequelize: Sequelize) {
   const tokens_qr = _tokens_qr.initModel(sequelize);
   const ubicaciones = _ubicaciones.initModel(sequelize);
   const usuario_objetivos = _usuario_objetivos.initModel(sequelize);
-  const usuario_roles = _usuario_roles.initModel(sequelize);
   const usuarios = _usuarios.initModel(sequelize);
   const validaciones_qr = _validaciones_qr.initModel(sequelize);
 
@@ -234,8 +228,8 @@ export function initModels(sequelize: Sequelize) {
   publicaciones.hasMany(comentarios, { as: "comentarios", foreignKey: "publicacion_id"});
   likes.belongsTo(publicaciones, { as: "publicacion", foreignKey: "publicacion_id"});
   publicaciones.hasMany(likes, { as: "likes", foreignKey: "publicacion_id"});
-  usuario_roles.belongsTo(roles, { as: "rol", foreignKey: "rol_id"});
-  roles.hasMany(usuario_roles, { as: "usuario_roles", foreignKey: "rol_id"});
+  usuarios.belongsTo(roles, { as: "rol", foreignKey: "rol_id"});
+  roles.hasMany(usuarios, { as: "usuarios", foreignKey: "rol_id"});
   usuarios.belongsTo(solicitudes, { as: "solicitud", foreignKey: "solicitud_id"});
   solicitudes.hasMany(usuarios, { as: "usuarios", foreignKey: "solicitud_id"});
   objetivos.belongsTo(temporadas, { as: "temporada", foreignKey: "temporada_id"});
@@ -272,8 +266,6 @@ export function initModels(sequelize: Sequelize) {
   usuarios.hasMany(tokens_qr, { as: "tokens_qrs", foreignKey: "usuario_id"});
   usuario_objetivos.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
   usuarios.hasMany(usuario_objetivos, { as: "usuario_objetivos", foreignKey: "usuario_id"});
-  usuario_roles.belongsTo(usuarios, { as: "usuario", foreignKey: "usuario_id"});
-  usuarios.hasMany(usuario_roles, { as: "usuario_roles", foreignKey: "usuario_id"});
   validaciones_qr.belongsTo(usuarios, { as: "validado_por_usuario", foreignKey: "validado_por"});
   usuarios.hasMany(validaciones_qr, { as: "validaciones_qrs", foreignKey: "validado_por"});
 
@@ -305,7 +297,6 @@ export function initModels(sequelize: Sequelize) {
     tokens_qr: tokens_qr,
     ubicaciones: ubicaciones,
     usuario_objetivos: usuario_objetivos,
-    usuario_roles: usuario_roles,
     usuarios: usuarios,
     validaciones_qr: validaciones_qr,
   };

@@ -1,6 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { referencias, referenciasId } from './referencias.js';
+import type { referencias, referenciasId } from './referencias';
 
 export interface tipo_referenciaAttributes {
   id: number;

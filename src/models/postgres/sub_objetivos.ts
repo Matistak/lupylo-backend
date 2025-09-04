@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { objetivos, objetivosId } from './objetivos.js';
-import type { productos, productosId } from './productos.js';
+import type { objetivos, objetivosId } from './objetivos';
+import type { productos, productosId } from './productos';
 
 export interface sub_objetivosAttributes {
   id: number;

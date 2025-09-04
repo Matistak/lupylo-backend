@@ -1,6 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { usuarios, usuariosId } from './usuarios.js';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface suscripcionesAttributes {
   id: number;

@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { objetivos, objetivosId } from './objetivos.js';
-import type { usuarios, usuariosId } from './usuarios.js';
+import type { objetivos, objetivosId } from './objetivos';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface tokens_qrAttributes {
   id: number;

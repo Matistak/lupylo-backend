@@ -1,8 +1,8 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { locales, localesId } from './locales.js';
-import type { objetivos, objetivosId } from './objetivos.js';
-import type { usuarios, usuariosId } from './usuarios.js';
+import type { locales, localesId } from './locales';
+import type { objetivos, objetivosId } from './objetivos';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface recompensas_obtenidasAttributes {
   id: number;

@@ -1,21 +1,21 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { comentarios, comentariosId } from './comentarios.js';
-import type { historial_puntos, historial_puntosId } from './historial_puntos.js';
-import type { likes, likesId } from './likes.js';
-import type { locales, localesId } from './locales.js';
-import type { logs_sistema, logs_sistemaId } from './logs_sistema.js';
-import type { marcas, marcasId } from './marcas.js';
-import type { niveles_usuario, niveles_usuarioId } from './niveles_usuario.js';
-import type { publicaciones, publicacionesId } from './publicaciones.js';
-import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas.js';
-import type { seguimientos, seguimientosId } from './seguimientos.js';
-import type { solicitudes, solicitudesId } from './solicitudes.js';
-import type { suscripciones, suscripcionesId } from './suscripciones.js';
-import type { tokens_qr, tokens_qrId } from './tokens_qr.js';
-import type { usuario_objetivos, usuario_objetivosId } from './usuario_objetivos.js';
-import type { usuario_roles, usuario_rolesId } from './usuario_roles.js';
-import type { validaciones_qr, validaciones_qrId } from './validaciones_qr.js';
+import type { comentarios, comentariosId } from './comentarios';
+import type { historial_puntos, historial_puntosId } from './historial_puntos';
+import type { likes, likesId } from './likes';
+import type { locales, localesId } from './locales';
+import type { logs_sistema, logs_sistemaId } from './logs_sistema';
+import type { marcas, marcasId } from './marcas';
+import type { niveles_usuario, niveles_usuarioId } from './niveles_usuario';
+import type { publicaciones, publicacionesId } from './publicaciones';
+import type { recompensas_obtenidas, recompensas_obtenidasId } from './recompensas_obtenidas';
+import type { roles, rolesId } from './roles';
+import type { seguimientos, seguimientosId } from './seguimientos';
+import type { solicitudes, solicitudesId } from './solicitudes';
+import type { suscripciones, suscripcionesId } from './suscripciones';
+import type { tokens_qr, tokens_qrId } from './tokens_qr';
+import type { usuario_objetivos, usuario_objetivosId } from './usuario_objetivos';
+import type { validaciones_qr, validaciones_qrId } from './validaciones_qr';
 
 export interface usuariosAttributes {
   id: number;
@@ -34,11 +34,12 @@ export interface usuariosAttributes {
   actualizado_en?: Date;
   solicitud_id?: number;
   puntos?: number;
+  rol_id?: number;
 }
 
 export type usuariosPk = "id";
 export type usuariosId = usuarios[usuariosPk];
-export type usuariosOptionalAttributes = "id" | "nombre_usuario" | "foto_perfil" | "descripcion" | "telefono" | "fecha_nacimiento" | "estado" | "nivel_id" | "puntos_totales" | "creado_en" | "actualizado_en" | "solicitud_id" | "puntos";
+export type usuariosOptionalAttributes = "id" | "nombre_usuario" | "foto_perfil" | "descripcion" | "telefono" | "fecha_nacimiento" | "estado" | "nivel_id" | "puntos_totales" | "creado_en" | "actualizado_en" | "solicitud_id" | "puntos" | "rol_id";
 export type usuariosCreationAttributes = Optional<usuariosAttributes, usuariosOptionalAttributes>;
 
 export class usuarios extends Model<usuariosAttributes, usuariosCreationAttributes> implements usuariosAttributes {
@@ -58,12 +59,18 @@ export class usuarios extends Model<usuariosAttributes, usuariosCreationAttribut
   actualizado_en?: Date;
   solicitud_id?: number;
   puntos?: number;
+  rol_id?: number;
 
   // usuarios belongsTo niveles_usuario via nivel_id
   nivel!: niveles_usuario;
   getNivel!: Sequelize.BelongsToGetAssociationMixin<niveles_usuario>;
   setNivel!: Sequelize.BelongsToSetAssociationMixin<niveles_usuario, niveles_usuarioId>;
   createNivel!: Sequelize.BelongsToCreateAssociationMixin<niveles_usuario>;
+  // usuarios belongsTo roles via rol_id
+  rol!: roles;
+  getRol!: Sequelize.BelongsToGetAssociationMixin<roles>;
+  setRol!: Sequelize.BelongsToSetAssociationMixin<roles, rolesId>;
+  createRol!: Sequelize.BelongsToCreateAssociationMixin<roles>;
   // usuarios belongsTo solicitudes via solicitud_id
   solicitud!: solicitudes;
   getSolicitud!: Sequelize.BelongsToGetAssociationMixin<solicitudes>;
@@ -225,18 +232,6 @@ export class usuarios extends Model<usuariosAttributes, usuariosCreationAttribut
   hasUsuario_objetivo!: Sequelize.HasManyHasAssociationMixin<usuario_objetivos, usuario_objetivosId>;
   hasUsuario_objetivos!: Sequelize.HasManyHasAssociationsMixin<usuario_objetivos, usuario_objetivosId>;
   countUsuario_objetivos!: Sequelize.HasManyCountAssociationsMixin;
-  // usuarios hasMany usuario_roles via usuario_id
-  usuario_roles!: usuario_roles[];
-  getUsuario_roles!: Sequelize.HasManyGetAssociationsMixin<usuario_roles>;
-  setUsuario_roles!: Sequelize.HasManySetAssociationsMixin<usuario_roles, usuario_rolesId>;
-  addUsuario_role!: Sequelize.HasManyAddAssociationMixin<usuario_roles, usuario_rolesId>;
-  addUsuario_roles!: Sequelize.HasManyAddAssociationsMixin<usuario_roles, usuario_rolesId>;
-  createUsuario_role!: Sequelize.HasManyCreateAssociationMixin<usuario_roles>;
-  removeUsuario_role!: Sequelize.HasManyRemoveAssociationMixin<usuario_roles, usuario_rolesId>;
-  removeUsuario_roles!: Sequelize.HasManyRemoveAssociationsMixin<usuario_roles, usuario_rolesId>;
-  hasUsuario_role!: Sequelize.HasManyHasAssociationMixin<usuario_roles, usuario_rolesId>;
-  hasUsuario_roles!: Sequelize.HasManyHasAssociationsMixin<usuario_roles, usuario_rolesId>;
-  countUsuario_roles!: Sequelize.HasManyCountAssociationsMixin;
   // usuarios hasMany validaciones_qr via validado_por
   validaciones_qrs!: validaciones_qr[];
   getValidaciones_qrs!: Sequelize.HasManyGetAssociationsMixin<validaciones_qr>;
@@ -331,6 +326,14 @@ export class usuarios extends Model<usuariosAttributes, usuariosCreationAttribut
     puntos: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    rol_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'roles',
+        key: 'id'
+      }
     }
   }, {
     sequelize,

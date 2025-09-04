@@ -1,17 +1,21 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { usuarios, usuariosId } from './usuarios.js';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface solicitudesAttributes {
   id: number;
   estado?: string;
   fecha_solicitud?: Date;
   fecha_aprobacion?: Date;
+  rol_id?: number;
+  usuario_admin_id?: number;
+  datos?: object;
+  motivo?: number;
 }
 
 export type solicitudesPk = "id";
 export type solicitudesId = solicitudes[solicitudesPk];
-export type solicitudesOptionalAttributes = "estado" | "fecha_solicitud" | "fecha_aprobacion";
+export type solicitudesOptionalAttributes = "estado" | "fecha_solicitud" | "fecha_aprobacion" | "rol_id" | "usuario_admin_id" | "datos" | "motivo";
 export type solicitudesCreationAttributes = Optional<solicitudesAttributes, solicitudesOptionalAttributes>;
 
 export class solicitudes extends Model<solicitudesAttributes, solicitudesCreationAttributes> implements solicitudesAttributes {
@@ -19,6 +23,10 @@ export class solicitudes extends Model<solicitudesAttributes, solicitudesCreatio
   estado?: string;
   fecha_solicitud?: Date;
   fecha_aprobacion?: Date;
+  rol_id?: number;
+  usuario_admin_id?: number;
+  datos?: object;
+  motivo?: number;
 
   // solicitudes hasMany usuarios via solicitud_id
   usuarios!: usuarios[];
@@ -50,6 +58,22 @@ export class solicitudes extends Model<solicitudesAttributes, solicitudesCreatio
     },
     fecha_aprobacion: {
       type: DataTypes.DATE,
+      allowNull: true
+    },
+    rol_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    usuario_admin_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    datos: {
+      type: DataTypes.JSONB,
+      allowNull: true
+    },
+    motivo: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {

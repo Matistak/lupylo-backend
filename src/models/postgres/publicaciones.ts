@@ -1,11 +1,11 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { comentarios, comentariosId } from './comentarios.js';
-import type { likes, likesId } from './likes.js';
-import type { locales, localesId } from './locales.js';
-import type { marcas, marcasId } from './marcas.js';
-import type { productos, productosId } from './productos.js';
-import type { usuarios, usuariosId } from './usuarios.js';
+import type { comentarios, comentariosId } from './comentarios';
+import type { likes, likesId } from './likes';
+import type { locales, localesId } from './locales';
+import type { marcas, marcasId } from './marcas';
+import type { productos, productosId } from './productos';
+import type { usuarios, usuariosId } from './usuarios';
 
 export interface publicacionesAttributes {
   id: number;
