@@ -21,7 +21,7 @@ async function main() {
         await connectMongoDB();
 
         // Sincronizar modelos (opcional, si deseas asegurar que la estructura de tablas está actualizada)
-        // await sequelize.sync({ force: false });
+        await sequelize.sync({ force: false });
 
         // Iniciar el servidor
         app.listen(3000);
